@@ -1,0 +1,52 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "lib": [
+      "DOM",
+      "ES2019"
+    ],
+    "allowJs": true,
+    "jsx": "react",
+    "sourceMap": true,
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "strictPropertyInitialization": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "downlevelIteration": true,
+    "moduleResolution": "node",
+    "baseUrl": "./src",
+    "paths": {
+      "features/*": [
+        "features/*"
+      ],
+      "config": [
+        "config"
+      ],
+      "utils": [
+        "utils"
+      ],
+      "shared": [
+        "shared"
+      ],
+      "app-state": [
+        "app-state"
+      ],
+      "layout": [
+        "layout"
+      ]
+    },
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": [
+    "src"
+  ]
+}
