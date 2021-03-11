@@ -15,6 +15,7 @@ import { exampleRouter } from "./features/example/example.routes";
 class App {
     public express: express.Application;
     constructor() {
+        //this
         this.express = express();
         this.setMiddleware();
         this.setRoutes();
@@ -26,6 +27,7 @@ class App {
         this.express.use(morgan("dev"));
         this.express.use(bodyParser.json({ limit: '10mb' }));
         this.express.use(bodyParser.urlencoded({ extended: false }));
+        //this
         this.express.use(helmet());
     }
 
@@ -33,6 +35,9 @@ class App {
         const getUrl = (route: string): string => ApiEndpointsConstants.API + route;
 
         this.express.use(getUrl(ApiEndpointsConstants.EXAMPLE_FEATURE), exampleRouter)
+        this.express.use(getUrl(ApiEndpointsConstants.AUTH_FEATURE), () => {
+            console.log("AUTH he");
+        })
     }
 
     private catchErrors(): void {
