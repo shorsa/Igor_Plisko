@@ -12,6 +12,7 @@ export async function exampleCreate(request: RequestExampleModel) {
 
     if (!validation) {
         //Error
+        throw("Error")
     }
     const response: BaseResponseModel = await exampleRepository.create(request.test)
 
