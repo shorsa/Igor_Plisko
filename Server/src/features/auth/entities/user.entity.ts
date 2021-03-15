@@ -1,6 +1,6 @@
 import { Document, model, Schema } from "mongoose";
 import { string } from "yup";
-import { Role } from "../enums";
+import { Gender, Role } from "../enums";
 import { User } from "../models/user.model";
 
 const userSchema = new Schema({
@@ -12,17 +12,23 @@ const userSchema = new Schema({
       type: String,
       required: true
    },
-   name: {
+   firstName: {
       type: String,
       required: true
    },
-   surname: {
+   lastName: {
       type: String,
       required: true
+   },
+   phoneNumber: {
+      type: Number,
+      required: false
    },
    gender: {
       type: String,
-      required: true
+      enum: [Gender[Gender.Female], Gender[Gender.Male]],
+      required: true,
+      default:  Gender[Gender.Male]
    },
    country: {
       type: String,
@@ -32,10 +38,7 @@ const userSchema = new Schema({
       type: Number,
       required: false
    },
-   phoneNumber: {
-      type: Number,
-      required: false
-   },
+
    role: {
       type: String,
       enum: [Role[Role.User], Role[Role.Admin]],
@@ -43,7 +46,7 @@ const userSchema = new Schema({
       default: Role[Role.User]
    },
    createdAt: {
-      type: Number,
+      type: Date,
       required: false
    }
 })
