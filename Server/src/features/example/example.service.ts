@@ -6,13 +6,27 @@ import { BaseResponseModel } from "../shared/models";
 import * as exampleRepository from "./example.repository";
 import { ExampleSchema } from "./schemas/exampleRequest.schema";
 //Schemas
+// interface UserMan {
+//     name: string;
+//     lastName: string;
+//     age: number;
+//     isMale: boolean
+//     wife: UserFemale;
+// }
 
+// interface UserFemale {
+//     name: string;
+//     age: number;
+// }
 export async function exampleCreate(request: RequestExampleModel) {
+    console.log(request);
+    
     const validation: boolean = await ExampleSchema.isValid(request);
 
     if (!validation) {
         //Error
         throw ("Error")
+
     }
     const count = await exampleRepository.findByTestCount(request.test)
     console.log(count);
