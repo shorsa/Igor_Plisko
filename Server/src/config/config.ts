@@ -16,5 +16,7 @@ export default {
 
     JWT_ENCRYPTION: process.env.JWT_ENCRYPTION || "jwt_key",
     JWT_EXPIRATION: process.env.JWT_EXPIRATION || "1h",
-    SALT_ROUNDS: process.env.SALT_ROUNDS || 10
-}   
+    SALT_ROUNDS: process.env.SALT_ROUNDS || 10                 //? Это нужно хешировать с const bcrypt = require("bcrypt");
+                                                              //? bcrypt                                        
+                                                              //?          .hash(plainTextPassword1, saltRounds)   
+}                                                                                          //! This logic needs to be written in the file "Servise"
