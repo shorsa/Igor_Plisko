@@ -1,6 +1,7 @@
 import { findByEmailCount } from "./auth.repository";
 import { Role } from "./enums";
 import { userRegisterSchema } from "./validation/userRegister.schema";
+import bcrypt from "bcrypt";
 
 export async function register(body: any) {
    console.log(Role[Role.User]);
@@ -23,3 +24,8 @@ export async function register(body: any) {
    //Хеширование пароля 
    //
 }
+
+
+
+//! npm run start:dev
+
