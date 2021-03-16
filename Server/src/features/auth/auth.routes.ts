@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { loginHandler } from "./auth.controller";
+import { registerHandler } from "./auth.controller";
 
 export const authRouter: Router = Router();
 
- authRouter.get('/login',loginHandler)
+ authRouter.get('/register',registerHandler)
 
