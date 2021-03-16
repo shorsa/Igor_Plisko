@@ -1,8 +1,8 @@
-import { login } from "./auth.service";
+import { register } from "./auth.service";
 import { Request, Response } from "express";
 
-export function loginHandler(req: Request, res: Response) {
-   login(req.body)
+export function registerHandler(req: Request, res: Response) {
+   register(req.body)
        .then((result) => {
            res.send(result)
        })
