@@ -15,3 +15,4 @@ export interface ResponseUserModel {
 }
 
 //! Респонс у нас всегда идет с "id"
+//! ответ из DB всегда имеет поле "id"
