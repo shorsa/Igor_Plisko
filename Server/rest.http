@@ -9,5 +9,12 @@ POST http://localhost:3000/api/example/test
 content-type: application/json
 
 {
-    "test": "Test"
+    "email": "email",
+    "password": "password",
+    "firstName": "firstName",
+    "lastName": "lastName",
+    "phoneNumber": "phoneNumber",
+    "gender": "gender",
+    "country": "country",
+    "age": "age",
 }
