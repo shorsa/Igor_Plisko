@@ -1,5 +1,4 @@
 import { Document, model, Schema } from "mongoose";
-import { string } from "yup";                           //? зачем нам здесь yup
 import { Gender, Role } from "../enums";
 import { User } from "../models/user.model";
 
@@ -42,12 +41,13 @@ const userSchema = new Schema({
    role: {
       type: String,
       enum: [Role[Role.User], Role[Role.Admin]],
-      required: true,
+      required: false,
       default: Role[Role.User]
    },
    createdAt: {
       type: Date,
-      required: false
+      required: false,
+      default: new Date()
    }
 })
 
