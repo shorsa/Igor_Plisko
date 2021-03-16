@@ -2,17 +2,21 @@ import { findByEmailCount } from "./auth.repository";
 import { Role } from "./enums";
 import { userRegisterSchema } from "./validation/userRegister.schema";
 import bcrypt from "bcrypt";
+import CONFIG from "../../config/config";
 
 export async function register(body: any) {
-   console.log(Role[Role.User]);
+   console.log(body);
+
+   //Проверка валидации
    const a = await userRegisterSchema.isValid(body);
    if (!a) {
       throw ("Error")
    }
 
-   const b = findByEmailCount(body.email)
+   //Хеширование пароля 
+   const
 
-   //Проверка валидации
+
 
 
 
@@ -20,9 +24,10 @@ export async function register(body: any) {
 
 
 
+export async
 
    //Хеширование пароля 
-   //
+   //Обновление
 }
 
 

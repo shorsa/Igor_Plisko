@@ -22,9 +22,6 @@ export async function create(user: RequestUserModel): Promise<ResponseUserModel>
         console.log("Error", error)
         throw (error)
     }
-
-
-
 }
 
 
