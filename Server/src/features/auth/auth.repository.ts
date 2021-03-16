@@ -13,18 +13,19 @@ export async function create(user: RequestUserModel): Promise<ResponseUserModel>
         const model: User = {
             ...user,
             role: Role.User,
-            createdAt: new Date()     
-
-        const testCreated: ResponseUserModel = await UserEntityModel.create(model);
-            return testCreated;
-        } catch (error) {
-            console.log("Error", error)
-            throw (error)
+            createdAt: new Date()
         }
 
-
-
+        const testCreated: ResponseUserModel = await UserEntityModel.create(model);
+        return testCreated;
+    } catch (error) {
+        console.log("Error", error)
+        throw (error)
     }
+
+
+
+}
 
 
 //!  const model: User -  here I describe the model of our users
