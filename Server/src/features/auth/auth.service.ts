@@ -1,6 +1,6 @@
 import { Role } from "./enums";
 
-export async function login(body:any) {
+export async function register(body:any) {
    console.log(Role[Role.User]);
    
 }
