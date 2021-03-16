@@ -14,20 +14,25 @@ export async function findByTestCount(test: string): Promise<number> {
     return testCount;
 }
 
-export async function create(test: string): Promise<ResponseExampleModel> {
-
-    const testCreated = await ExampleEntityModel.create({ test });
-
-    if (!testCreated) {
-        throw { statusCode: httpStatus.BAD_REQUEST, message: "Test not save" };
+export async function create(test: string): Promise<any> {
+    try {
+        const testCreated = await ExampleEntityModel.create({ test });
+        return testCreated;
+    } catch (error) {
+        console.log("Error", error)
+        throw (error)
     }
 
-    const responseModel: ResponseExampleModel = {
-        ok: true,
-        test: testCreated.test,
-        _id: testCreated._id
-    }
+    // if (!testCreated) {
+    //     throw { statusCode: httpStatus.BAD_REQUEST, message: "Test not save" };
+    // }
 
-    return responseModel;
+    // const responseModel: ResponseExampleModel = {
+    //     ok: true,
+    //     test: testCreated.test,
+    //     _id: testCreated._id
+    // }
+
+    // return responseModel;
 
 }

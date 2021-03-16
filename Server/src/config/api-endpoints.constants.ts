@@ -6,6 +6,10 @@ export class ApiEndpointsConstants {
     
     public static PROJECTS_FEATURE: string = '/example';
     public static PROJECTS_CREATE: string = '/test';
+    
+    
+    //!Auth путь
+    public static AUTH_FEATURE: string = '/auth';
 
 
 

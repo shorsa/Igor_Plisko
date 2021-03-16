@@ -7,6 +7,7 @@ import morgan from 'morgan';
 //Constants
 import { ApiEndpointsConstants } from './config/api-endpoints.constants';
 import "./config/db";
+import { authRouter } from './features/auth/auth.routes';
 //Routes
 import { exampleRouter } from "./features/example/example.routes";
 //Helpers
@@ -35,9 +36,8 @@ class App {
         const getUrl = (route: string): string => ApiEndpointsConstants.API + route;
 
         this.express.use(getUrl(ApiEndpointsConstants.EXAMPLE_FEATURE), exampleRouter)
-        this.express.use(getUrl(ApiEndpointsConstants.AUTH_FEATURE), () => {
-            console.log("AUTH he");
-        })
+        this.express.use(getUrl(ApiEndpointsConstants.AUTH_FEATURE), authRouter) //!auth путь
+
     }
 
     private catchErrors(): void {

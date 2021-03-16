@@ -25,9 +25,12 @@ export async function exampleCreate(request: RequestExampleModel) {
 
     if (!validation) {
         //Error
-        throw ("errror")
-        
+        throw ("Error")
+
     }
+    const count = await exampleRepository.findByTestCount(request.test)
+    console.log(count);
+
     const response: BaseResponseModel = await exampleRepository.create(request.test)
 
     return response;
