@@ -11,7 +11,7 @@ export const userRegisterSchema = object().shape<RequestUserModel>(
       phoneNumber: string().required('Please Enter a phone number').min(9).max(15),
       gender: mixed().oneOf(Object.values(Gender) as Gender[]).required('Please Enter a phone number'),
       country: string().required('Please Enter your country'),
-      age: number().required('Please Enter your age').min(1).max(2),
+      age: date().required('Please Enter your age')
    }
 );
 
