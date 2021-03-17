@@ -5,7 +5,7 @@ import bcrypt from "bcrypt";
 import CONFIG from "../../config/config";
 import { RequestUserModel } from "./models";
 
-export async function register(body: any) {
+export async function register(body: RequestUserModel) {
    console.log(body);
    //!Проверка валидации--------------------------------------
    const isValid: boolean = await userRegisterSchema.isValid(body);
@@ -14,8 +14,11 @@ export async function register(body: any) {
    if (!isValid) {
       throw ("Error isValid")
    }
-   //!Проверка что мыла такого нет в бд-------------------------
-   // const emailExist: string = await
+   // //!Проверка что мыла такого нет в бд-------------------------
+   const emailExist: number = await authRepository.findByEmailCount(body.email)
+   if (emailExist) {
+      throw ("Exit")
+   }
 
 
    //!Хеширование пароля ---------------------------------------
