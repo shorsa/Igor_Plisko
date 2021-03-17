@@ -7,7 +7,7 @@ export async function findByEmailCount(email: string): Promise<number> {
     const testCount: number = await UserEntityModel.countDocuments({ email: email });
     return testCount;
 }
-
+//!Create User
 export async function create(user: RequestUserModel): Promise<ResponseUserModel> {
     try {
         const model: User = {
@@ -25,4 +25,7 @@ export async function create(user: RequestUserModel): Promise<ResponseUserModel>
 }
 
 
-//!  const model: User -  here I describe the model of our users
+//! Delete user
+// export async function deleteUser(id: string) {
+
+// }
