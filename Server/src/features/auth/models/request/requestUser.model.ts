@@ -8,7 +8,7 @@ export interface RequestUserModel {
    phoneNumber: string;
    gender: Gender;
    country: string;
-   age: number;
+   age: Date;
 }
 
 
