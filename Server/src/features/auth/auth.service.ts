@@ -7,14 +7,14 @@ import { RequestUserModel } from "./models";
 
 export async function register(body: any) {
    console.log(body);
-   //!Проверка валидации-----------------------------------
+   //!Проверка валидации--------------------------------------
    const isValid: boolean = await userRegisterSchema.isValid(body);
    console.log("isValid", isValid);
 
    if (!isValid) {
       throw ("Error isValid")
    }
-   //!Проверка что мыла такого нет в бд----------------------------
+   //!Проверка что мыла такого нет в бд-------------------------
    // const emailExist: string = await
 
 
@@ -23,7 +23,7 @@ export async function register(body: any) {
    body.password = hashPassword;
    console.log("body", body);
 
-   //!Создание User------------------------------
+   //!Создание User---------------------------------------------
    const userCreated = await authRepository.create(body)
    console.log("userCreated", userCreated)
 
@@ -31,4 +31,3 @@ export async function register(body: any) {
 }
 
 
-//! npm run start:dev
