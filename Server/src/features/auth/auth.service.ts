@@ -31,6 +31,14 @@ export async function register(body: RequestUserModel) {
    console.log("userCreated", userCreated)
 
 
+
+   //!Delete user
+   // const deleteUser = await deleteUser(id: string)
+   // repositoryUserDelete.deleteUser(id);
+
+
+
+
 }
 
 
