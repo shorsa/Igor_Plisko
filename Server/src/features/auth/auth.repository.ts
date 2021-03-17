@@ -24,13 +24,13 @@ export async function create(user: RequestUserModel): Promise<ResponseUserModel>
     }
 }
 //! ищем по гендеру
-
-export async function findOfGender(params: Gender) {
-    const findOfGender = await UserEntityModel.find({ gender: params })
+//? спросить у Влада
+export async function findOfGender(gender: Gender) {
+    const findOfGender = await UserEntityModel.find({ gender: gender })
     return findOfGender                                                       //?
 }
 
-Delete user
-export async function deleteUser(id: string) {
+// Delete user
+// export async function deleteUser(id: string) {
 
-}
+// }
