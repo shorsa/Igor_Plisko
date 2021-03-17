@@ -3,5 +3,5 @@ import { registerHandler } from "./auth.controller";
 
 export const authRouter: Router = Router();
 
- authRouter.get('/register',registerHandler)
+authRouter.post('/register', registerHandler)
 
