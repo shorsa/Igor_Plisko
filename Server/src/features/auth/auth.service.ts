@@ -1,45 +1,34 @@
-import { create, findByEmailCount } from "./auth.repository";
+import * as authRepository from "./auth.repository";
 import { Role } from "./enums";
 import { userRegisterSchema } from "./validation/userRegister.schema";
 import bcrypt from "bcrypt";
 import CONFIG from "../../config/config";
+import { RequestUserModel } from "./models";
 
 export async function register(body: any) {
    console.log(body);
+   //!Проверка валидации-----------------------------------
+   const isValid: boolean = await userRegisterSchema.isValid(body);
+   console.log("isValid", isValid);
 
-   //Проверка валидации
-   // const a = await userRegisterSchema.isValid(body);
-   // if (!a) {
-   //    throw ("Error")
-   // }
-
-   // //Хеширование пароля 
-   // const encryption = await bcrypt.hash(body.password, CONFIG.SALT_ROUNDS)
-   // body.password = encryption
-
-   //Проверка что мыла такого нет в бд
+   if (!isValid) {
+      throw ("Error isValid")
+   }
+   //!Проверка что мыла такого нет в бд----------------------------
+   // const emailExist: string = await
 
 
-   create(body)
+   //!Хеширование пароля ---------------------------------------
+   const hashPassword: string = await bcrypt.hash(body.password, CONFIG.SALT_ROUNDS)
+   body.password = hashPassword;
+   console.log("body", body);
+
+   //!Создание User------------------------------
+   const userCreated = await authRepository.create(body)
+   console.log("userCreated", userCreated)
 
 
-   //! RequestUserModel,ResponseUserModel
-
-
-
-
-   //Создание Юз
 }
-// export async function update(requste: RequestUserModel ) {
-
-//    aweit
-// }
-
-
-
-
-
-
 
 
 //! npm run start:dev
