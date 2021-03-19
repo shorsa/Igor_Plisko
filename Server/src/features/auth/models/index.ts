@@ -1,7 +1,6 @@
+export * from "./userEntity.model";
 export * from "./user.model";
 
-export * from "./response/responseUser.model";
-
-export * from "./request/requestUser.model";
+export * from "./request/requestCreateUser.model";
 
 //!експортим через индекс! Что бы потом не писать много импортов 
