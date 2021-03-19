@@ -14,5 +14,3 @@ export interface ResponseUserModel {
    createdAt: Date;
 }
 
-//! Респонс у нас всегда идет с "id"
-//! ответ из DB всегда имеет поле "id"
