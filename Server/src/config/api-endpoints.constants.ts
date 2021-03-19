@@ -11,7 +11,9 @@ export class ApiEndpointsConstants {
     //!Auth путь
     public static AUTH_FEATURE: string = '/auth';
 
+
     public static AUTH_REGISTER: string = '/register'
+    public static DELETE_USER: string = '/delete?:id';   //!
 
 
 }
