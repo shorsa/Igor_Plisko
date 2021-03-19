@@ -4,7 +4,7 @@ POST http://localhost:3000/api/auth/register
 content-type: application/json
 
 {
-    "email": "email@mail12331.com",
+    "email": "email@maiugul12331.com",
     "password": "password",
     "firstName": "firstName",
     "lastName": "lastName",
@@ -15,4 +15,13 @@ content-type: application/json
 }
 
 ###
-DELETE http://localhost:3000/api/auth/delete?id=6051be457397a607f0dabb81
+POST http://localhost:3000/api/auth/login
+content-type: application/json
+{
+    "email": "email@mail12331.com",
+    "password": "password", 
+}
+
+###
+
+GET http://localhost:3000/api/auth/get?id=6051be5d7397a607f0dabb82
