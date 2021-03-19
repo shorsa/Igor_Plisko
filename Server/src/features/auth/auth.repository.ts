@@ -38,10 +38,7 @@ export async function findOfGender(gender: Gender) {
 }
 
 
-
-
-
-// // //!Delete user
+//!Delete user
 export async function deleteUserRepo(id: string) {                                              //?Promise<void>
     try {
         console.log("deleteUserRepo", id);
