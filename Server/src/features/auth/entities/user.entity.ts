@@ -1,6 +1,6 @@
 import { Document, model, Schema } from "mongoose";
 import { Gender, Role } from "../enums";
-import { User } from "../models/user.model";
+import { UserEntityModel } from "../models/userEntity.model";
 
 const userSchema = new Schema({
    email: {
@@ -51,6 +51,6 @@ const userSchema = new Schema({
    }
 })
 
-interface UserSchemaEntityModel extends User, Document { };
+interface UserSchemaEntityModel extends UserEntityModel, Document { };
 
 export default model<UserSchemaEntityModel>("User", userSchema);
