@@ -32,13 +32,16 @@ export async function register(body: RequestUserModel) {
 
 
 
-   //!Delete user
-   // const deleteUser = await deleteUser(id: string)
-   // repositoryUserDelete.deleteUser(id);
-
-
 
 
 }
+
+
+//!Delete user
+export async function deleteUser(id: string) {
+   await authRepository.deleteUserRepo(id)
+
+}
+
 
 

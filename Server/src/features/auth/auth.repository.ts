@@ -41,15 +41,16 @@ export async function findOfGender(gender: Gender) {
 
 
 
-// //? сначало нужно получить юзера а потом удалять 
-// //!Delete user
-// export async function deleteUser(id: string) {                                              //?Promise<void>
-//     try {
-//         const repositoryUserDelete = await UserEntityModel;
-//         return repositoryUserDelete;
+// // //!Delete user
+export async function deleteUserRepo(id: string) {                                              //?Promise<void>
+    try {
+        console.log("deleteUserRepo", id);
 
-//     } catch (error) {
-//         console.log("Error", error)
-//         throw (error)
-//     }
-// }
+        const repositoryUserDelete = await UserEntityModel.deleteOne({ _id: id });
+        return repositoryUserDelete;
+
+    } catch (error) {
+        console.log("Error", error)
+        throw (error)
+    }
+}
