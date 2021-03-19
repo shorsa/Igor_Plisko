@@ -1,9 +1,4 @@
-POST http://localhost:3000/api/example/test
-content-type: application/json
 
-{
-    "test": "Test"
-}
 ###
 POST http://localhost:3000/api/auth/register
 content-type: application/json
@@ -18,7 +13,6 @@ content-type: application/json
     "country": "country",
     "age": "2021-03-17T08:29:29.968Z"
 }
+
 ###
-DELETE http://localhost:3000/api/auth/delete?id=6051e33aef003e19887e7da1
-###
-DELETE http://localhost:3000/api/auth/delete?id=6051bdf4afdd012ea8ac7a7a
+DELETE http://localhost:3000/api/auth/delete?id=6051be457397a607f0dabb81
