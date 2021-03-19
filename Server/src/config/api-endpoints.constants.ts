@@ -4,16 +4,18 @@ export class ApiEndpointsConstants {
     public static EXAMPLE_FEATURE: string = '/example';
     public static TEST: string = '/test';
 
-    public static PROJECTS_FEATURE: string = '/example';
-    public static PROJECTS_CREATE: string = '/test';
 
-
-    //!Auth путь
+    //Auth
     public static AUTH_FEATURE: string = '/auth';
+    public static AUTH_REGISTER: string = '/register';
+    public static AUTH_LOGIN: string = '/login';
 
 
-    public static AUTH_REGISTER: string = '/register'
-    public static DELETE_USER: string = '/delete?:id';   //!
+
+
+    //User
+    public static DELETE_USER: string = '/delete?:id';
+    public static GETTING_USER: string = '/get?:id';
 
 
 }

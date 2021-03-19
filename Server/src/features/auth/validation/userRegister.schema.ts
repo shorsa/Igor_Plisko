@@ -1,8 +1,8 @@
 import { date, mixed, object, string } from "yup";
 import { Gender } from "../enums";
-import { RequestUserModel } from "../models";
+import { RequestCreateUserModel } from "../models";
 
-export const userRegisterSchema = object().shape<RequestUserModel>(
+export const userRegisterSchema = object().shape<RequestCreateUserModel>(
    {
       email: string().required().email('Please Enter your Email'),
       password: string().required('Please Enter your password').min(4).max(10),

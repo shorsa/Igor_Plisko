@@ -9,9 +9,8 @@ export function registerHandler(req: Request, res: Response) {
         .catch((err) => res.send(err));
 }
 
-export function deleteUser(req: Request, res: Response) {
-
-    authService.deleteUser(req.query.id as string)              //!это не правильно 
+export function loginHandler(req: Request, res: Response) {
+    authService.login(req.body)
         .then((result) => {
             res.send(result)
         })

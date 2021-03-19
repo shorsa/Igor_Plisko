@@ -1,11 +1,10 @@
-import * as authRepository from "./auth.repository";
-import { Role } from "./enums";      //?----------
-import { userRegisterSchema } from "./validation/userRegister.schema";
 import bcrypt from "bcrypt";
 import CONFIG from "../../config/config";
-import { RequestUserModel } from "./models";
+import * as authRepository from "./auth.repository";
+import { RequestCreateUserModel } from "./models";
+import { userRegisterSchema } from "./validation/userRegister.schema";
 
-export async function register(body: RequestUserModel) {
+export async function register(body: RequestCreateUserModel) {
    console.log(body);
    //!Проверка валидации--------------------------------------
    const isValid: boolean = await userRegisterSchema.isValid(body);
@@ -29,19 +28,8 @@ export async function register(body: RequestUserModel) {
    //!Создание User---------------------------------------------
    const userCreated = await authRepository.create(body)
    console.log("userCreated", userCreated)
-
-
-
-
-
 }
 
-
-//!Delete user
-export async function deleteUser(id: string) {
-   await authRepository.deleteUserRepo(id)
+export async function login(body: any) {
 
 }
-
-
-
