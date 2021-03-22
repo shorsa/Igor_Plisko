@@ -3,14 +3,14 @@ import CONFIG from "../../config/config";
 import * as authRepository from "./auth.repository";
 import { RequestCreateUserModel } from "./models";
 import { userLoginSchema, userRegisterSchema } from "./validation";
-import jsonwebtoken from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 
+//!Регестрация
 export async function register(body: RequestCreateUserModel) {
    console.log(body);
    //Проверка валидации--------------------------------------
    const isValid: boolean = await userRegisterSchema.isValid(body);
    console.log("isValid", isValid);
-
    if (!isValid) {
       throw ("Error isValid")
    }
@@ -19,8 +19,6 @@ export async function register(body: RequestCreateUserModel) {
    if (emailExist) {
       throw ("Exit")
    }
-
-
    //Хеширование пароля ---------------------------------------
    const hashPassword: string = await bcrypt.hash(body.password, CONFIG.SALT_ROUNDS)
    body.password = hashPassword;
@@ -32,25 +30,35 @@ export async function register(body: RequestCreateUserModel) {
 }
 
 
-
+//!Авторизация
 export async function login(body: any) {
-   //валидация
+   //Валидация 
    const isValidLogin: boolean = await userLoginSchema.isValid(body)
    if (!isValidLogin) {
       throw ("Error Validation")
    }
 
-
    //проверка емейла
    const emailExistEmail = await authRepository.findUser(body.email)
    if (!emailExistEmail) {
-      throw ("Fucking exit")
+      throw ("This email doesn't exist")
    }
    console.log("what this:", emailExistEmail)
 
    //проверка пароля
    const checkPassword = await bcrypt.compare(body.password, emailExistEmail.password)
-   return checkPassword
+   if (!checkPassword) {
+      throw ("This password is not correct")
+   }
+
+   const token = jwt.sign({
+      email: emailExistEmail.email,
+      userId: emailExistEmail._id
+   }, CONFIG.JWT_ENCRYPTION, { expiresIn: CONFIG.JWT_EXPIRATION })
+
+
+   return { token: `Bearer ${token}` }
+
 }
 
 
