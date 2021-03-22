@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import CONFIG from "../../config/config";
 import * as authRepository from "./auth.repository";
-import { RequestCreateUserModel, RequestLoginUserModel, ResponseUserRegisterModel } from "./models";
+import { RequestCreateUserModel, RequestLoginUserModel, ResponseLoginUserModel, ResponseUserRegisterModel } from "./models";
 import { userLoginSchema, userRegisterSchema } from "./validation";
 import jwt from "jsonwebtoken";
 
@@ -32,7 +32,7 @@ export async function register(body: RequestCreateUserModel): Promise<ResponseUs
 
 
 //!Авторизация
-export async function login(body: RequestLoginUserModel) {
+export async function login(body: RequestLoginUserModel): Promise<ResponseLoginUserModel> {
    //Валидация 
    const isValidLogin: boolean = await userLoginSchema.isValid(body)
    if (!isValidLogin) {
