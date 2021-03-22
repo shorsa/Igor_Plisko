@@ -2,7 +2,7 @@ import bcrypt from "bcrypt";
 import CONFIG from "../../config/config";
 import * as authRepository from "./auth.repository";
 import { RequestCreateUserModel } from "./models";
-import { userRegisterSchema } from "./validation/userRegister.schema";
+import { userLoginSchema, userRegisterSchema } from "./validation";
 import jsonwebtoken from "jsonwebtoken";
 
 export async function register(body: RequestCreateUserModel) {
@@ -34,17 +34,22 @@ export async function register(body: RequestCreateUserModel) {
 
 
 export async function login(body: any) {
-   // const isValidLogin = await 
+   //валидация
+   const isValidLogin: boolean = await userLoginSchema.isValid(body)
+   if (!isValidLogin) {
+      throw ("Error Validation")
+   }
 
+
+   //проверка емейла
    const emailExistEmail = await authRepository.findUser(body.email)
-
    if (!emailExistEmail) {
       throw ("Fucking exit")
    }
    console.log("what this:", emailExistEmail)
 
+   //проверка пароля
    const checkPassword = await bcrypt.compare(body.password, emailExistEmail.password)
-
    return checkPassword
 }
 
