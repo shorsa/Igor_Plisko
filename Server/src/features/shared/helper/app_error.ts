@@ -1,20 +1,16 @@
-
-import * as httpStatus from "http-status";
-
-
-
+// import httpStatus from "http-status";
 export class ErrorResponse extends Error {
-   httpCode: number;
+   httpStatus: number;
    ok?: boolean;
    messageError: string;
-   constructor(httpCode: number, messageError: string, ok?: boolean) {
+   constructor(httpStatus: number, messageError: string, ok?: boolean) {
       super();
       this.ok = ok;
-      this.httpCode = httpCode;
+      this.httpStatus = httpStatus;
       this.messageError = messageError;
    }
-   public static error(httpCode: number, message: string): ErrorResponse {
-      return new ErrorResponse(httpCode, message, false);
+   public static error(httpStatus: number, message: string): ErrorResponse {
+      return new ErrorResponse(httpStatus, message, false);
    }
 }
 
