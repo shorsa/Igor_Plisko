@@ -8,7 +8,7 @@ export async function findByEmailCount(requestEmail: string): Promise<number> {
     return testCount;
 }
 //!Create User
-export async function create(user: RequestCreateUserModel): Promise<UserEntityModel> {
+export async function create(user: RequestCreateUserModel): Promise<UserModel> {
     try {
         const model: UserEntityModel = {
             ...user,

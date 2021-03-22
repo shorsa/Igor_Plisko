@@ -1,12 +1,12 @@
 import bcrypt from "bcrypt";
 import CONFIG from "../../config/config";
 import * as authRepository from "./auth.repository";
-import { RequestCreateUserModel } from "./models";
+import { RequestCreateUserModel, RequestLoginUserModel, ResponseUserRegisterModel } from "./models";
 import { userLoginSchema, userRegisterSchema } from "./validation";
 import jwt from "jsonwebtoken";
 
 //!Регестрация
-export async function register(body: RequestCreateUserModel) {
+export async function register(body: RequestCreateUserModel): Promise<ResponseUserRegisterModel> {
    console.log(body);
    //Проверка валидации--------------------------------------
    const isValid: boolean = await userRegisterSchema.isValid(body);
@@ -27,11 +27,12 @@ export async function register(body: RequestCreateUserModel) {
    //Создание User---------------------------------------------
    const userCreated = await authRepository.create(body)
    console.log("userCreated", userCreated)
+   return { ok: true, _id: userCreated._id }
 }
 
 
 //!Авторизация
-export async function login(body: any) {
+export async function login(body: RequestLoginUserModel) {
    //Валидация 
    const isValidLogin: boolean = await userLoginSchema.isValid(body)
    if (!isValidLogin) {
@@ -39,25 +40,25 @@ export async function login(body: any) {
    }
 
    //проверка емейла
-   const emailExistEmail = await authRepository.findUser(body.email)
+   const emailExistEmail: any = await authRepository.findUser(body.email)
    if (!emailExistEmail) {
       throw ("This email doesn't exist")
    }
    console.log("what this:", emailExistEmail)
 
    //проверка пароля
-   const checkPassword = await bcrypt.compare(body.password, emailExistEmail.password)
+   const checkPassword: boolean = await bcrypt.compare(body.password, emailExistEmail.password)
    if (!checkPassword) {
       throw ("This password is not correct")
    }
 
-   const token = jwt.sign({
+   const token: string = jwt.sign({
       email: emailExistEmail.email,
       userId: emailExistEmail._id
    }, CONFIG.JWT_ENCRYPTION, { expiresIn: CONFIG.JWT_EXPIRATION })
 
 
-   return { token: `Bearer ${token}` }
+   return { ok: true, token: token }
 
 }
 
