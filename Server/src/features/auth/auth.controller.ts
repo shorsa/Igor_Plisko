@@ -9,6 +9,7 @@ export function registerHandler(req: Request, res: Response) {
         .catch((err) => res.send(err));
 }
 
+
 export function loginHandler(req: Request, res: Response) {
     authService.login(req.body)
         .then((result) => {
