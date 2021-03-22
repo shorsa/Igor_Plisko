@@ -3,6 +3,7 @@ import CONFIG from "../../config/config";
 import * as authRepository from "./auth.repository";
 import { RequestCreateUserModel } from "./models";
 import { userRegisterSchema } from "./validation/userRegister.schema";
+import jsonwebtoken from "jsonwebtoken";
 
 export async function register(body: RequestCreateUserModel) {
    console.log(body);
@@ -30,16 +31,23 @@ export async function register(body: RequestCreateUserModel) {
    console.log("userCreated", userCreated)
 }
 
+
+
 export async function login(body: any) {
+   // const isValidLogin = await 
 
-   const emailLoginExist: number = await authRepository.findByEmailCount(body.email)
-   if (emailLoginExist) {
-      throw ("Exit")
+   const emailExistEmail = await authRepository.findUser(body.email)
+
+   if (!emailExistEmail) {
+      throw ("Fucking exit")
    }
+   console.log("what this:", emailExistEmail)
 
+   const checkPassword = await bcrypt.compare(body.password, emailExistEmail.password)
 
-
+   return checkPassword
 }
+
 
 
 
