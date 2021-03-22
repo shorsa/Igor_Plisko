@@ -23,3 +23,12 @@ export async function create(user: RequestCreateUserModel): Promise<UserEntityMo
         throw (error)
     }
 }
+
+
+//!Login user 
+export async function findUser(email: string) {
+    const getUser = await UserSchemaEntityModel.findOne({ email: email });
+    return getUser
+
+}
+
