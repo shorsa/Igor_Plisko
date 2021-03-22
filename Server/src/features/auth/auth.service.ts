@@ -4,6 +4,8 @@ import * as authRepository from "./auth.repository";
 import { RequestCreateUserModel, RequestLoginUserModel, ResponseLoginUserModel, ResponseUserRegisterModel } from "./models";
 import { userLoginSchema, userRegisterSchema } from "./validation";
 import jwt from "jsonwebtoken";
+import { ErrorResponse } from "../shared/helper/app_error";
+import httpStatus from "http-status";
 
 //!Регестрация
 export async function register(body: RequestCreateUserModel): Promise<ResponseUserRegisterModel> {
@@ -12,12 +14,12 @@ export async function register(body: RequestCreateUserModel): Promise<ResponseUs
    const isValid: boolean = await userRegisterSchema.isValid(body);
    console.log("isValid", isValid);
    if (!isValid) {
-      throw ("Error isValid")
+      throw new ErrorResponse(httpStatus.BAD_REQUEST, "Error, please write correctly")
    }
    // Проверка что мыла такого нет в бд-------------------------
    const emailExist: number = await authRepository.findByEmailCount(body.email)
    if (emailExist) {
-      throw ("Exit")
+      throw new ErrorResponse(httpStatus.BAD_REQUEST, "This email already exists!")
    }
    //Хеширование пароля ---------------------------------------
    const hashPassword: string = await bcrypt.hash(body.password, CONFIG.SALT_ROUNDS)
@@ -36,22 +38,20 @@ export async function login(body: RequestLoginUserModel): Promise<ResponseLoginU
    //Валидация 
    const isValidLogin: boolean = await userLoginSchema.isValid(body)
    if (!isValidLogin) {
-      throw ("Error Validation")
+      throw new ErrorResponse(httpStatus.BAD_REQUEST, "This email does not exist")
    }
 
    //проверка емейла
    const emailExistEmail: any = await authRepository.findUser(body.email)
    if (!emailExistEmail) {
-      throw ("This email doesn't exist")
+      throw new ErrorResponse(httpStatus.NOT_FOUND, "This email does not exist")
    }
-   console.log("what this:", emailExistEmail)
 
    //проверка пароля
    const checkPassword: boolean = await bcrypt.compare(body.password, emailExistEmail.password)
    if (!checkPassword) {
-      throw ("This password is not correct")
+      throw new ErrorResponse(httpStatus.NOT_FOUND, "This password is not correct")
    }
-
    const token: string = jwt.sign({
       email: emailExistEmail.email,
       userId: emailExistEmail._id
@@ -64,10 +64,15 @@ export async function login(body: RequestLoginUserModel): Promise<ResponseLoginU
 
 
 
+export enum HttpStatusCode {
+   OK = 200,
+   BAD_REQUEST = 400,
+   NOT_FOUND = 404,
+   INTERNAL_SERVER = 500,
+}
 
 
 
 
 
-// Написать обработчик ошибок.
 // Проверка токена на то что токен валидный. (время токена не истекло)
