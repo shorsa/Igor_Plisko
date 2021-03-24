@@ -1,31 +1,31 @@
-import UserEntityModel from "./entities/user.entity"
 import { Role } from "./enums";
-import { RequestUserModel, ResponseUserModel, User } from "./models";
+import UserSchemaEntityModel from "./entities/user.entity";
+import { RequestCreateUserModel, UserEntityModel, UserModel } from "./models";
 
 
-export async function findByEmailCount(email: string): Promise<number> {
-    const testCount: number = await UserEntityModel.countDocuments({ email: email });
+export async function findByEmailCount(requestEmail: string): Promise<number> {
+    const testCount: number = await UserSchemaEntityModel.countDocuments({ email: requestEmail });
     return testCount;
 }
 
-export async function create(user: RequestUserModel): Promise<ResponseUserModel> {
+export async function create(user: RequestCreateUserModel): Promise<UserModel> {
     try {
-        const model: User = {
+        const model: UserEntityModel = {
             ...user,
             role: Role.User,
             createdAt: new Date()
-        }
+        };
 
-        const testCreated: ResponseUserModel = await UserEntityModel.create(model);
+        const testCreated: UserModel = await UserSchemaEntityModel.create(model);
         return testCreated;
     } catch (error) {
         console.log("Error", error)
         throw (error)
     }
-
-
-
 }
 
+export async function findUser(email: string): Promise<UserModel | null> {
+    const getUser: UserModel | null = await UserSchemaEntityModel.findOne({ email: email });
+    return getUser;
+}
 
-//!  const model: User -  here I describe the model of our users

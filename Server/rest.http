@@ -1,20 +1,33 @@
-POST http://localhost:3000/api/example/test
-content-type: application/json
 
-{
-    "test": "Test"
-}
 ###
-POST http://localhost:3000/api/example/test
+POST http://localhost:3000/api/auth/register
 content-type: application/json
 
 {
-    "email": "email",
+    "email": "email@maiugul12331.com",
     "password": "password",
     "firstName": "firstName",
     "lastName": "lastName",
     "phoneNumber": "phoneNumber",
-    "gender": "gender",
+    "gender": 1,
     "country": "country",
-    "age": "age",
+    "age": "2021-03-17T08:29:29.968Z"
 }
+
+###
+POST http://localhost:3000/api/auth/login
+content-type: application/json
+
+{
+    "email": "email@mail12331.com",
+    "password": "password" 
+}
+
+# ###
+# POST http://localhost:3000/api/auth/login
+# content-type: application/json
+
+# {
+#     "email": "email@mail.com",
+#     "password": "passwrrd" 
+# }

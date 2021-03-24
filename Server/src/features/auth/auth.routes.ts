@@ -1,7 +1,9 @@
 import { Router } from "express";
-import { registerHandler } from "./auth.controller";
+import { ApiEndpointsConstants } from "../../config/api-endpoints.constants";
+import { loginHandler, registerHandler } from "./auth.controller";
 
 export const authRouter: Router = Router();
 
- authRouter.get('/register',registerHandler)
+authRouter.post(ApiEndpointsConstants.AUTH_REGISTER, registerHandler);
+authRouter.post(ApiEndpointsConstants.AUTH_LOGIN, loginHandler);
 

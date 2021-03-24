@@ -12,7 +12,7 @@ import { authRouter } from './features/auth/auth.routes';
 import { exampleRouter } from "./features/example/example.routes";
 //Helpers
 
-
+//! npm run start:dev
 class App {
     public express: express.Application;
     constructor() {
@@ -36,8 +36,7 @@ class App {
         const getUrl = (route: string): string => ApiEndpointsConstants.API + route;
 
         this.express.use(getUrl(ApiEndpointsConstants.EXAMPLE_FEATURE), exampleRouter)
-        this.express.use(getUrl(ApiEndpointsConstants.AUTH_FEATURE), authRouter) //!auth путь
-
+        this.express.use(getUrl(ApiEndpointsConstants.AUTH_FEATURE), authRouter)
     }
 
     private catchErrors(): void {

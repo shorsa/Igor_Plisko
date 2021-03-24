@@ -1,6 +1,6 @@
 import { Document, model, Schema } from "mongoose";
 import { Gender, Role } from "../enums";
-import { User } from "../models/user.model";
+import { UserEntityModel } from "../models/userEntity.model";
 
 const userSchema = new Schema({
    email: {
@@ -20,37 +20,37 @@ const userSchema = new Schema({
       required: true
    },
    phoneNumber: {
-      type: Number,
+      type: String,
       required: false
    },
    gender: {
-      type: String,
-      enum: [Gender[Gender.Female], Gender[Gender.Male]],
+      type: Number,
+      enum: [Gender.Female, Gender.Male],
       required: true,
-      default:  Gender[Gender.Male]
+      default: Gender[Gender.Male]
    },
    country: {
       type: String,
       required: true
    },
    age: {
-      type: Number,
+      type: Date,
       required: false
    },
 
    role: {
-      type: String,
-      enum: [Role[Role.User], Role[Role.Admin]],
-      required: false,
+      type: Number,
+      enum: [Role.User, Role.Admin],
+      required: true,
       default: Role[Role.User]
    },
    createdAt: {
       type: Date,
-      required: false,
+      required: true,
       default: new Date()
    }
 })
 
-interface UserSchemaEntityModel extends User, Document { };
+interface UserSchemaEntityModel extends UserEntityModel, Document { };
 
 export default model<UserSchemaEntityModel>("User", userSchema);

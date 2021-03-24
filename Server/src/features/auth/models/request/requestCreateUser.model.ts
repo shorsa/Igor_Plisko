@@ -1,6 +1,6 @@
 import { Gender } from "../../enums";
 
-export interface RequestUserModel {
+export interface RequestCreateUserModel {
    email: string;
    password: string;
    firstName: string;
@@ -8,7 +8,7 @@ export interface RequestUserModel {
    phoneNumber: string;
    gender: Gender;
    country: string;
-   age: number;
+   age: Date;
 }
 
 
