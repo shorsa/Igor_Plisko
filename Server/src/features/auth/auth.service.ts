@@ -14,20 +14,23 @@ import { userLoginSchema, userRegisterSchema } from "./validation";
 
 
 export async function register(body: RequestCreateUserModel): Promise<ResponseUserRegisterModel> {
+   loggerHelper.debug(`User started registration ${body.email}`);
    const isValid: boolean = await userRegisterSchema.isValid(body);
    console.log("isValid", isValid);
    if (!isValid) {
+      loggerHelper.error(`User registration invalid ${body.email}`);
       throw new ErrorResponse(httpStatus.BAD_REQUEST, "Error, please write correctly")
    }
 
    const emailExist: number = await authRepository.findByEmailCount(body.email)
    if (emailExist) {
+      loggerHelper.error(`This email already exists ${body.email}`);
       throw new ErrorResponse(httpStatus.BAD_REQUEST, "This email already exists!")
    }
 
    const hashPassword: string = await bcrypt.hash(body.password, CONFIG.SALT_ROUNDS)
    body.password = hashPassword;
-   loggerHelper.debug("body", body);
+   loggerHelper.error(`Password was not hashed, ${JSON.stringify(body)}`);
 
 
    const userCreated = await authRepository.create(body)
@@ -41,7 +44,7 @@ export async function login(body: RequestLoginUserModel): Promise<ResponseLoginU
 
    const isValidLogin: boolean = await userLoginSchema.isValid(body);
    if (!isValidLogin) {
-      loggerHelper.error("User credentials invalid", body.email);
+      loggerHelper.error(`User credentials invalid ${body.email}`);
       throw new ErrorResponse(httpStatus.BAD_REQUEST, "This email does not exist");
    }
 
@@ -66,4 +69,3 @@ export async function login(body: RequestLoginUserModel): Promise<ResponseLoginU
    return { ok: true, token: token };
 }
 
-//логер(c debug,warn,error )
