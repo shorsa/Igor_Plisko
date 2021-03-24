@@ -7,14 +7,14 @@ export async function findByEmailCount(requestEmail: string): Promise<number> {
     const testCount: number = await UserSchemaEntityModel.countDocuments({ email: requestEmail });
     return testCount;
 }
-//!Create User
+
 export async function create(user: RequestCreateUserModel): Promise<UserModel> {
     try {
         const model: UserEntityModel = {
             ...user,
             role: Role.User,
             createdAt: new Date()
-        }
+        };
 
         const testCreated: UserModel = await UserSchemaEntityModel.create(model);
         return testCreated;
@@ -24,11 +24,8 @@ export async function create(user: RequestCreateUserModel): Promise<UserModel> {
     }
 }
 
-
-//!Login user 
-export async function findUser(email: string) {
-    const getUser = await UserSchemaEntityModel.findOne({ email: email });
-    return getUser
-
+export async function findUser(email: string): Promise<UserModel | null> {
+    const getUser: UserModel | null = await UserSchemaEntityModel.findOne({ email: email });
+    return getUser;
 }
 
