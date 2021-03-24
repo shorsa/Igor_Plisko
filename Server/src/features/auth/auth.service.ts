@@ -14,7 +14,9 @@ import { userLoginSchema, userRegisterSchema } from "./validation";
 
 
 export async function register(body: RequestCreateUserModel): Promise<ResponseUserRegisterModel> {
+
    loggerHelper.debug(`User started registration ${body.email}`);
+
    const isValid: boolean = await userRegisterSchema.isValid(body);
    console.log("isValid", isValid);
    if (!isValid) {
@@ -30,8 +32,8 @@ export async function register(body: RequestCreateUserModel): Promise<ResponseUs
 
    const hashPassword: string = await bcrypt.hash(body.password, CONFIG.SALT_ROUNDS)
    body.password = hashPassword;
-   loggerHelper.error(`Password was not hashed, ${JSON.stringify(body)}`);
 
+   loggerHelper.error(`Password was not hashed, ${JSON.stringify(body)}`);
 
    const userCreated = await authRepository.create(body)
    console.log("userCreated", userCreated)
@@ -40,6 +42,7 @@ export async function register(body: RequestCreateUserModel): Promise<ResponseUs
 
 
 export async function login(body: RequestLoginUserModel): Promise<ResponseLoginUserModel> {
+
    loggerHelper.debug(`User start login ${body.email}`);
 
    const isValidLogin: boolean = await userLoginSchema.isValid(body);
@@ -59,6 +62,7 @@ export async function login(body: RequestLoginUserModel): Promise<ResponseLoginU
       loggerHelper.error(`This password is not correct ${JSON.stringify(body)}`);
       throw new ErrorResponse(httpStatus.NOT_FOUND, "This password is not correct");
    }
+
    const token: string = jwt.sign({
       email: foundedUser.email,
       userId: foundedUser._id

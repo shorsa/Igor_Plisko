@@ -4,4 +4,3 @@ export interface Example {
 
 
 
-//!УДАЛИ ЭТО

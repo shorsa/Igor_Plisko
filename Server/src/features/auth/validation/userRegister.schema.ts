@@ -5,7 +5,7 @@ import { RequestCreateUserModel } from "../models";
 export const userRegisterSchema = object().shape<RequestCreateUserModel>(
    {
       email: string().required().email('Please Enter your Email'),
-      password: string().required('Please Enter your password').min(4).max(10),
+      password: string().required('Please Enter your password').min(4),
       firstName: string().required('Please Enter your first name'),
       lastName: string().required('Please Enter your last name'),
       phoneNumber: string().required('Please Enter a phone number').min(9).max(15),

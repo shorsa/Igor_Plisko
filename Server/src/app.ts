@@ -11,8 +11,6 @@ import { authRouter } from './features/auth/auth.routes';
 //Routes
 import { exampleRouter } from "./features/example/example.routes";
 //Helpers
-
-//! npm run start:dev
 class App {
     public express: express.Application;
     constructor() {

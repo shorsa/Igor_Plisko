@@ -11,6 +11,3 @@ export interface RequestCreateUserModel {
    age: Date;
 }
 
-
-//!Мы убераем поля    " role: Role;   createdAt:Date;" потому, эти поля для запроса !   
-//!  " role: Role;   createdAt:Date;" еще не известны 
