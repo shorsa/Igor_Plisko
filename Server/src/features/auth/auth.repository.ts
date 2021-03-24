@@ -1,5 +1,5 @@
-import UserSchemaEntityModel from "./entities/user.entity";
 import { Role } from "./enums";
+import UserSchemaEntityModel from "./entities/user.entity";
 import { RequestCreateUserModel, UserEntityModel, UserModel } from "./models";
 
 

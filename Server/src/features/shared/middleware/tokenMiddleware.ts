@@ -2,7 +2,6 @@ import jwt from "jsonwebtoken";
 import CONFIG from "../../../config/config";
 import { Request, Response } from "express";
 
-
 export function verifyTokenMiddleware(req: Request, res: Response, next: any) {
    try {
       const token: string | undefined = req.headers["authorization"]?.split(' ')[1];
