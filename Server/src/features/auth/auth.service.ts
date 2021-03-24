@@ -9,8 +9,6 @@ import httpStatus from "http-status";
 
 
 export async function register(body: RequestCreateUserModel): Promise<ResponseUserRegisterModel> {
-   console.log(body);
-
    const isValid: boolean = await userRegisterSchema.isValid(body);
    console.log("isValid", isValid);
    if (!isValid) {
@@ -52,7 +50,6 @@ export async function login(body: RequestLoginUserModel): Promise<ResponseLoginU
       userId: emailExistEmail._id
    }, CONFIG.JWT_ENCRYPTION, { expiresIn: CONFIG.JWT_EXPIRATION })
 
-   console.log('wahat means this toke ?', token)
    return { ok: true, token: token };
 }
 
