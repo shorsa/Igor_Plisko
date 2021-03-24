@@ -1,11 +1,16 @@
 import bcrypt from "bcrypt";
-import CONFIG from "../../config/config";
-import * as authRepository from "./auth.repository";
-import { RequestCreateUserModel, RequestLoginUserModel, ResponseLoginUserModel, ResponseUserRegisterModel } from "./models";
-import { userLoginSchema, userRegisterSchema } from "./validation";
-import jwt from "jsonwebtoken";
-import { ErrorResponse } from "../shared/helper/app_error";
 import httpStatus from "http-status";
+import jwt from "jsonwebtoken";
+import CONFIG from "../../config/config";
+import { ErrorResponse } from "../shared/helper/appError.helper";
+import { loggerHelper } from "../shared/helper/logger.helper";
+import * as authRepository from "./auth.repository";
+import {
+   RequestCreateUserModel, RequestLoginUserModel,
+   ResponseLoginUserModel, ResponseUserRegisterModel,
+   UserModel
+} from "./models";
+import { userLoginSchema, userRegisterSchema } from "./validation";
 
 
 export async function register(body: RequestCreateUserModel): Promise<ResponseUserRegisterModel> {
@@ -22,7 +27,8 @@ export async function register(body: RequestCreateUserModel): Promise<ResponseUs
 
    const hashPassword: string = await bcrypt.hash(body.password, CONFIG.SALT_ROUNDS)
    body.password = hashPassword;
-   console.log("body", body);
+   loggerHelper.debug("body", body);
+
 
    const userCreated = await authRepository.create(body)
    console.log("userCreated", userCreated)
@@ -31,25 +37,33 @@ export async function register(body: RequestCreateUserModel): Promise<ResponseUs
 
 
 export async function login(body: RequestLoginUserModel): Promise<ResponseLoginUserModel> {
-   const isValidLogin: boolean = await userLoginSchema.isValid(body)
+   loggerHelper.debug(`User start login ${body.email}`);
+
+   const isValidLogin: boolean = await userLoginSchema.isValid(body);
    if (!isValidLogin) {
-      throw new ErrorResponse(httpStatus.BAD_REQUEST, "This email does not exist")
+      loggerHelper.error("User credentials invalid", body.email);
+      throw new ErrorResponse(httpStatus.BAD_REQUEST, "This email does not exist");
    }
 
-   const emailExistEmail: any = await authRepository.findUser(body.email)
-   if (!emailExistEmail) {
-      throw new ErrorResponse(httpStatus.NOT_FOUND, "This email does not exist")
-   }
+   const foundedUser: UserModel | null = await authRepository.findUser(body.email);
+   if (!foundedUser) {
+      loggerHelper.error("User not found", body.email);
+      throw new ErrorResponse(httpStatus.NOT_FOUND, "This email does not exist");
+   };
 
-   const checkPassword: boolean = await bcrypt.compare(body.password, emailExistEmail.password)
+   const checkPassword: boolean = await bcrypt.compare(body.password, foundedUser.password);
    if (!checkPassword) {
-      throw new ErrorResponse(httpStatus.NOT_FOUND, "This password is not correct")
+      loggerHelper.error(`This password is not correct ${JSON.stringify(body)}`);
+      throw new ErrorResponse(httpStatus.NOT_FOUND, "This password is not correct");
    }
    const token: string = jwt.sign({
-      email: emailExistEmail.email,
-      userId: emailExistEmail._id
-   }, CONFIG.JWT_ENCRYPTION, { expiresIn: CONFIG.JWT_EXPIRATION })
+      email: foundedUser.email,
+      userId: foundedUser._id
+   }, CONFIG.JWT_ENCRYPTION, { expiresIn: CONFIG.JWT_EXPIRATION });
+
+   loggerHelper.debug("User is login", foundedUser.email);
 
    return { ok: true, token: token };
 }
 
+//логер(c debug,warn,error )

@@ -1,5 +1,5 @@
-import * as authService from "./auth.service";
 import { Request, Response } from "express";
+import * as authService from "./auth.service";
 
 export function registerHandler(req: Request, res: Response) {
     authService.register(req.body)
