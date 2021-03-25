@@ -1,5 +1,5 @@
-
-export interface FeatureModel {
+export interface FeatureEntityModel {
+   _id: string;
    level: string;
    title: string;
    description: string;

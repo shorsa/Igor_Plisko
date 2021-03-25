@@ -7,7 +7,6 @@ export class ApiEndpointsConstants {
 
 
     public static PROJECT_FEATURE: string = '/project';
-
     public static PROJECT_CREATE: string = '/create';
 
 }

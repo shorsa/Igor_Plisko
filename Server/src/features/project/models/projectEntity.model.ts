@@ -1,8 +1,7 @@
+import { FeatureModel } from "./index";
 
-import { FeatureModel } from "./feature.model";
+export interface ProjectEntityModel {
 
-export interface ProjectModel {
-   _id: string;
    ownerId: string;
    title: string;
    description: string;

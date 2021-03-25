@@ -1,12 +1,12 @@
 import { Request, Response } from "express";
-import * as authService from "./project.service";
+import { projectRouter } from "./project.routes";
 
 
 
-export function projectHandler(req: Request, res: Response) {
-    authService.login(req.body)
-        .then((result) => {
-            res.send(result)
-        })
-        .catch((err) => res.send(err));
-}
+// export function projectHandler(req: Request, res: Response) {
+//     projectRouter.create(req.body)
+//         .then((result) => {
+//             res.send(result)
+//         })
+//         .catch((err) => res.send(err));
+// }

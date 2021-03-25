@@ -1,8 +1,7 @@
+import { FeatureModel } from "../feature.model";
 
-import { FeatureModel } from "./feature.model";
 
-export interface ProjectModel {
-   _id: string;
+export interface RequestCreateProjectEntityModel {
    ownerId: string;
    title: string;
    description: string;
@@ -14,6 +13,4 @@ export interface ProjectModel {
    features: FeatureModel[];
 
 }
-
-
 
