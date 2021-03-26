@@ -1,14 +1,21 @@
+import { ProjectEntityModel, RequestCreateProjectEntityModel } from "./models";
 
 
 
 
 
 
+export async function create(body: RequestCreateProjectEntityModel) {
+   const model: ProjectEntityModel = {
+      ...body,
+      creationDate: new Date()
+   }
+   // const isValid: boolean = await userRegisterSchema.isValid(body);
+   // console.log("isValid", isValid);
+   // if (!isValid) {
+   //    loggerHelper.error(`User registration invalid ${body.email}`);
 
-
-
-
-
+}
 
 
 

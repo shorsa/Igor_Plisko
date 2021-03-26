@@ -8,7 +8,8 @@ import { ApiEndpointsConstants } from './config/api-endpoints.constants';
 import "./config/db";
 //Routes
 
-import { authRouter, projectRouter } from './features/auth/auth.routes';
+import { authRouter } from './features/auth/auth.routes';
+import { projectRouter } from './features/project/project.routes';
 //Helpers
 class App {
     public express: express.Application;

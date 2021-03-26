@@ -5,8 +5,8 @@ export interface ProjectEntityModel {
    ownerId: string;
    title: string;
    description: string;
-   creationDate: string;
-   editDate: Date;
+   creationDate: Date;
+   editDate?: Date;
    isOpen: boolean;
    estimateMin: number;
    estimateMax: number;

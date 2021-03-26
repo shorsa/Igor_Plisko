@@ -46,14 +46,13 @@ const projectSchema = new Schema({
       required: true
    },
    creationDate: {
-      type: String,
+      type: Date,
       required: true,
       default: new Date()
-
    },
    editDate: {
       type: Date,
-      required: true
+      required: false
    },
    isOpen: {
       type: Boolean,
