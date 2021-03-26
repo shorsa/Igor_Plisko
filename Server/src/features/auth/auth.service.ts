@@ -35,7 +35,7 @@ export async function register(body: RequestCreateUserModel): Promise<ResponseUs
 
    loggerHelper.error(`Password was not hashed, ${JSON.stringify(body)}`);
 
-   const userCreated = await authRepository.create(body)
+   const userCreated: UserModel = await authRepository.create(body)
    console.log("userCreated", userCreated)
    return { ok: true, _id: userCreated._id }
 }

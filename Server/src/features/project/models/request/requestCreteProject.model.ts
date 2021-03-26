@@ -9,6 +9,7 @@ export interface RequestCreateProjectEntityModel {
    estimateMin: number;
    estimateMax: number;
    features: FeatureModel[];
+};
 
-}
+
 

@@ -31,10 +31,17 @@ content-type: application/json
   "ownerId": "string",
    "title": "string",
    "description": "string",
-   "isOpen": "boolean",
-   "estimateMin": "number",
-   "estimateMax": "number",
-    "features": "FeatureModel[]"
+   "isOpen":true,
+   "estimateMin": 1,
+   "estimateMax": 1,
+    "features": [{
+        "level":"1",
+"title":"1",
+"description":"1",
+"isRequired":true,
+"estimateMin":1,
+"estimateMax":1
+    }]
 
 
 }

@@ -1,4 +1,7 @@
-import { ProjectEntityModel, RequestCreateProjectEntityModel } from "./models";
+import { loggerHelper } from "../shared/helper/logger.helper";
+import { ProjectEntityModel, RequestCreateProjectEntityModel, ResponseCreteProjectModel } from "./models";
+import { projectCreateSchema } from "./validation/projectCreate.shema";
+import * as projectRepository from "./project.repository";
 
 
 
@@ -6,14 +9,24 @@ import { ProjectEntityModel, RequestCreateProjectEntityModel } from "./models";
 
 
 export async function create(body: RequestCreateProjectEntityModel) {
+
+   loggerHelper.debug(`Start of project creation! ${body}`);
+
    const model: ProjectEntityModel = {
       ...body,
       creationDate: new Date()
    }
-   // const isValid: boolean = await userRegisterSchema.isValid(body);
-   // console.log("isValid", isValid);
-   // if (!isValid) {
-   //    loggerHelper.error(`User registration invalid ${body.email}`);
+   const isValid: boolean = await projectCreateSchema.isValid(body);
+   console.log("isValid", isValid);
+   if (!isValid) {
+      console.log('Error');
+
+   }
+   loggerHelper.debug(`what do we get? ${body}`);
+   loggerHelper.debug(`Is the project valid? ${isValid}`);
+   loggerHelper.error(`Is the project valid? ${isValid}`);
+   // const projectCreate = await projectRepository.create(body)     //: ProjectModel 
+   // return projectCreate
 
 }
 
