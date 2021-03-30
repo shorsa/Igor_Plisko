@@ -7,6 +7,12 @@ export class ApiEndpointsConstants {
 
 
     public static PROJECT_FEATURE: string = '/project';
+
     public static PROJECT_CREATE: string = '/create';
+    public static PROJECT_DELETE: string = '/delete';
+
+    // public static PROJECT_UPDATE: string = '/update';
+    public static PROJECT_TO_RECEIVE: string = '/get';             //receive
+
 
 }

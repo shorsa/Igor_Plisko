@@ -1,14 +1,13 @@
 import { loggerHelper } from "../shared/helper/logger.helper";
-import { ProjectEntityModel, RequestCreateProjectEntityModel, ResponseCreteProjectModel } from "./models";
+import { ProjectEntityModel, ProjectModel, RequestCreateProjectEntityModel, ResponseCreteProjectModel } from "./models";
 import { projectCreateSchema } from "./validation/projectCreate.shema";
 import * as projectRepository from "./project.repository";
+import { ErrorResponse } from "../shared/helper/appError.helper";
+import httpStatus from "http-status";
 
 
 
-
-
-
-export async function create(body: RequestCreateProjectEntityModel) {
+export async function create(body: RequestCreateProjectEntityModel): Promise<ResponseCreteProjectModel> {   //: Promise<ResponseCreteProjectModel>
 
    loggerHelper.debug(`Start of project creation! ${body}`);
 
@@ -23,13 +22,43 @@ export async function create(body: RequestCreateProjectEntityModel) {
 
    }
    loggerHelper.debug(`what do we get? ${body}`);
-   loggerHelper.debug(`Is the project valid? ${isValid}`);
    loggerHelper.error(`Is the project valid? ${isValid}`);
-   // const projectCreate = await projectRepository.create(body)     //: ProjectModel 
-   // return projectCreate
+   const projectCreate: any = await projectRepository.create(model)   //: ProjectModel
+
+
+   const checkProject: number = await projectRepository.findProject(model.title)
+   if (checkProject) {
+      loggerHelper.error(`This project tittle already exists ${model.title}`);
+
+      throw new ErrorResponse(httpStatus.BAD_REQUEST, "This title already exists!")
+   }
+   return { ok: true, ...projectCreate }
 
 }
 
+
+export async function deleteServiceProject(id: string) {
+
+   const deleteProject = await projectRepository.deleteProjectRepo(id)
+   loggerHelper.error(`Has the project been deleted?? ${deleteProject}`);
+
+   return deleteProject
+
+
+}
+
+
+
+export async function getServiceProject(id: string) {
+
+   const getProject = await projectRepository.getProjectRepo(id)
+   if (!getProject) {
+      loggerHelper.error(`Project was not found! ${getProject}`);
+
+      return { ok: false, message: "Project not found" }
+   }
+
+}
 
 
 

@@ -28,9 +28,9 @@ POST http://localhost:3000/api/project/create
 content-type: application/json
 
 {
-  "ownerId": "string",
-   "title": "string",
-   "description": "string",
+  "ownerId": "1111ccc1",
+   "title": "RsProje111111111111111fff11111111111111111",
+   "description": "This is a great project! I really like it!",
    "isOpen":true,
    "estimateMin": 1,
    "estimateMax": 1,
@@ -45,3 +45,11 @@ content-type: application/json
 
 
 }
+
+###
+ GET http://localhost:3000/api/project/get?id=6062fe85d9fcbc14dc9f7a10
+
+
+
+###
+DELETE http://localhost:3000/api/project/delete?id=6062fe4cc6e0f225e8d1ed14

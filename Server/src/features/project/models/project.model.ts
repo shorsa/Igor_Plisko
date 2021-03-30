@@ -6,8 +6,8 @@ export interface ProjectModel {
    ownerId: string;
    title: string;
    description: string;
-   creationDate: string;
-   editDate: Date;
+   creationDate: Date;
+   editDate?: Date;
    isOpen: boolean;
    estimateMin: number;
    estimateMax: number;

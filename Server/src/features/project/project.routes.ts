@@ -1,9 +1,15 @@
 import { Router } from "express";
 import { ApiEndpointsConstants } from "../../config/api-endpoints.constants";
-import { projectHandler } from "./project.controller";
+import * as projectControllers from "./project.controller";
 
 export const projectRouter: Router = Router();
 
 
-projectRouter.post(ApiEndpointsConstants.PROJECT_CREATE, projectHandler)
+projectRouter.post(ApiEndpointsConstants.PROJECT_CREATE, projectControllers.projectHandler)
+projectRouter.delete(ApiEndpointsConstants.PROJECT_DELETE, projectControllers.deleteProject);
+projectRouter.get(ApiEndpointsConstants.PROJECT_TO_RECEIVE, projectControllers.getProject);
+
+
+// projectRouter.put(ApiEndpointsConstants.PROJECT_UPDATE,);
+
 
