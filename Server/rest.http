@@ -47,9 +47,19 @@ content-type: application/json
 }
 
 ###
- GET http://localhost:3000/api/project/get?id=6062fe85d9fcbc14dc9f7a10
+GET http://localhost:3000/api/project/get?id=6062fe85d9fcbc14dc9f7a10
 
 
 
 ###
-DELETE http://localhost:3000/api/project/delete?id=6062fe4cc6e0f225e8d1ed14
+DELETE http://localhost:3000/api/project/delete?test=6062fe4cc6e0f225e8d1ed14
+
+###
+POST http://localhost:3000/api/project/search
+content-type: application/json
+
+{
+    "page": 4,
+    "limitPage":4,
+    "searchText": "asd"
+}

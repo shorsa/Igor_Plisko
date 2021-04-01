@@ -48,7 +48,6 @@ export async function deleteServiceProject(id: string) {
 }
 
 
-
 export async function getServiceProject(id: string) {
 
    const getProject = await projectRepository.getProjectRepo(id)
@@ -59,6 +58,30 @@ export async function getServiceProject(id: string) {
    }
 
 }
+
+export async function searchProject(body: any) {
+
+   const getProject = await projectRepository.searchProject(body)
+   // if (!getProject) {
+   //    loggerHelper.error(`Project was not found! ${getProject}`);
+
+   //    return { ok: false, message: "Project not found" }
+   // }
+
+}
+
+
+// export async function getServiceProject(id: string) {
+
+//    const getProject = await projectRepository.getProjectRepo(id)
+//    if (!getProject) {
+//       loggerHelper.error(`Project was not found! ${getProject}`);
+
+//       return { ok: false, message: "Project not found" }
+//    }
+
+// }
+
 
 
 

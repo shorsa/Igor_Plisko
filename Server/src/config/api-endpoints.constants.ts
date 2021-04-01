@@ -13,6 +13,7 @@ export class ApiEndpointsConstants {
 
     // public static PROJECT_UPDATE: string = '/update';
     public static PROJECT_TO_RECEIVE: string = '/get';             //receive
+    public static PROJECT_SEARCH: string = '/search';             //receive
 
 
 }

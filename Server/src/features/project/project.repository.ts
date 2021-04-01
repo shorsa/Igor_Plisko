@@ -47,6 +47,54 @@ export async function getProjectRepo(id: string) {
 
 
 
+export async function paginationProjectRepo(id: string) {                                             //req, res, next
+   try {
+      const page = 0;
+      const pageSize = 10;
+      const skip = page + 1 * pageSize
+      const paginationProject = await ProjectSchemaEntityModel.find({}, {}, { skip: 0, limit: pageSize })
+      console.log(paginationProject);
+
+   } catch (error) {
+      console.log("Error", error)
+      throw (error)
+   }
+}
+
+export async function searchProject(body: any) {                                             //req, res, next
+   try {
+      let page = 0;
+      const limitPage = 2;
+      // const startIndex = (page - 1)
+      // const endIndex = page * limitPage
+
+
+
+
+
+
+
+
+      const skip = page == 1 ? page : page * limitPage
+      const paginationProject = await ProjectSchemaEntityModel.find({ title: "RsProject000000" }, {}, { skip: skip, limit: body.pageSize })
+      console.log(paginationProject);
+
+   } catch (error) {
+      console.log("Error", error)
+      throw (error)
+   }
+}
+
+
+
+
+
+
+
+
+// model.find(query, field, { skip: 10, limit: 5 })
+
+
 
 //? Model.deleteMany()
 //? Model.deleteOne()
