@@ -29,7 +29,7 @@ content-type: application/json
 
 {
   "ownerId": "1111ccc1",
-   "title": "RsProje111111111111111fff11111111111111111",
+   "title": "RsProje1111111111111111f2ff1312312312311111111111111111",
    "description": "This is a great project! I really like it!",
    "isOpen":true,
    "estimateMin": 1,
@@ -47,12 +47,12 @@ content-type: application/json
 }
 
 ###
-GET http://localhost:3000/api/project/get?id=6062fe85d9fcbc14dc9f7a10
+GET http://localhost:3000/api/project/get?id=6062f5f12deccf2f18bbe95d
 
 
 
 ###
-DELETE http://localhost:3000/api/project/delete?test=6062fe4cc6e0f225e8d1ed14
+DELETE http://localhost:3000/api/project/delete?test=6062f5f12deccf2f18bbe95d
 
 ###
 POST http://localhost:3000/api/project/search
@@ -60,6 +60,6 @@ content-type: application/json
 
 {
     "page": 4,
-    "limitPage":4,
+    "pageSize":4,
     "searchText": "asd"
 }

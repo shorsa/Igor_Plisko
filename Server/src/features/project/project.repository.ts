@@ -36,7 +36,7 @@ export async function deleteProjectRepo(id: string) {
 
 export async function getProjectRepo(id: string) {
    try {
-      const getProject: ProjectModel | null = await ProjectSchemaEntityModel.findOne({ id: id });
+      const getProject: ProjectModel | null = await ProjectSchemaEntityModel.findOne({ _id: id });
       return getProject;
 
    } catch (error) {
@@ -44,6 +44,10 @@ export async function getProjectRepo(id: string) {
       throw (error)
    }
 }
+
+
+
+
 
 
 
@@ -63,21 +67,12 @@ export async function paginationProjectRepo(id: string) {                       
 
 export async function searchProject(body: any) {                                             //req, res, next
    try {
-      let page = 0;
-      const limitPage = 2;
-      // const startIndex = (page - 1)
-      // const endIndex = page * limitPage
+      let page = 1;
+      const pageSize = 2;
 
-
-
-
-
-
-
-
-      const skip = page == 1 ? page : page * limitPage
-      const paginationProject = await ProjectSchemaEntityModel.find({ title: "RsProject000000" }, {}, { skip: skip, limit: body.pageSize })
-      console.log(paginationProject);
+      const skip = pageSize * (page - 1);
+      const responseProjects = await ProjectSchemaEntityModel.find({ title: "Rs" }, {}, { skip: skip, limit: body.pageSize });
+      console.log(responseProjects);
 
    } catch (error) {
       console.log("Error", error)
@@ -85,9 +80,26 @@ export async function searchProject(body: any) {                                
    }
 }
 
+// const findAllFoo = async (req, resp, next) => {
+//    const pageSize = 10;
+//    const currentPage = 1;
 
+//    try {
+//        const foos = await FooModel.find() // find all documents
+//            .skip(pageSize * (currentPage - 1)) // we will not retrieve all records, but will skip first 'n' records
+//            .limit(pageSize); // will limit/restrict the number of records to display
 
+//        const numberOfFoos = await FooModel.countDocuments(); // count the number of records for that model
 
+//        resp.setHeader('max-records', numberOfFoos);
+//        resp.status(200).json(foos);
+
+//    } catch (err) {
+//        resp.status(500).json({
+//            message: err
+//        });
+//    }
+// };
 
 
 
