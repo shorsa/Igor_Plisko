@@ -24,7 +24,7 @@ export async function findProject(title: string) {
 
 export async function deleteProjectRepo(id: string) {
    try {
-      const deleteProjectRepository = await ProjectSchemaEntityModel.deleteOne({ id: id }); //? когда убераю нижне подчеркивание _id оно удвляет   
+      const deleteProjectRepository = await ProjectSchemaEntityModel.findByIdAndDelete(id); //? когда убераю нижне подчеркивание _id оно удвляет   
       return deleteProjectRepository;
    } catch (error) {
       console.log("Error", error)
@@ -48,9 +48,11 @@ export async function getProjectRepo(id: string) {
 
 
 //!update
-export async function updateProjectRepo({ id, ...rest }: any) {
+export async function updateProjectRepo({ _id, ...rest }: any) {
    try {
-      const updateProjectRepository: ProjectModel | null = await ProjectSchemaEntityModel.update(id, { ...rest });
+      console.log(rest);
+
+      const updateProjectRepository: ProjectModel | null = await ProjectSchemaEntityModel.findOneAndUpdate({ _id }, rest, { new: true });
       return updateProjectRepository;
 
    } catch (error) {

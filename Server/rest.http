@@ -52,7 +52,7 @@ GET http://localhost:3000/api/project/get?id=6062f5f12deccf2f18bbe95d
 
 
 ###
-DELETE http://localhost:3000/api/project/delete?test=6062f5f12deccf2f18bbe95d
+DELETE http://localhost:3000/api/project/delete?id=6062fe85d9fcbc14dc9f7a10
 
 
 ###
@@ -60,8 +60,21 @@ PUT http://localhost:3000/api/project/update
 content-type: application/json
 
 {
-    "id": "",
-    "title": "",
+    "_id":"6062fea4d9fcbc14dc9f7a14",
+     "ownerId": "asdfasdasdasdasd",
+   "title": "Test",
+   "description": "This is a great project! I really like it!",
+   "isOpen":true,
+   "estimateMin": 1,
+   "estimateMax": 1,
+    "features": [{
+        "level":"1",
+"title":"1",
+"description":"1",
+"isRequired":true,
+"estimateMin":1,
+"estimateMax":1
+    }]
 }
 
 

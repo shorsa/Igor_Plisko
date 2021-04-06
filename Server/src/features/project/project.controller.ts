@@ -12,8 +12,6 @@ export function projectHandler(req: Request, res: Response) {
 
 
 export function deleteProject(req: Request, res: Response) {
-   console.log(req.query);
-
    projectService.deleteServiceProject(req.query.id as string)
       .then((result) => {
          res.send(result)
@@ -36,7 +34,7 @@ export function getProject(req: Request, res: Response) {
 
 export function updateProject(req: Request, res: Response) {
 
-   projectService.updateServiceProject(req.query.id as string)
+   projectService.updateServiceProject(req.body)
       .then((result) => {
          res.send(result)
       })

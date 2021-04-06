@@ -5,6 +5,7 @@ import * as projectRepository from "./project.repository";
 import { ErrorResponse } from "../shared/helper/appError.helper";
 import httpStatus from "http-status";
 import ProjectSchemaEntityModel from "./entity/featureProject.entity";
+import { BaseResponseModel } from "../shared/models";
 
 
 export async function create(body: RequestCreateProjectEntityModel): Promise<ResponseCreteProjectModel> {   //: Promise<ResponseCreteProjectModel>
@@ -17,10 +18,7 @@ export async function create(body: RequestCreateProjectEntityModel): Promise<Res
       loggerHelper.error(`Is the project valid? ${isValid}`);
    }
 
-   // const model: ProjectEntityModel = {
-   //    ...body,                                     //? нам это больше не надо! 
-   //    creationDate: new Date()
-   // }
+
 
    console.log("body", body);
    const createProjectModel = new ProjectSchemaEntityModel(body)    //? это что бы наследовало модели которых нет
@@ -41,16 +39,15 @@ export async function create(body: RequestCreateProjectEntityModel): Promise<Res
 }
 
 
-export async function deleteServiceProject(id: string) {
+export async function deleteServiceProject(id: string): Promise<BaseResponseModel> {
 
-   const deleteProject = await projectRepository.deleteProjectRepo(id)
+   const deleteProject: ProjectModel | null = await projectRepository.deleteProjectRepo(id)
    if (!deleteProject) {
       loggerHelper.debug(`Has the project been deleted? ${deleteProject}`);
 
       return { ok: false, message: "The project was not deleted" }
    }
-   return deleteProject
-
+   return { ok: true }
 }
 
 export async function getServiceProject(id: string) {
@@ -58,27 +55,31 @@ export async function getServiceProject(id: string) {
    const getProject = await projectRepository.getProjectRepo(id)
 
    if (!getProject) {
-      loggerHelper.debug(`Project was not found! ${getProject}`);
+      loggerHelper.debug(`Has the project been added? ${getProject}`);
 
-      return { ok: false, message: "Project not found" }
+      return { ok: false, message: "No project added!" }  //во
    }
    return getProject
 }
 
 
-export async function updateServiceProject(id: string) {
-   const updateProject = await projectRepository.updateProjectRepo(id)
+export async function updateServiceProject(body: any): Promise<BaseResponseModel> {
+   const updateProject = await projectRepository.updateProjectRepo(body)
 
    if (!updateProject) {
-      loggerHelper.error(`Project was not found! ${updateProject}`);
+      loggerHelper.debug(`Has the project been updated? ${updateProject}`);
 
-      return { ok: false, message: "Project not found" }
+      return { ok: false, message: "The project has not been updated!" }
    }
-   return updateProject
+   return { ok: true, message: "The project  updated!" }
 
 }
 
-
+// const model: UserEntityModel = {     //!
+//    ...user,
+//    role: Role.User,
+//    createdAt: new Date()
+// };
 
 
 //-----------------------------------------------------------------------------
