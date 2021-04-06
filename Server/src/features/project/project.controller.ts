@@ -31,9 +31,25 @@ export function getProject(req: Request, res: Response) {
       })
       .catch((err) => res.send(err));
 }
+
+
+
+export function updateProject(req: Request, res: Response) {
+
+   projectService.updateServiceProject(req.query.id as string)
+      .then((result) => {
+         res.send(result)
+      })
+      .catch((err) => res.send(err));
+}
+
+
+
+
+///------------------------------------------------------------------
 export function searchProjectHandler(req: Request, res: Response) {
 
-   projectService.searchProject(req.body)
+   projectService.searchServiceProject(req.body)
       .then((result) => {
          res.send(result)
       })

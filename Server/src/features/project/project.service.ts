@@ -58,7 +58,7 @@ export async function getServiceProject(id: string) {
    const getProject = await projectRepository.getProjectRepo(id)
 
    if (!getProject) {
-      loggerHelper.error(`Project was not found! ${getProject}`);
+      loggerHelper.debug(`Project was not found! ${getProject}`);
 
       return { ok: false, message: "Project not found" }
    }
@@ -66,29 +66,34 @@ export async function getServiceProject(id: string) {
 }
 
 
-export async function searchProject(body: any) {
+export async function updateServiceProject(id: string) {
+   const updateProject = await projectRepository.updateProjectRepo(id)
 
-   const getProject = await projectRepository.searchProject(body)
-   // if (!getProject) {
-   //    loggerHelper.error(`Project was not found! ${getProject}`);
+   if (!updateProject) {
+      loggerHelper.error(`Project was not found! ${updateProject}`);
 
-   //    return { ok: false, message: "Project not found" }
-   // }
+      return { ok: false, message: "Project not found" }
+   }
+   return updateProject
 
 }
 
 
-// export async function getServiceProject(id: string) {
 
-//    const getProject = await projectRepository.getProjectRepo(id)
-//    if (!getProject) {
-//       loggerHelper.error(`Project was not found! ${getProject}`);
 
-//       return { ok: false, message: "Project not found" }
-//    }
+//-----------------------------------------------------------------------------
+//!search
+export async function searchServiceProject(body: any) {
 
-// }
+   const searchProject = await projectRepository.searchProjectRepo(body)
 
+   // if (!searchProject){
+   //    loggerHelper.debug(`Project was not found! ${searchProject}`);
+
+   //    return { ok: false, message: "Project not found" }
+   // }
+   // return searchProject
+}
 
 
 

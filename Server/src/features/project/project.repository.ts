@@ -24,7 +24,7 @@ export async function findProject(title: string) {
 
 export async function deleteProjectRepo(id: string) {
    try {
-      const deleteProjectRepository = await ProjectSchemaEntityModel.deleteOne({ _id: id });
+      const deleteProjectRepository = await ProjectSchemaEntityModel.deleteOne({ id: id }); //? когда убераю нижне подчеркивание _id оно удвляет   
       return deleteProjectRepository;
    } catch (error) {
       console.log("Error", error)
@@ -47,8 +47,27 @@ export async function getProjectRepo(id: string) {
 
 
 
+//!update
+export async function updateProjectRepo({ id, ...rest }: any) {
+   try {
+      const updateProjectRepository: ProjectModel | null = await ProjectSchemaEntityModel.update(id, { ...rest });
+      return updateProjectRepository;
+
+   } catch (error) {
+      console.log("Error", error)
+      throw (error)
+
+   }
+
+}
 
 
+
+
+
+
+
+//-------------------------------------------------------------------------------------------------
 
 
 export async function paginationProjectRepo(id: string) {                                             //req, res, next
@@ -65,7 +84,7 @@ export async function paginationProjectRepo(id: string) {                       
    }
 }
 
-export async function searchProject(body: any) {                                             //req, res, next
+export async function searchProjectRepo(body: any) {                                             //req, res, next
    try {
       let page = 1;
       const pageSize = 2;

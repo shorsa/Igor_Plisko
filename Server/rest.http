@@ -54,6 +54,18 @@ GET http://localhost:3000/api/project/get?id=6062f5f12deccf2f18bbe95d
 ###
 DELETE http://localhost:3000/api/project/delete?test=6062f5f12deccf2f18bbe95d
 
+
+###
+PUT http://localhost:3000/api/project/update                           
+content-type: application/json
+
+{
+    "id": "",
+    "title": "",
+}
+
+
+//!search and pagination 
 ###
 POST http://localhost:3000/api/project/search
 content-type: application/json
@@ -63,3 +75,5 @@ content-type: application/json
     "pageSize":4,
     "searchText": "asd"
 }
+
+
