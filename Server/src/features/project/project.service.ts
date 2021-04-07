@@ -1,6 +1,6 @@
 import { loggerHelper } from "../shared/helper/logger.helper";
-import { ProjectEntityModel, ProjectModel, RequestCreateProjectEntityModel, ResponseCreteProjectModel } from "./models";
-import { projectCreateSchema } from "./validation/projectCreate.shema";
+import { ProjectModel, RequestCreateProjectModel, ResponseCreteProjectModel } from "./models";
+import { projectCreateSchema } from "./validation/projectCreate.schema";
 import * as projectRepository from "./project.repository";
 import { ErrorResponse } from "../shared/helper/appError.helper";
 import httpStatus from "http-status";
@@ -8,7 +8,7 @@ import ProjectSchemaEntityModel from "./entity/featureProject.entity";
 import { BaseResponseModel } from "../shared/models";
 
 
-export async function create(body: RequestCreateProjectEntityModel): Promise<ResponseCreteProjectModel> {   //: Promise<ResponseCreteProjectModel>
+export async function create(body: RequestCreateProjectModel): Promise<ResponseCreteProjectModel> {   //: Promise<ResponseCreteProjectModel>
 
    loggerHelper.debug(`Start of project creation! ${body}`);
 
@@ -18,15 +18,9 @@ export async function create(body: RequestCreateProjectEntityModel): Promise<Res
       loggerHelper.error(`Is the project valid? ${isValid}`);
    }
 
-
-
    console.log("body", body);
    const createProjectModel = new ProjectSchemaEntityModel(body)    //? это что бы наследовало модели которых нет
    console.log("createProject", createProjectModel);
-
-
-   const projectCreate: any = await projectRepository.create(createProjectModel)
-
 
    const checkProject: number = await projectRepository.findProject(createProjectModel.title)
    if (checkProject) {
@@ -34,6 +28,8 @@ export async function create(body: RequestCreateProjectEntityModel): Promise<Res
 
       throw new ErrorResponse(httpStatus.BAD_REQUEST, "This title already exists!")
    }
+   const projectCreate: ProjectModel | null = await projectRepository.create(createProjectModel)
+
    return { ok: true, ...projectCreate }
 
 }
@@ -50,21 +46,20 @@ export async function deleteServiceProject(id: string): Promise<BaseResponseMode
    return { ok: true }
 }
 
-export async function getServiceProject(id: string) {
+export async function getServiceProject(id: string): Promise<BaseResponseModel> {
 
-   const getProject = await projectRepository.getProjectRepo(id)
+   const getProject: ProjectModel | null = await projectRepository.getProjectRepo(id)
 
    if (!getProject) {
       loggerHelper.debug(`Has the project been added? ${getProject}`);
 
       return { ok: false, message: "No project added!" }  //во
    }
-   return getProject
+   return { ok: true }
 }
 
-
-export async function updateServiceProject(body: any): Promise<BaseResponseModel> {
-   const updateProject = await projectRepository.updateProjectRepo(body)
+export async function updateServiceProject(body: ProjectModel): Promise<BaseResponseModel> {
+   const updateProject: ProjectModel | null = await projectRepository.updateProjectRepo(body)
 
    if (!updateProject) {
       loggerHelper.debug(`Has the project been updated? ${updateProject}`);

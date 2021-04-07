@@ -11,6 +11,7 @@ import {
    UserModel
 } from "./models";
 import { userLoginSchema, userRegisterSchema } from "./validation";
+import UserSchemaEntityModel from "./entities/user.entity";
 
 
 export async function register(body: RequestCreateUserModel): Promise<ResponseUserRegisterModel> {
@@ -35,7 +36,9 @@ export async function register(body: RequestCreateUserModel): Promise<ResponseUs
 
    loggerHelper.error(`Password was not hashed, ${JSON.stringify(body)}`);
 
-   const userCreated: UserModel = await authRepository.create(body)
+   const user = new UserSchemaEntityModel(body);
+
+   const userCreated: UserModel = await authRepository.create(user)
    console.log("userCreated", userCreated)
    return { ok: true, _id: userCreated._id }
 }

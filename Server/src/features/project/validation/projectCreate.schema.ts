@@ -1,7 +1,7 @@
 import { boolean, number, object, string, array } from "yup";
-import { FeatureModel, RequestCreateProjectEntityModel } from "../models";
+import { FeatureModel, RequestCreateProjectModel } from "../models";
 
-export const projectCreateSchema = object<RequestCreateProjectEntityModel>().shape(
+export const projectCreateSchema = object<RequestCreateProjectModel>().shape(
    {
       ownerId: string().required(),
       title: string().required('Enter your title'),

@@ -8,15 +8,9 @@ export async function findByEmailCount(requestEmail: string): Promise<number> {
     return testCount;
 }
 
-export async function create(user: RequestCreateUserModel): Promise<UserModel> {
+export async function create(user: UserModel): Promise<UserModel> {
     try {
-        const model: UserEntityModel = {
-            ...user,
-            role: Role.User,
-            createdAt: new Date()
-        };
-
-        const testCreated: UserModel = await UserSchemaEntityModel.create(model);
+        const testCreated: UserModel = await UserSchemaEntityModel.create(user);
         return testCreated;
     } catch (error) {
         console.log("Error", error)

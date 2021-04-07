@@ -1,14 +1,12 @@
 import ProjectSchemaEntityModel from "./entity/featureProject.entity";
-import { ProjectEntityModel, ProjectModel, RequestCreateProjectEntityModel, ResponseCreteProjectModel } from "./models";
+import { ProjectModel } from "./models";
 
 
 
-
-export async function create(req: any) {             //: RequestCreateProjectEntityModel): Promise<ProjectModel>
+export async function create(req: ProjectModel): Promise<ProjectModel> {
    try {
-      const projectCreated = await ProjectSchemaEntityModel.create(req);  //: ProjectModel 
+      const projectCreated: ProjectModel = await ProjectSchemaEntityModel.create(req);
       return projectCreated
-
    } catch (error) {
       console.log("Error", error)
       throw (error)
@@ -16,15 +14,14 @@ export async function create(req: any) {             //: RequestCreateProjectEnt
 
 };
 
-export async function findProject(title: string) {
+export async function findProject(title: string): Promise<number> {
    const foundProject: number = await ProjectSchemaEntityModel.countDocuments({ title: title });
-   return foundProject;    // : ProjectModel | nul
+   return foundProject;
 }
 
-
-export async function deleteProjectRepo(id: string) {
+export async function deleteProjectRepo(id: string): Promise<ProjectModel | null> {
    try {
-      const deleteProjectRepository = await ProjectSchemaEntityModel.findByIdAndDelete(id); //? когда убераю нижне подчеркивание _id оно удвляет   
+      const deleteProjectRepository: ProjectModel | null = await ProjectSchemaEntityModel.findByIdAndDelete(id);
       return deleteProjectRepository;
    } catch (error) {
       console.log("Error", error)
@@ -32,9 +29,7 @@ export async function deleteProjectRepo(id: string) {
    }
 
 };
-
-
-export async function getProjectRepo(id: string) {
+export async function getProjectRepo(id: string): Promise<ProjectModel | null> {
    try {
       const getProject: ProjectModel | null = await ProjectSchemaEntityModel.findOne({ _id: id });
       return getProject;
@@ -45,10 +40,8 @@ export async function getProjectRepo(id: string) {
    }
 }
 
-
-
 //!update
-export async function updateProjectRepo({ _id, ...rest }: any) {
+export async function updateProjectRepo({ _id, ...rest }: ProjectModel): Promise<ProjectModel | null> {
    try {
       console.log(rest);
 
@@ -63,16 +56,10 @@ export async function updateProjectRepo({ _id, ...rest }: any) {
 
 }
 
-
-
-
-
-
-
 //-------------------------------------------------------------------------------------------------
 
 
-export async function paginationProjectRepo(id: string) {                                             //req, res, next
+export async function paginationProjectRepo(id: string) {                         //   : Promise<ProjectModel | null>                   //req, res, next
    try {
       const page = 0;
       const pageSize = 10;
@@ -84,6 +71,8 @@ export async function paginationProjectRepo(id: string) {                       
       console.log("Error", error)
       throw (error)
    }
+
+
 }
 
 export async function searchProjectRepo(body: any) {                                             //req, res, next

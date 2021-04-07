@@ -1,7 +1,7 @@
 import { FeatureModel } from "../feature.model";
 
 
-export interface RequestCreateProjectEntityModel {
+export interface RequestCreateProjectModel {
    ownerId: string;
    title: string;
    description: string;
