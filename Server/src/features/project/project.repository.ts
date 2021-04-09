@@ -59,62 +59,100 @@ export async function updateProjectRepo({ _id, ...rest }: ProjectModel): Promise
 //-------------------------------------------------------------------------------------------------
 
 
-export async function paginationProjectRepo(id: string) {                         //   : Promise<ProjectModel | null>                   //req, res, next
+
+
+
+export async function searchProjectRepo(body: string) {                                             //req, res, next
    try {
-      const page = 0;
-      const pageSize = 10;
-      const skip = page + 1 * pageSize
-      const paginationProject = await ProjectSchemaEntityModel.find({}, {}, { skip: 0, limit: pageSize })
-      console.log(paginationProject);
-
-   } catch (error) {
-      console.log("Error", error)
-      throw (error)
-   }
-
-
-}
-
-export async function searchProjectRepo(body: any) {                                             //req, res, next
-   try {
-      let page = 1;
+      let page = body.page;
       const pageSize = 2;
-
+      const total = await ProjectSchemaEntityModel.countDocuments({})
       const skip = pageSize * (page - 1);
-      const responseProjects = await ProjectSchemaEntityModel.find({ title: "Rs" }, {}, { skip: skip, limit: body.pageSize });
+      const responseProjects = await ProjectSchemaEntityModel
+         .find({ title: { $regex: "^" + body.searchText } }, { features: false }, { skip: skip, limit: body.pageSize });
       console.log(responseProjects);
-
+      return responseProjects
    } catch (error) {
       console.log("Error", error)
       throw (error)
    }
+
 }
 
-// const findAllFoo = async (req, resp, next) => {
-//    const pageSize = 10;
-//    const currentPage = 1;
-
-//    try {
-//        const foos = await FooModel.find() // find all documents
-//            .skip(pageSize * (currentPage - 1)) // we will not retrieve all records, but will skip first 'n' records
-//            .limit(pageSize); // will limit/restrict the number of records to display
-
-//        const numberOfFoos = await FooModel.countDocuments(); // count the number of records for that model
-
-//        resp.setHeader('max-records', numberOfFoos);
-//        resp.status(200).json(foos);
-
-//    } catch (err) {
-//        resp.status(500).json({
-//            message: err
-//        });
-//    }
-// };
 
 
 
 
-// model.find(query, field, { skip: 10, limit: 5 })
+// ты ишешь фичу с заголовком "Feature" 
+//тебе возвращает то что внизу не закоммитированое
+[
+   {
+      "_id": "6062fea4d9fcbc14dc9f7a14",
+      "ownerId": "asdfasdasdasdasd",
+      "title": "Test",
+      "description": "This is a great project! I really like it!",
+      "isOpen": true,
+      "estimateMin": 1,
+      "estimateMax": 1,
+      "features": [
+         {
+            "level": "1",
+            "title": "Feature login",
+            "description": "1",
+            "isRequired": true,
+            "estimateMin": 1,
+            "estimateMax": 1
+         },
+         // {
+         //    "level": "1",
+         //    "title": "Not found",
+         //    "description": "1",
+         //    "isRequired": true,
+         //    "estimateMin": 1,
+         //    "estimateMax": 1
+         // },
+         {
+            "level": "1",
+            "title": "Feature login",
+            "description": "1",
+            "isRequired": true,
+            "estimateMin": 1,
+            "estimateMax": 1
+         },
+      ]
+   },
+   {
+      "_id": "6062fea4d9fcbc14dc9f7a14",
+      "ownerId": "asdfasdasdasdasd",
+      "title": "Test",
+      "description": "This is a great project! I really like it!",
+      "isOpen": true,
+      "estimateMin": 1,
+      "estimateMax": 1,
+      "features": [{
+         "level": "1",
+         "title": "Feature login",
+         "description": "1",
+         "isRequired": true,
+         "estimateMin": 1,
+         "estimateMax": 1
+      }]
+   }
+]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

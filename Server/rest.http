@@ -29,19 +29,36 @@ content-type: application/json
 
 {
   "ownerId": "1111ccc1",
-   "title": "RsProje1111111111111111f2ff1312312312311111111111111111",
+   "title": "Test create",
    "description": "This is a great project! I really like it!",
    "isOpen":true,
    "estimateMin": 1,
    "estimateMax": 1,
     "features": [{
-        "level":"1",
-"title":"1",
-"description":"1",
-"isRequired":true,
-"estimateMin":1,
-"estimateMax":1
-    }]
+            "level": "1",
+            "title": "Feature login",
+            "description": "1",
+            "isRequired": true,
+            "estimateMin": 1,
+            "estimateMax": 1
+         },
+          {
+             "level": "1",
+             "title": "Not found",
+             "description": "1",
+             "isRequired": true,
+             "estimateMin": 1,
+             "estimateMax": 1
+          },
+         {
+            "level": "1",
+            "title": "Feature login",
+            "description": "1",
+            "isRequired": true,
+            "estimateMin": 1,
+            "estimateMax": 1
+         }
+         ]
 
 
 }
@@ -78,15 +95,24 @@ content-type: application/json
 }
 
 
-//!search and pagination 
+
+//!search 
 ###
 POST http://localhost:3000/api/project/search
 content-type: application/json
 
 {
-    "page": 4,
-    "pageSize":4,
-    "searchText": "asd"
+    "page": 1,
+    "pageSize":5,
+    "searchText": "Test"
 }
 
+# {
+#     items: [],
+#     total: 10
+#     ok: true
+# }
+  
+
+### 
 

@@ -70,11 +70,10 @@ export async function updateServiceProject(body: ProjectModel): Promise<BaseResp
 
 }
 
-// const model: UserEntityModel = {     //!
-//    ...user,
-//    role: Role.User,
-//    createdAt: new Date()
-// };
+
+
+
+
 
 
 //-----------------------------------------------------------------------------
@@ -83,12 +82,12 @@ export async function searchServiceProject(body: any) {
 
    const searchProject = await projectRepository.searchProjectRepo(body)
 
-   // if (!searchProject){
+   // if (!searchProject) {
    //    loggerHelper.debug(`Project was not found! ${searchProject}`);
 
    //    return { ok: false, message: "Project not found" }
    // }
-   // return searchProject
+   return searchProject
 }
 
 
