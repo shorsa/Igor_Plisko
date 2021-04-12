@@ -42,11 +42,6 @@ export function updateProject(req: Request, res: Response) {
 }
 
 
-
-
-
-
-///------------------------------------------------------------------
 export function searchProjectHandler(req: Request, res: Response) {
 
    projectService.searchServiceProject(req.body)
@@ -55,5 +50,15 @@ export function searchProjectHandler(req: Request, res: Response) {
       })
       .catch((err) => res.send(err));
 }
+//-------------------------------------------------------------------
 
+
+export function aggregationProjectHandler(req: Request, res: Response) {
+
+   projectService.aggregationServiceProject(req.body)
+      .then((result) => {
+         res.send(result)
+      })
+      .catch((err) => res.send(err));
+}
 

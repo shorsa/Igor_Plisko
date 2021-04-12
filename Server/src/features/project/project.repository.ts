@@ -1,5 +1,5 @@
 import ProjectSchemaEntityModel from "./entity/featureProject.entity";
-import { ProjectModel } from "./models";
+import { ProjectModel, RequestSearchProjectModel, ResponseSearchProjectsModel } from "./models";
 
 
 
@@ -29,6 +29,7 @@ export async function deleteProjectRepo(id: string): Promise<ProjectModel | null
    }
 
 };
+
 export async function getProjectRepo(id: string): Promise<ProjectModel | null> {
    try {
       const getProject: ProjectModel | null = await ProjectSchemaEntityModel.findOne({ _id: id });
@@ -40,7 +41,7 @@ export async function getProjectRepo(id: string): Promise<ProjectModel | null> {
    }
 }
 
-//!update
+
 export async function updateProjectRepo({ _id, ...rest }: ProjectModel): Promise<ProjectModel | null> {
    try {
       console.log(rest);
@@ -56,22 +57,19 @@ export async function updateProjectRepo({ _id, ...rest }: ProjectModel): Promise
 
 }
 
-//-------------------------------------------------------------------------------------------------
 
-
-
-
-
-export async function searchProjectRepo(body: string) {                                             //req, res, next
+export async function searchProjectRepo(body: RequestSearchProjectModel): Promise<ResponseSearchProjectsModel | null> {
    try {
       let page = body.page;
       const pageSize = 2;
-      const total = await ProjectSchemaEntityModel.countDocuments({})
+      // const total = await ProjectSchemaEntityModel.countDocuments({})       
       const skip = pageSize * (page - 1);
       const responseProjects = await ProjectSchemaEntityModel
-         .find({ title: { $regex: "^" + body.searchText } }, { features: false }, { skip: skip, limit: body.pageSize });
-      console.log(responseProjects);
-      return responseProjects
+         .find({ title: { $regex: "^" + body.searchText } }, { features: false }, { skip: skip, limit: body.pageSize });         //? $regex: "^" + body.searchText посмотреть дополнительно 
+
+      return { items: responseProjects }
+
+
    } catch (error) {
       console.log("Error", error)
       throw (error)
@@ -80,6 +78,32 @@ export async function searchProjectRepo(body: string) {                         
 }
 
 
+///----------------------------------------------------------------------------
+export async function aggregationProjectRepo(body: any) {
+   try {
+      const findFeatureByHeader = await ProjectSchemaEntityModel
+         .aggregate(
+            [
+
+               // { $match: {} },
+
+
+
+               { $match: { $text: { $search: 'r' } } },
+               // { $project: { $regex: "^" + body.findByHeader } }
+
+            ]
+
+         )
+
+      return findFeatureByHeader
+   } catch (error) {
+      console.log("Error", error)
+      throw (error)
+
+   }
+
+}
 
 
 

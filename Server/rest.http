@@ -103,16 +103,17 @@ content-type: application/json
 
 {
     "page": 1,
-    "pageSize":5,
     "searchText": "Test"
+
 }
 
-# {
-#     items: [],
-#     total: 10
-#     ok: true
-# }
-  
 
-### 
+//Agreggation
+###
+POST http://localhost:3000/api/project/aggregation
+content-type: application/json
 
+{
+  "findByHeader": "F"
+
+}

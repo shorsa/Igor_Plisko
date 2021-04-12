@@ -1,11 +1,12 @@
 import { loggerHelper } from "../shared/helper/logger.helper";
-import { ProjectModel, RequestCreateProjectModel, ResponseCreteProjectModel } from "./models";
+import { ProjectModel, RequestCreateProjectModel, ResponseCreteProjectModel, RequestSearchProjectModel, ResponseSearchProjectsModel } from "./models";
 import { projectCreateSchema } from "./validation/projectCreate.schema";
 import * as projectRepository from "./project.repository";
 import { ErrorResponse } from "../shared/helper/appError.helper";
 import httpStatus from "http-status";
 import ProjectSchemaEntityModel from "./entity/featureProject.entity";
 import { BaseResponseModel } from "../shared/models";
+
 
 
 export async function create(body: RequestCreateProjectModel): Promise<ResponseCreteProjectModel> {   //: Promise<ResponseCreteProjectModel>
@@ -46,16 +47,16 @@ export async function deleteServiceProject(id: string): Promise<BaseResponseMode
    return { ok: true }
 }
 
-export async function getServiceProject(id: string): Promise<BaseResponseModel> {
+export async function getServiceProject(id: string): Promise<ProjectModel | BaseResponseModel> {
 
    const getProject: ProjectModel | null = await projectRepository.getProjectRepo(id)
 
    if (!getProject) {
       loggerHelper.debug(`Has the project been added? ${getProject}`);
 
-      return { ok: false, message: "No project added!" }  //во
+      return { ok: false, message: "No project added!" }
    }
-   return { ok: true }
+   return getProject
 }
 
 export async function updateServiceProject(body: ProjectModel): Promise<BaseResponseModel> {
@@ -70,38 +71,51 @@ export async function updateServiceProject(body: ProjectModel): Promise<BaseResp
 
 }
 
-
-
-
-
-
-
-//-----------------------------------------------------------------------------
 //!search
-export async function searchServiceProject(body: any) {
+export async function searchServiceProject(body: RequestSearchProjectModel): Promise<ResponseSearchProjectsModel | BaseResponseModel> {
 
-   const searchProject = await projectRepository.searchProjectRepo(body)
+   console.log(body);
 
-   // if (!searchProject) {
-   //    loggerHelper.debug(`Project was not found! ${searchProject}`);
+   const reqModel: RequestSearchProjectModel | null = {
+      page: body.page ?? 1,
+      pageSize: body.pageSize ? body.pageSize : 2,
+      searchText: body.searchText ? body.searchText : ""
+   }
 
-   //    return { ok: false, message: "Project not found" }
-   // }
+   const searchProject: ResponseSearchProjectsModel | null = await projectRepository.searchProjectRepo(reqModel)
+   if (!searchProject) {
+      loggerHelper.debug(`Has the project been paginated ? ${searchProject}`);
+
+      return { ok: false, message: "The project has not been paginated!" }
+
+   }
+
    return searchProject
+
+}
+
+
+
+export async function aggregationServiceProject(body: any) {
+   const aggregationProject = await projectRepository.aggregationProjectRepo(body)
+   return aggregationProject
 }
 
 
 
 
 
-
-
+//!
+/**
+   *?сделать поиск фич по заголовку которые находятся внутри проектов ,
+    *? использовать агригацию, должно возвращать (_id , title - проекта в котором будет массив feature [] - только тех фич у которых есть совпадение по тексту (title) )
+   */
 
 
 
 
 /**
-   *?У проекта обязательные поля - заголовок(мин 6 символов), описание(мин 10 символов), фичи.
+
    *?Фичи проекта, фичи должны быть представлены в виде массива без вложенных массивов, обязательные поля - уровень
    *? (для порядка и вложенностей фич, например: левел фич будет выглядеть так же как нумерация в этом
    *? документе(без отступов слева)), заголовок, описание, мин эстимейт, макс эстимейт.

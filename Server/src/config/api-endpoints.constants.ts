@@ -12,8 +12,9 @@ export class ApiEndpointsConstants {
     public static PROJECT_DELETE: string = '/delete';
 
     public static PROJECT_UPDATE: string = '/update';
-    public static PROJECT_TO_RECEIVE: string = '/get';             //receive
-    public static PROJECT_SEARCH: string = '/search';             //receive
+    public static PROJECT_TO_RECEIVE: string = '/get';
 
-
+    public static PROJECT_SEARCH: string = '/search';
+    public static PROJECT_AGGREGATION: string = '/aggregation'
 }
+
