@@ -1,5 +1,9 @@
+import {
+   ProjectModel,
+   RequestCreateProjectModel, ResponseCreteProjectModel,
+   RequestSearchProjectModel, ResponseSearchProjectsModel, ResponseSearchFeatureProjectModel
+} from "./models";
 import { loggerHelper } from "../shared/helper/logger.helper";
-import { ProjectModel, RequestCreateProjectModel, ResponseCreteProjectModel, RequestSearchProjectModel, ResponseSearchProjectsModel } from "./models";
 import { projectCreateSchema } from "./validation/projectCreate.schema";
 import * as projectRepository from "./project.repository";
 import { ErrorResponse } from "../shared/helper/appError.helper";
@@ -9,7 +13,7 @@ import { BaseResponseModel } from "../shared/models";
 
 
 
-export async function create(body: RequestCreateProjectModel): Promise<ResponseCreteProjectModel> {   //: Promise<ResponseCreteProjectModel>
+export async function create(body: RequestCreateProjectModel): Promise<ResponseCreteProjectModel> {
 
    loggerHelper.debug(`Start of project creation! ${body}`);
 
@@ -34,7 +38,6 @@ export async function create(body: RequestCreateProjectModel): Promise<ResponseC
    return { ok: true, ...projectCreate }
 
 }
-
 
 export async function deleteServiceProject(id: string): Promise<BaseResponseModel> {
 
@@ -71,7 +74,6 @@ export async function updateServiceProject(body: ProjectModel): Promise<BaseResp
 
 }
 
-//!search
 export async function searchServiceProject(body: RequestSearchProjectModel): Promise<ResponseSearchProjectsModel | BaseResponseModel> {
 
    console.log(body);
@@ -96,28 +98,19 @@ export async function searchServiceProject(body: RequestSearchProjectModel): Pro
 
 
 
-export async function aggregationServiceProject(body: any) {
-   const aggregationProject = await projectRepository.aggregationProjectRepo(body)
-   return aggregationProject
+export async function searchFeatureServiceProject(searchText: string): Promise<ResponseSearchFeatureProjectModel[] | BaseResponseModel> {
+
+   const searchFeatureProject: ResponseSearchFeatureProjectModel[] = await projectRepository.searchFeatureServiceProjectRepo(searchText)
+
+   if (!searchFeatureProject) {
+      loggerHelper.debug(`Has the project been aggregated ? ${searchFeatureProject}`);
+
+      return { ok: false, message: "The project has not been aggregated!" }
+
+   }
+
+   return searchFeatureProject
+
+
 }
-
-
-
-
-
-//!
-/**
-   *?сделать поиск фич по заголовку которые находятся внутри проектов ,
-    *? использовать агригацию, должно возвращать (_id , title - проекта в котором будет массив feature [] - только тех фич у которых есть совпадение по тексту (title) )
-   */
-
-
-
-
-/**
-
-   *?Фичи проекта, фичи должны быть представлены в виде массива без вложенных массивов, обязательные поля - уровень
-   *? (для порядка и вложенностей фич, например: левел фич будет выглядеть так же как нумерация в этом
-   *? документе(без отступов слева)), заголовок, описание, мин эстимейт, макс эстимейт.
-   */
 

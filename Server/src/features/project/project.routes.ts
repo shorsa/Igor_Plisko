@@ -12,7 +12,7 @@ projectRouter.put(ApiEndpointsConstants.PROJECT_UPDATE, projectControllers.updat
 
 
 projectRouter.post(ApiEndpointsConstants.PROJECT_SEARCH, projectControllers.searchProjectHandler);
-projectRouter.post(ApiEndpointsConstants.PROJECT_AGGREGATION, projectControllers.aggregationProjectHandler)
+projectRouter.get(ApiEndpointsConstants.PROJECT_SEARCH_FEATURE, projectControllers.searchFeatureHandler)
 
 
 

@@ -1,5 +1,9 @@
 import ProjectSchemaEntityModel from "./entity/featureProject.entity";
-import { ProjectModel, RequestSearchProjectModel, ResponseSearchProjectsModel } from "./models";
+import {
+   ProjectModel, RequestSearchProjectModel,
+   ResponseSearchFeatureProjectModel, ResponseSearchProjectsItemModel,
+   ResponseSearchProjectsModel
+} from "./models";
 
 
 
@@ -41,7 +45,6 @@ export async function getProjectRepo(id: string): Promise<ProjectModel | null> {
    }
 }
 
-
 export async function updateProjectRepo({ _id, ...rest }: ProjectModel): Promise<ProjectModel | null> {
    try {
       console.log(rest);
@@ -57,18 +60,16 @@ export async function updateProjectRepo({ _id, ...rest }: ProjectModel): Promise
 
 }
 
-
 export async function searchProjectRepo(body: RequestSearchProjectModel): Promise<ResponseSearchProjectsModel | null> {
    try {
-      let page = body.page;
-      const pageSize = 2;
-      // const total = await ProjectSchemaEntityModel.countDocuments({})       
-      const skip = pageSize * (page - 1);
-      const responseProjects = await ProjectSchemaEntityModel
-         .find({ title: { $regex: "^" + body.searchText } }, { features: false }, { skip: skip, limit: body.pageSize });         //? $regex: "^" + body.searchText посмотреть дополнительно 
+      let page: number = body.page;
+      const pageSize: number = body.pageSize;
+      const total: number = await ProjectSchemaEntityModel.countDocuments({})
+      const skip: number = pageSize * (page - 1);
+      const responseProjects: ResponseSearchProjectsItemModel[] = await ProjectSchemaEntityModel         //?
+         .find({ title: { $regex: "^" + body.searchText, $options: "i" }, }, { features: false }, { skip: skip, limit: body.pageSize });         //? $regex: "^" + body.searchText посмотреть дополнительно 
 
-      return { items: responseProjects }
-
+      return { items: responseProjects, total }
 
    } catch (error) {
       console.log("Error", error)
@@ -79,23 +80,22 @@ export async function searchProjectRepo(body: RequestSearchProjectModel): Promis
 
 
 ///----------------------------------------------------------------------------
-export async function aggregationProjectRepo(body: any) {
+export async function searchFeatureServiceProjectRepo(searchText: string): Promise<ResponseSearchFeatureProjectModel[]> {
    try {
-      const findFeatureByHeader = await ProjectSchemaEntityModel
+      const findFeatureByHeader: ResponseSearchFeatureProjectModel[] = await ProjectSchemaEntityModel
          .aggregate(
             [
-
-               // { $match: {} },
-
-
-
-               { $match: { $text: { $search: 'r' } } },
-               // { $project: { $regex: "^" + body.findByHeader } }
-
+               { $unwind: "$features" },
+               {
+                  $match: {
+                     "features.title": searchText,
+                  }
+               },
+               { $project: { _id: true, title: true, features: true } }
             ]
 
          )
-
+      console.log('111111111111', searchText)
       return findFeatureByHeader
    } catch (error) {
       console.log("Error", error)
@@ -107,62 +107,6 @@ export async function aggregationProjectRepo(body: any) {
 
 
 
-// ты ишешь фичу с заголовком "Feature" 
-//тебе возвращает то что внизу не закоммитированое
-[
-   {
-      "_id": "6062fea4d9fcbc14dc9f7a14",
-      "ownerId": "asdfasdasdasdasd",
-      "title": "Test",
-      "description": "This is a great project! I really like it!",
-      "isOpen": true,
-      "estimateMin": 1,
-      "estimateMax": 1,
-      "features": [
-         {
-            "level": "1",
-            "title": "Feature login",
-            "description": "1",
-            "isRequired": true,
-            "estimateMin": 1,
-            "estimateMax": 1
-         },
-         // {
-         //    "level": "1",
-         //    "title": "Not found",
-         //    "description": "1",
-         //    "isRequired": true,
-         //    "estimateMin": 1,
-         //    "estimateMax": 1
-         // },
-         {
-            "level": "1",
-            "title": "Feature login",
-            "description": "1",
-            "isRequired": true,
-            "estimateMin": 1,
-            "estimateMax": 1
-         },
-      ]
-   },
-   {
-      "_id": "6062fea4d9fcbc14dc9f7a14",
-      "ownerId": "asdfasdasdasdasd",
-      "title": "Test",
-      "description": "This is a great project! I really like it!",
-      "isOpen": true,
-      "estimateMin": 1,
-      "estimateMax": 1,
-      "features": [{
-         "level": "1",
-         "title": "Feature login",
-         "description": "1",
-         "isRequired": true,
-         "estimateMin": 1,
-         "estimateMax": 1
-      }]
-   }
-]
 
 
 
@@ -177,21 +121,3 @@ export async function aggregationProjectRepo(body: any) {
 
 
 
-
-
-
-//? Model.deleteMany()
-//? Model.deleteOne()
-//? Model.find()
-//? Model.findById()
-//? Model.findByIdAndDelete()
-//? Model.findByIdAndRemove()
-//? Model.findByIdAndUpdate()
-//? Model.findOne()
-//?Model.findOneAndDelete()
-//? Model.findOneAndRemove()
-//? Model.findOneAndReplace()
-//? Model.findOneAndUpdate()
-//? Model.replaceOne()
-// ?Model.updateMany()
-// ?Model.updateOne()

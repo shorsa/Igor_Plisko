@@ -1,5 +1,6 @@
 export interface ResponseSearchProjectsModel {
    items: ResponseSearchProjectsItemModel[];
+   total: number;
 }
 
 export interface ResponseSearchProjectsItemModel {

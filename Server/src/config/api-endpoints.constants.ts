@@ -15,6 +15,6 @@ export class ApiEndpointsConstants {
     public static PROJECT_TO_RECEIVE: string = '/get';
 
     public static PROJECT_SEARCH: string = '/search';
-    public static PROJECT_AGGREGATION: string = '/aggregation'
+    public static PROJECT_SEARCH_FEATURE: string = '/search_feature'
 }
 
