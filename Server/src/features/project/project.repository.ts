@@ -78,8 +78,6 @@ export async function searchProjectRepo(body: RequestSearchProjectModel): Promis
 
 }
 
-
-///----------------------------------------------------------------------------
 export async function searchFeatureServiceProjectRepo(searchText: string): Promise<ResponseSearchFeatureProjectModel[]> {
    try {
       const findFeatureByHeader: ResponseSearchFeatureProjectModel[] = await ProjectSchemaEntityModel
@@ -88,7 +86,7 @@ export async function searchFeatureServiceProjectRepo(searchText: string): Promi
                { $unwind: "$features" },
                {
                   $match: {
-                     "features.title": searchText,
+                     "features.title": { $regex: "^" + searchText, $options: "i" },
                   }
                },
                { $project: { _id: true, title: true, features: true } }

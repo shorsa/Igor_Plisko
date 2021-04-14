@@ -1,7 +1,8 @@
 import {
    ProjectModel,
    RequestCreateProjectModel, ResponseCreteProjectModel,
-   RequestSearchProjectModel, ResponseSearchProjectsModel, ResponseSearchFeatureProjectModel
+   RequestSearchProjectModel, ResponseSearchProjectsModel,
+   ResponseSearchFeatureProjectModel
 } from "./models";
 import { loggerHelper } from "../shared/helper/logger.helper";
 import { projectCreateSchema } from "./validation/projectCreate.schema";
@@ -76,8 +77,6 @@ export async function updateServiceProject(body: ProjectModel): Promise<BaseResp
 
 export async function searchServiceProject(body: RequestSearchProjectModel): Promise<ResponseSearchProjectsModel | BaseResponseModel> {
 
-   console.log(body);
-
    const reqModel: RequestSearchProjectModel | null = {
       page: body.page ?? 1,
       pageSize: body.pageSize ? body.pageSize : 2,
@@ -96,8 +95,6 @@ export async function searchServiceProject(body: RequestSearchProjectModel): Pro
 
 }
 
-
-
 export async function searchFeatureServiceProject(searchText: string): Promise<ResponseSearchFeatureProjectModel[] | BaseResponseModel> {
 
    const searchFeatureProject: ResponseSearchFeatureProjectModel[] = await projectRepository.searchFeatureServiceProjectRepo(searchText)
@@ -110,7 +107,6 @@ export async function searchFeatureServiceProject(searchText: string): Promise<R
    }
 
    return searchFeatureProject
-
 
 }
 

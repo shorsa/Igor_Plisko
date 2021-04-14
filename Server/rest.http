@@ -112,6 +112,6 @@ content-type: application/json
 
 //Agreggation
 ###
-GET http://localhost:3000/api/project/search_feature?search=Feature login
+GET http://localhost:3000/api/project/search_feature?search=1
 
 

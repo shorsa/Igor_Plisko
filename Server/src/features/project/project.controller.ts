@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import * as projectService from "./project.service";
 
-
 export function projectHandler(req: Request, res: Response) {
    projectService.create(req.body)
       .then((result) => {
@@ -9,7 +8,6 @@ export function projectHandler(req: Request, res: Response) {
       })
       .catch((err) => res.send(err));
 }
-
 
 export function deleteProject(req: Request, res: Response) {
    projectService.deleteServiceProject(req.query.id as string)
@@ -19,8 +17,6 @@ export function deleteProject(req: Request, res: Response) {
       .catch((err) => res.send(err));
 }
 
-
-
 export function getProject(req: Request, res: Response) {
 
    projectService.getServiceProject(req.query.id as string)
@@ -29,8 +25,6 @@ export function getProject(req: Request, res: Response) {
       })
       .catch((err) => res.send(err));
 }
-
-
 
 export function updateProject(req: Request, res: Response) {
 
@@ -50,8 +44,6 @@ export function searchProjectHandler(req: Request, res: Response) {
       })
       .catch((err) => res.send(err));
 }
-//-------------------------------------------------------------------
-
 
 export function searchFeatureHandler(req: Request, res: Response) {
 
