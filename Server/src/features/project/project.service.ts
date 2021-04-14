@@ -24,7 +24,6 @@ export async function createProject(body: RequestCreateProjectModel): Promise<Re
       loggerHelper.error(`Is the project valid? ${isValid}`);
    }
 
-   console.log("body", body);
    const createProjectModel = new ProjectSchemaEntityModel(body)    //? это что бы наследовало модели которых нет
    console.log("createProject", createProjectModel);
 

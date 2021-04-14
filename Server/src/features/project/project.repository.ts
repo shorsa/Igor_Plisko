@@ -9,7 +9,7 @@ import {
 
 
 
-export async function create(req: ProjectModel): Promise<ProjectModel> {                          //! RequestCreateProjectModel): Promise<ResponseCreteProjectModel> 
+export async function create(req: ProjectModel): Promise<ProjectModel> {
    try {
       const projectCreated: ProjectModel = await ProjectSchemaEntityModel.create(req);
       return projectCreated;
@@ -17,6 +17,18 @@ export async function create(req: ProjectModel): Promise<ProjectModel> {        
       throw new ErrorResponse(httpStatus.INTERNAL_SERVER_ERROR, JSON.stringify(error));
    }
 };
+
+
+// export async function create(req: RequestCreateProjectModel): Promise<ResponseCreteProjectModel | null> {                          //! RequestCreateProjectModel): Promise<ResponseCreteProjectModel> 
+//    try {
+//       const projectCreated: ResponseCreteProjectModel | null = await ProjectSchemaEntityModel.create(req);
+//       return { ok: true };
+//    } catch (error) {
+//       throw new ErrorResponse(httpStatus.INTERNAL_SERVER_ERROR, JSON.stringify(error));
+//    }
+// };
+
+
 
 export async function findProjectByTitle(title: string): Promise<number> {
    try {
@@ -69,7 +81,7 @@ export async function searchProject(body: RequestSearchProjectModel): Promise<Re
       const responseProjects: ResponseSearchProjectsItemModel[] = await ProjectSchemaEntityModel
          .find({ title: { $regex: "^" + body.searchText, $options: "i" }, }, { features: false }, { skip: skip, limit: body.pageSize });         //? $regex: "^" + body.searchText посмотреть дополнительно 
 
-      return { items: responseProjects, total };
+      return { ok: true, items: responseProjects, total };
 
    } catch (error) {
       throw new ErrorResponse(httpStatus.INTERNAL_SERVER_ERROR, JSON.stringify(error));

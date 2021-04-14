@@ -6,6 +6,7 @@ export interface RequestCreateProjectModel {
    isOpen: boolean;
    estimateMin: number;
    estimateMax: number;
+   creationDate: string;
    features: FeatureModel[];
 };
 
