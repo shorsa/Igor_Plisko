@@ -1,8 +1,5 @@
 import { Document, model, Schema } from "mongoose";
 import { ProjectEntityModel } from "../models";
-// import { ProjectEntityModel } from "";
-
-
 
 
 const featureSchema = new Schema({

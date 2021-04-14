@@ -18,7 +18,6 @@ export function deleteProject(req: Request, res: Response) {
 }
 
 export function getProject(req: Request, res: Response) {
-
    projectService.getServiceProject(req.query.id as string)
       .then((result) => {
          res.send(result)
@@ -27,7 +26,6 @@ export function getProject(req: Request, res: Response) {
 }
 
 export function updateProject(req: Request, res: Response) {
-
    projectService.updateServiceProject(req.body)
       .then((result) => {
          res.send(result)
@@ -37,7 +35,6 @@ export function updateProject(req: Request, res: Response) {
 
 
 export function searchProjectHandler(req: Request, res: Response) {
-
    projectService.searchServiceProject(req.body)
       .then((result) => {
          res.send(result)
@@ -46,7 +43,6 @@ export function searchProjectHandler(req: Request, res: Response) {
 }
 
 export function searchFeatureHandler(req: Request, res: Response) {
-
    projectService.searchFeatureServiceProject(req.query.search as string)
       .then((result) => {
          res.send(result)

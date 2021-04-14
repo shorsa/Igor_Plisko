@@ -1,8 +1,9 @@
 import { Document, model, Schema } from "mongoose";
 import { Gender, Role } from "../enums";
+import { UserModel } from "../models";
 import { UserEntityModel } from "../models/userEntity.model";
 
-const userSchema = new Schema({
+const userSchema = new Schema<UserModel>({
    email: {
       type: String,
       required: true
