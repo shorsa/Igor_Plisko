@@ -18,7 +18,6 @@ export async function create(user: UserModel): Promise<UserModel> {
         const userCreated: UserModel = await UserSchemaEntityModel.create(user);
         return userCreated;
     } catch (error) {
-        JSON.stringify(error)
         throw new ErrorResponse(httpStatus.INTERNAL_SERVER_ERROR, JSON.stringify(error))
     }
 }
@@ -28,7 +27,6 @@ export async function findUserByEmailLogin(email: string): Promise<UserModel | n
         const getUser: UserModel | null = await UserSchemaEntityModel.findOne({ email: email });
         return getUser;
     } catch (error) {
-        JSON.stringify(error)
         throw new ErrorResponse(httpStatus.INTERNAL_SERVER_ERROR, JSON.stringify(error))
     }
 }

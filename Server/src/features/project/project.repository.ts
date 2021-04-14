@@ -1,3 +1,5 @@
+import httpStatus from "http-status";
+import { ErrorResponse } from "../shared/helper/appError.helper";
 import ProjectSchemaEntityModel from "./entity/featureProject.entity";
 import {
    ProjectModel, RequestSearchProjectModel,
@@ -7,20 +9,23 @@ import {
 
 
 
-export async function create(req: ProjectModel): Promise<ProjectModel> {
+export async function create(req: ProjectModel): Promise<ProjectModel> {                          //! RequestCreateProjectModel): Promise<ResponseCreteProjectModel> 
    try {
       const projectCreated: ProjectModel = await ProjectSchemaEntityModel.create(req);
       return projectCreated
    } catch (error) {
-      console.log("Error", error)
-      throw (error)
+      throw new ErrorResponse(httpStatus.INTERNAL_SERVER_ERROR, JSON.stringify(error))
    }
-
 };
 
 export async function findProject(title: string): Promise<number> {
-   const foundProject: number = await ProjectSchemaEntityModel.countDocuments({ title: title });
-   return foundProject;
+   try {
+      const foundProject: number = await ProjectSchemaEntityModel.countDocuments({ title: title });
+      return foundProject;
+   } catch (error) {
+      throw new ErrorResponse(httpStatus.INTERNAL_SERVER_ERROR, JSON.stringify(error))
+   }
+
 }
 
 export async function deleteProjectRepo(id: string): Promise<ProjectModel | null> {
@@ -28,8 +33,7 @@ export async function deleteProjectRepo(id: string): Promise<ProjectModel | null
       const deleteProjectRepository: ProjectModel | null = await ProjectSchemaEntityModel.findByIdAndDelete(id);
       return deleteProjectRepository;
    } catch (error) {
-      console.log("Error", error)
-      throw (error)
+      throw new ErrorResponse(httpStatus.INTERNAL_SERVER_ERROR, JSON.stringify(error))
    }
 
 };
@@ -40,8 +44,7 @@ export async function getProjectRepo(id: string): Promise<ProjectModel | null> {
       return getProject;
 
    } catch (error) {
-      console.log("Error", error)
-      throw (error)
+      throw new ErrorResponse(httpStatus.INTERNAL_SERVER_ERROR, JSON.stringify(error))
    }
 }
 
@@ -53,8 +56,7 @@ export async function updateProjectRepo({ _id, ...rest }: ProjectModel): Promise
       return updateProjectRepository;
 
    } catch (error) {
-      console.log("Error", error)
-      throw (error)
+      throw new ErrorResponse(httpStatus.INTERNAL_SERVER_ERROR, JSON.stringify(error))
    }
 }
 
@@ -70,8 +72,7 @@ export async function searchProjectRepo(body: RequestSearchProjectModel): Promis
       return { items: responseProjects, total }
 
    } catch (error) {
-      console.log("Error", error)
-      throw (error)
+      throw new ErrorResponse(httpStatus.INTERNAL_SERVER_ERROR, JSON.stringify(error))
    }
 }
 
@@ -88,13 +89,10 @@ export async function searchFeatureServiceProjectRepo(searchText: string): Promi
                },
                { $project: { _id: true, title: true, features: true } }
             ]
-
          )
-      console.log('111111111111', searchText)
       return findFeatureByHeader
    } catch (error) {
-      console.log("Error", error)
-      throw (error)
+      throw new ErrorResponse(httpStatus.INTERNAL_SERVER_ERROR, JSON.stringify(error))
    }
 }
 
