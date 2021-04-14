@@ -15,6 +15,6 @@ export default {
     DB_USER: process.env.DB_USER || "example",
 
     JWT_ENCRYPTION: process.env.JWT_ENCRYPTION || "jwt_key",
-    JWT_EXPIRATION: process.env.JWT_EXPIRATION || "1hr",
+    JWT_EXPIRATION: process.env.JWT_EXPIRATION || "1h",
     SALT_ROUNDS: process.env.SALT_ROUNDS || 10
 }

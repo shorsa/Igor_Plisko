@@ -1,21 +1,20 @@
 export class ApiEndpointsConstants {
     public static API: string = '/api';
 
-    public static EXAMPLE_FEATURE: string = '/example';
-    public static TEST: string = '/test';
-
-
-    //Auth
     public static AUTH_FEATURE: string = '/auth';
     public static AUTH_REGISTER: string = '/register';
     public static AUTH_LOGIN: string = '/login';
 
 
+    public static PROJECT_FEATURE: string = '/project';
 
+    public static PROJECT_CREATE: string = '/create';
+    public static PROJECT_DELETE: string = '/delete';
 
-    //User
-    public static DELETE_USER: string = '/delete?:id';
-    public static GETTING_USER: string = '/get?:id';
+    public static PROJECT_UPDATE: string = '/update';
+    public static PROJECT_TO_RECEIVE: string = '/get';
 
-
+    public static PROJECT_SEARCH: string = '/search';
+    public static PROJECT_SEARCH_FEATURE: string = '/search_feature'
 }
+

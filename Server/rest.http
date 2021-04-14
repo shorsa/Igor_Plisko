@@ -23,11 +23,95 @@ content-type: application/json
     "password": "password" 
 }
 
-# ###
-# POST http://localhost:3000/api/auth/login
-# content-type: application/json
+###
+POST http://localhost:3000/api/project/create
+content-type: application/json
 
-# {
-#     "email": "email@mail.com",
-#     "password": "passwrrd" 
-# }
+{
+  "ownerId": "1111ccc1",
+   "title": "Test create",
+   "description": "This is a great project! I really like it!",
+   "isOpen":true,
+   "estimateMin": 1,
+   "estimateMax": 1,
+    "features": [{
+            "level": "1",
+            "title": "Feature login",
+            "description": "1",
+            "isRequired": true,
+            "estimateMin": 1,
+            "estimateMax": 1
+         },
+          {
+             "level": "1",
+             "title": "Not found",
+             "description": "1",
+             "isRequired": true,
+             "estimateMin": 1,
+             "estimateMax": 1
+          },
+         {
+            "level": "1",
+            "title": "Feature login",
+            "description": "1",
+            "isRequired": true,
+            "estimateMin": 1,
+            "estimateMax": 1
+         }
+         ]
+
+
+}
+
+###
+GET http://localhost:3000/api/project/get?id=6062f5f12deccf2f18bbe95d
+
+
+
+###
+DELETE http://localhost:3000/api/project/delete?id=6062fe85d9fcbc14dc9f7a10
+
+
+###
+PUT http://localhost:3000/api/project/update                           
+content-type: application/json
+
+{
+    "_id":"6062fea4d9fcbc14dc9f7a14",
+     "ownerId": "asdfasdasdasdasd",
+   "title": "Test",
+   "description": "This is a great project! I really like it!",
+   "isOpen":true,
+   "estimateMin": 1,
+   "estimateMax": 1,
+    "features": [{
+        "level":"1",
+"title":"1",
+"description":"1",
+"isRequired":true,
+"estimateMin":1,
+"estimateMax":1
+    }]
+}
+
+
+
+//!search 
+###
+POST http://localhost:3000/api/project/search
+content-type: application/json
+
+{
+    "page": 2,
+    "searchText": "r",
+    "pageSize" : 3
+
+
+}
+
+
+//Agreggation
+###
+GET http://localhost:3000/api/project/search_feature?search=1
+
+

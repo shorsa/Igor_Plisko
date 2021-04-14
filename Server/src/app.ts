@@ -4,15 +4,13 @@ import cors from "cors";
 import express from "express";
 import helmet from 'helmet';
 import morgan from 'morgan';
-//Constants
 import { ApiEndpointsConstants } from './config/api-endpoints.constants';
 import "./config/db";
-import { authRouter } from './features/auth/auth.routes';
 //Routes
-import { exampleRouter } from "./features/example/example.routes";
-//Helpers
 
-//! npm run start:dev
+import { authRouter } from './features/auth/auth.routes';
+import { projectRouter } from './features/project/project.routes';
+//Helpers
 class App {
     public express: express.Application;
     constructor() {
@@ -35,8 +33,9 @@ class App {
     private setRoutes(): void {
         const getUrl = (route: string): string => ApiEndpointsConstants.API + route;
 
-        this.express.use(getUrl(ApiEndpointsConstants.EXAMPLE_FEATURE), exampleRouter)
+
         this.express.use(getUrl(ApiEndpointsConstants.AUTH_FEATURE), authRouter)
+        this.express.use(getUrl(ApiEndpointsConstants.PROJECT_FEATURE), projectRouter)
     }
 
     private catchErrors(): void {
