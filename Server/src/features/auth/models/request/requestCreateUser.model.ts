@@ -1,5 +1,4 @@
 import { Gender } from "../../enums";
-
 export interface RequestCreateUserModel {
    email: string;
    password: string;

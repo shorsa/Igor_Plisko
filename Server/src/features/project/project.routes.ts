@@ -9,8 +9,6 @@ projectRouter.post(ApiEndpointsConstants.PROJECT_CREATE, projectControllers.proj
 projectRouter.delete(ApiEndpointsConstants.PROJECT_DELETE, projectControllers.deleteProject);
 projectRouter.get(ApiEndpointsConstants.PROJECT_TO_RECEIVE, projectControllers.getProject);
 projectRouter.put(ApiEndpointsConstants.PROJECT_UPDATE, projectControllers.updateProject);
-
-
 projectRouter.post(ApiEndpointsConstants.PROJECT_SEARCH, projectControllers.searchProjectHandler);
 projectRouter.get(ApiEndpointsConstants.PROJECT_SEARCH_FEATURE, projectControllers.searchFeatureHandler)
 

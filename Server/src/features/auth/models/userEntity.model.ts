@@ -1,5 +1,4 @@
 import { Gender, Role } from "../enums";
-
 export interface UserEntityModel {
   email: string;
   password: string;

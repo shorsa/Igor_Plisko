@@ -1,7 +1,5 @@
 import { FeatureModel } from "./index";
-
 export interface ProjectEntityModel {
-
    ownerId: string;
    title: string;
    description: string;
@@ -11,7 +9,6 @@ export interface ProjectEntityModel {
    estimateMin: number;
    estimateMax: number;
    features: FeatureModel[];
-
 }
 
 

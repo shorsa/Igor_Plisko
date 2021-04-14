@@ -55,9 +55,7 @@ export async function updateProjectRepo({ _id, ...rest }: ProjectModel): Promise
    } catch (error) {
       console.log("Error", error)
       throw (error)
-
    }
-
 }
 
 export async function searchProjectRepo(body: RequestSearchProjectModel): Promise<ResponseSearchProjectsModel | null> {
@@ -75,7 +73,6 @@ export async function searchProjectRepo(body: RequestSearchProjectModel): Promis
       console.log("Error", error)
       throw (error)
    }
-
 }
 
 export async function searchFeatureServiceProjectRepo(searchText: string): Promise<ResponseSearchFeatureProjectModel[]> {
@@ -98,9 +95,7 @@ export async function searchFeatureServiceProjectRepo(searchText: string): Promi
    } catch (error) {
       console.log("Error", error)
       throw (error)
-
    }
-
 }
 
 
