@@ -14,7 +14,7 @@ import { BaseResponseModel } from "../shared/models";
 
 
 
-export async function create(body: RequestCreateProjectModel): Promise<ResponseCreteProjectModel> {
+export async function createProject(body: RequestCreateProjectModel): Promise<ResponseCreteProjectModel> {
 
    loggerHelper.debug(`Start of project creation! ${body}`);
 
@@ -28,85 +28,77 @@ export async function create(body: RequestCreateProjectModel): Promise<ResponseC
    const createProjectModel = new ProjectSchemaEntityModel(body)    //? это что бы наследовало модели которых нет
    console.log("createProject", createProjectModel);
 
-   const checkProject: number = await projectRepository.findProject(createProjectModel.title)
+   const checkProject: number = await projectRepository.findProjectByTitle(createProjectModel.title);
    if (checkProject) {
       loggerHelper.error(`This project tittle already exists ${createProjectModel.title}`);
 
-      throw new ErrorResponse(httpStatus.BAD_REQUEST, "This title already exists!")
+      throw new ErrorResponse(httpStatus.BAD_REQUEST, "This title already exists!");
    }
-   const projectCreate: ProjectModel | null = await projectRepository.create(createProjectModel)
+   const projectCreate: ProjectModel | null = await projectRepository.create(createProjectModel);
 
-   return { ok: true, ...projectCreate }
-
+   return { ok: true, ...projectCreate };
 }
 
-export async function deleteServiceProject(id: string): Promise<BaseResponseModel> {
+export async function deleteProject(id: string): Promise<BaseResponseModel> {
 
-   const deleteProject: ProjectModel | null = await projectRepository.deleteProjectRepo(id)
+   const deleteProject: ProjectModel | null = await projectRepository.deleteProjectById(id)
    if (!deleteProject) {
       loggerHelper.debug(`Has the project been deleted? ${deleteProject}`);
 
-      return { ok: false, message: "The project was not deleted" }
+      return { ok: false, message: "The project was not deleted" };
    }
-   return { ok: true }
+   return { ok: true };
 }
 
-export async function getServiceProject(id: string): Promise<ProjectModel | BaseResponseModel> {
+export async function getProject(id: string): Promise<ProjectModel | BaseResponseModel> {
 
-   const getProject: ProjectModel | null = await projectRepository.getProjectRepo(id)
+   const getProject: ProjectModel | null = await projectRepository.getProjectById(id);
 
    if (!getProject) {
       loggerHelper.debug(`Has the project been added? ${getProject}`);
 
-      return { ok: false, message: "No project added!" }
+      return { ok: false, message: "No project added!" };
    }
-   return getProject
+   return getProject;
 }
 
-export async function updateServiceProject(body: ProjectModel): Promise<BaseResponseModel> {
-   const updateProject: ProjectModel | null = await projectRepository.updateProjectRepo(body)
+export async function updateProject(body: ProjectModel): Promise<BaseResponseModel> {
+   const updateProject: ProjectModel | null = await projectRepository.updateProjectById(body)
 
    if (!updateProject) {
       loggerHelper.debug(`Has the project been updated? ${updateProject}`);
 
-      return { ok: false, message: "The project has not been updated!" }
+      return { ok: false, message: "The project has not been updated!" };
    }
-   return { ok: true, message: "The project  updated!" }
-
+   return { ok: true, message: "The project  updated!" };
 }
 
-export async function searchServiceProject(body: RequestSearchProjectModel): Promise<ResponseSearchProjectsModel | BaseResponseModel> {
+export async function searchPaginationProject(body: RequestSearchProjectModel): Promise<ResponseSearchProjectsModel | BaseResponseModel> {
 
    const reqModel: RequestSearchProjectModel | null = {
       page: body.page ?? 1,
-      pageSize: body.pageSize ? body.pageSize : 2,
-      searchText: body.searchText ? body.searchText : ""
+      pageSize: body.pageSize ?? 2,
+      searchText: body.searchText ?? ""
    }
 
-   const searchProject: ResponseSearchProjectsModel | null = await projectRepository.searchProjectRepo(reqModel)
+   const searchProject: ResponseSearchProjectsModel | null = await projectRepository.searchProject(reqModel)
    if (!searchProject) {
       loggerHelper.debug(`Has the project been paginated ? ${searchProject}`);
 
-      return { ok: false, message: "The project has not been paginated!" }
-
+      return { ok: false, message: "The project has not been paginated!" };
    }
-
-   return searchProject
-
+   return searchProject;
 }
 
-export async function searchFeatureServiceProject(searchText: string): Promise<ResponseSearchFeatureProjectModel[] | BaseResponseModel> {
+export async function searchFeatureProject(searchText: string): Promise<ResponseSearchFeatureProjectModel[] | BaseResponseModel> {
 
-   const searchFeatureProject: ResponseSearchFeatureProjectModel[] = await projectRepository.searchFeatureServiceProjectRepo(searchText)
+   const searchFeatureProject: ResponseSearchFeatureProjectModel[] = await projectRepository.searchFeatureProject(searchText)
 
    if (!searchFeatureProject) {
       loggerHelper.debug(`Has the project been aggregated ? ${searchFeatureProject}`);
 
-      return { ok: false, message: "The project has not been aggregated!" }
-
+      return { ok: false, message: "The project has not been aggregated!" };
    }
-
-   return searchFeatureProject
-
+   return searchFeatureProject;
 }
 
