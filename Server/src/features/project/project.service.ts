@@ -40,13 +40,14 @@ export async function createProject(body: RequestCreateProjectModel): Promise<Re
 
 export async function deleteProject(id: string): Promise<BaseResponseModel> {
 
-   const deleteProject: ProjectModel | null = await projectRepository.deleteProjectById(id)
-   if (!deleteProject) {
-      loggerHelper.debug(`Has the project been deleted? ${deleteProject}`);
+   const deleteProject: BaseResponseModel = await projectRepository.deleteProjectById(id)
+   // if (!deleteProject) {
+   //    loggerHelper.debug(`Has the project been deleted? ${deleteProject}`);
 
-      return { ok: false, message: "The project was not deleted" };
-   }
-   return { ok: true };
+   //    return { ok: false, message: "The project was not deleted" };
+   // }
+   console.log('!!!!!!!!!!!', deleteProject)
+   return deleteProject;
 }
 
 export async function getProject(id: string): Promise<ProjectModel | BaseResponseModel> {

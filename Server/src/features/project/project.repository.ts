@@ -1,5 +1,6 @@
 import httpStatus from "http-status";
 import { ErrorResponse } from "../shared/helper/appError.helper";
+import { BaseResponseModel } from "../shared/models";
 import ProjectSchemaEntityModel from "./entity/featureProject.entity";
 import {
    ProjectModel, RequestSearchProjectModel,
@@ -40,10 +41,14 @@ export async function findProjectByTitle(title: string): Promise<number> {
 
 }
 
-export async function deleteProjectById(id: string): Promise<ProjectModel | null> {
+export async function deleteProjectById(id: string): Promise<BaseResponseModel> {
    try {
       const deleteProjectRepository: ProjectModel | null = await ProjectSchemaEntityModel.findByIdAndDelete(id);
-      return deleteProjectRepository;
+      if (!deleteProjectRepository) {
+
+         return { ok: false };
+      }
+      return { ok: true };
    } catch (error) {
       throw new ErrorResponse(httpStatus.INTERNAL_SERVER_ERROR, JSON.stringify(error));
    }

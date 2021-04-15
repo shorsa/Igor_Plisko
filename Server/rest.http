@@ -69,7 +69,7 @@ GET http://localhost:3000/api/project/get?id=6062f5f12deccf2f18bbe95d
 
 
 ###
-DELETE http://localhost:3000/api/project/delete?id=6062fe85d9fcbc14dc9f7a10
+DELETE http://localhost:3000/api/project/delete?id=6062febf6c82de2c48c7c8dc
 
 
 ###
