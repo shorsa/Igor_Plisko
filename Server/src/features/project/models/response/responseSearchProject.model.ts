@@ -1,4 +1,6 @@
-export interface ResponseSearchProjectsModel {
+import { BaseResponseModel } from "../../../shared/models";
+
+export interface ResponseSearchProjectsModel extends BaseResponseModel {
    items: ResponseSearchProjectsItemModel[];
    total: number;
 }

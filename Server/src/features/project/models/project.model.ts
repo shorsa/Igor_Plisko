@@ -1,6 +1,4 @@
-
 import { FeatureModel } from "./feature.model";
-
 export interface ProjectModel {
    _id: string;
    ownerId: string;

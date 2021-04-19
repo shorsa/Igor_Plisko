@@ -1,8 +1,9 @@
 import { Document, model, Schema } from "mongoose";
 import { Gender, Role } from "../enums";
+import { UserModel } from "../models";
 import { UserEntityModel } from "../models/userEntity.model";
 
-const userSchema = new Schema({
+const userSchema = new Schema<UserModel>({
    email: {
       type: String,
       required: true
@@ -27,7 +28,7 @@ const userSchema = new Schema({
       type: Number,
       enum: [Gender.Female, Gender.Male],
       required: true,
-      default: Gender[Gender.Male]
+      default: Gender.Male
    },
    country: {
       type: String,
@@ -42,7 +43,7 @@ const userSchema = new Schema({
       type: Number,
       enum: [Role.User, Role.Admin],
       required: true,
-      default: Role[Role.User]
+      default: Role.User
    },
    createdAt: {
       type: Date,

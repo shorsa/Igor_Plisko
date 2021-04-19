@@ -21,4 +21,3 @@ export const projectCreateSchema = object<RequestCreateProjectModel>().shape(
 
    }
 );
-//?Array.of() создаёт новый экземпляр массива Array из произвольного числа аргументов, вне зависимости от числа или типа аргумента.

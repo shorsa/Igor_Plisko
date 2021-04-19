@@ -1,6 +1,4 @@
 import { FeatureModel } from "../feature.model";
-
-
 export interface RequestCreateProjectModel {
    ownerId: string;
    title: string;
@@ -8,6 +6,7 @@ export interface RequestCreateProjectModel {
    isOpen: boolean;
    estimateMin: number;
    estimateMax: number;
+   creationDate: string;
    features: FeatureModel[];
 };
 

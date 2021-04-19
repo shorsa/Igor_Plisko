@@ -1,11 +1,8 @@
 import { Document, model, Schema } from "mongoose";
-import { ProjectEntityModel } from "../models";
-// import { ProjectEntityModel } from "";
+import { FeatureModel, ProjectEntityModel, ProjectModel } from "../models";
 
 
-
-
-const featureSchema = new Schema({
+const featureSchema = new Schema<FeatureModel>({
    level: {
       type: String,
       required: true
@@ -32,7 +29,7 @@ const featureSchema = new Schema({
    }
 })
 
-const projectSchema = new Schema({
+const projectSchema = new Schema<ProjectModel>({
    ownerId: {
       type: String,
       required: true

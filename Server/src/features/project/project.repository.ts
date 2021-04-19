@@ -1,6 +1,9 @@
+import httpStatus from "http-status";
+import { ErrorResponse } from "../shared/helper/appError.helper";
+import { BaseResponseModel } from "../shared/models";
 import ProjectSchemaEntityModel from "./entity/featureProject.entity";
 import {
-   ProjectModel, RequestSearchProjectModel,
+   ProjectModel, RequestCreateProjectModel, RequestSearchProjectModel,
    ResponseSearchFeatureProjectModel, ResponseSearchProjectsItemModel,
    ResponseSearchProjectsModel
 } from "./models";
@@ -10,42 +13,56 @@ import {
 export async function create(req: ProjectModel): Promise<ProjectModel> {
    try {
       const projectCreated: ProjectModel = await ProjectSchemaEntityModel.create(req);
-      return projectCreated
+      return projectCreated;
    } catch (error) {
-      console.log("Error", error)
-      throw (error)
+      throw new ErrorResponse(httpStatus.INTERNAL_SERVER_ERROR, JSON.stringify(error));
    }
-
 };
 
-export async function findProject(title: string): Promise<number> {
-   const foundProject: number = await ProjectSchemaEntityModel.countDocuments({ title: title });
-   return foundProject;
+// export async function create(req: RequestCreateProjectModel): Promise<ResponseCreteProjectModel | null> {                          //! RequestCreateProjectModel): Promise<ResponseCreteProjectModel> 
+//    try {
+//       const projectCreated: ResponseCreteProjectModel | null = await ProjectSchemaEntityModel.create(req);
+//       return { ok: true };
+//    } catch (error) {
+//       throw new ErrorResponse(httpStatus.INTERNAL_SERVER_ERROR, JSON.stringify(error));
+//    }
+// };
+
+export async function findProjectByTitle(title: string): Promise<number> {
+   try {
+      const foundProject: number = await ProjectSchemaEntityModel.countDocuments({ title: title });
+      return foundProject;
+   } catch (error) {
+      throw new ErrorResponse(httpStatus.INTERNAL_SERVER_ERROR, JSON.stringify(error));
+   }
+
 }
 
-export async function deleteProjectRepo(id: string): Promise<ProjectModel | null> {
+export async function deleteProjectById(id: string): Promise<BaseResponseModel> {
    try {
       const deleteProjectRepository: ProjectModel | null = await ProjectSchemaEntityModel.findByIdAndDelete(id);
-      return deleteProjectRepository;
+      if (!deleteProjectRepository) {
+
+         return { ok: false };
+      }
+      return { ok: true };
    } catch (error) {
-      console.log("Error", error)
-      throw (error)
+      throw new ErrorResponse(httpStatus.INTERNAL_SERVER_ERROR, JSON.stringify(error));
    }
 
 };
 
-export async function getProjectRepo(id: string): Promise<ProjectModel | null> {
+export async function getProjectById(id: string): Promise<ProjectModel | null> {
    try {
       const getProject: ProjectModel | null = await ProjectSchemaEntityModel.findOne({ _id: id });
       return getProject;
 
    } catch (error) {
-      console.log("Error", error)
-      throw (error)
+      throw new ErrorResponse(httpStatus.INTERNAL_SERVER_ERROR, JSON.stringify(error));
    }
 }
 
-export async function updateProjectRepo({ _id, ...rest }: ProjectModel): Promise<ProjectModel | null> {
+export async function updateProjectById({ _id, ...rest }: ProjectModel): Promise<ProjectModel | null> {
    try {
       console.log(rest);
 
@@ -53,32 +70,27 @@ export async function updateProjectRepo({ _id, ...rest }: ProjectModel): Promise
       return updateProjectRepository;
 
    } catch (error) {
-      console.log("Error", error)
-      throw (error)
-
+      throw new ErrorResponse(httpStatus.INTERNAL_SERVER_ERROR, JSON.stringify(error));
    }
-
 }
 
-export async function searchProjectRepo(body: RequestSearchProjectModel): Promise<ResponseSearchProjectsModel | null> {
+export async function searchProject(body: RequestSearchProjectModel): Promise<ResponseSearchProjectsModel | null> {
    try {
       let page: number = body.page;
       const pageSize: number = body.pageSize;
-      const total: number = await ProjectSchemaEntityModel.countDocuments({})
+      const total: number = await ProjectSchemaEntityModel.countDocuments({});
       const skip: number = pageSize * (page - 1);
-      const responseProjects: ResponseSearchProjectsItemModel[] = await ProjectSchemaEntityModel         //?
+      const responseProjects: ResponseSearchProjectsItemModel[] = await ProjectSchemaEntityModel
          .find({ title: { $regex: "^" + body.searchText, $options: "i" }, }, { features: false }, { skip: skip, limit: body.pageSize });         //? $regex: "^" + body.searchText посмотреть дополнительно 
 
-      return { items: responseProjects, total }
+      return { ok: true, items: responseProjects, total };
 
    } catch (error) {
-      console.log("Error", error)
-      throw (error)
+      throw new ErrorResponse(httpStatus.INTERNAL_SERVER_ERROR, JSON.stringify(error));
    }
-
 }
 
-export async function searchFeatureServiceProjectRepo(searchText: string): Promise<ResponseSearchFeatureProjectModel[]> {
+export async function searchFeatureProject(searchText: string): Promise<ResponseSearchFeatureProjectModel[]> {
    try {
       const findFeatureByHeader: ResponseSearchFeatureProjectModel[] = await ProjectSchemaEntityModel
          .aggregate(
@@ -91,16 +103,11 @@ export async function searchFeatureServiceProjectRepo(searchText: string): Promi
                },
                { $project: { _id: true, title: true, features: true } }
             ]
-
          )
-      console.log('111111111111', searchText)
-      return findFeatureByHeader
+      return findFeatureByHeader;
    } catch (error) {
-      console.log("Error", error)
-      throw (error)
-
+      throw new ErrorResponse(httpStatus.INTERNAL_SERVER_ERROR, JSON.stringify(error));
    }
-
 }
 
 

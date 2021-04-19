@@ -13,19 +13,26 @@ import {
 import { userLoginSchema, userRegisterSchema } from "./validation";
 import UserSchemaEntityModel from "./entities/user.entity";
 
+function generatedToken(foundedUser: UserModel): string {
+   const generatedToken = jwt.sign({
+      email: foundedUser.email,
+      userId: foundedUser._id
+   }, CONFIG.JWT_ENCRYPTION, { expiresIn: CONFIG.JWT_EXPIRATION })
+   return generatedToken
+}
 
 export async function register(body: RequestCreateUserModel): Promise<ResponseUserRegisterModel> {
 
    loggerHelper.debug(`User started registration ${body.email}`);
 
    const isValid: boolean = await userRegisterSchema.isValid(body);
-   console.log("isValid", isValid);
+
    if (!isValid) {
       loggerHelper.error(`User registration invalid ${body.email}`);
       throw new ErrorResponse(httpStatus.BAD_REQUEST, "Error, please write correctly")
    }
 
-   const emailExist: number = await authRepository.findByEmailCount(body.email)
+   const emailExist: number = await authRepository.findCountByEmailRegister(body.email)
    if (emailExist) {
       loggerHelper.error(`This email already exists ${body.email}`);
       throw new ErrorResponse(httpStatus.BAD_REQUEST, "This email already exists!")
@@ -34,12 +41,15 @@ export async function register(body: RequestCreateUserModel): Promise<ResponseUs
    const hashPassword: string = await bcrypt.hash(body.password, CONFIG.SALT_ROUNDS)
    body.password = hashPassword;
 
+
    loggerHelper.error(`Password was not hashed, ${JSON.stringify(body)}`);
 
    const user = new UserSchemaEntityModel(body);
+   console.log(user);
+
 
    const userCreated: UserModel = await authRepository.create(user)
-   console.log("userCreated", userCreated)
+
    return { ok: true, _id: userCreated._id }
 }
 
@@ -54,22 +64,18 @@ export async function login(body: RequestLoginUserModel): Promise<ResponseLoginU
       throw new ErrorResponse(httpStatus.BAD_REQUEST, "This email does not exist");
    }
 
-   const foundedUser: UserModel | null = await authRepository.findUser(body.email);
+   const foundedUser: UserModel | null = await authRepository.findUserByEmailLogin(body.email);
    if (!foundedUser) {
       loggerHelper.error("User not found", body.email);
-      throw new ErrorResponse(httpStatus.NOT_FOUND, "This email does not exist");
+      throw new ErrorResponse(httpStatus.BAD_REQUEST, "This email does not exist");
    };
 
    const checkPassword: boolean = await bcrypt.compare(body.password, foundedUser.password);
    if (!checkPassword) {
       loggerHelper.error(`This password is not correct ${JSON.stringify(body)}`);
-      throw new ErrorResponse(httpStatus.NOT_FOUND, "This password is not correct");
+      throw new ErrorResponse(httpStatus.BAD_REQUEST, "This password is not correct");
    }
-
-   const token: string = jwt.sign({
-      email: foundedUser.email,
-      userId: foundedUser._id
-   }, CONFIG.JWT_ENCRYPTION, { expiresIn: CONFIG.JWT_EXPIRATION });
+   const token: string = generatedToken(foundedUser);
 
    loggerHelper.debug("User is login", foundedUser.email);
 
