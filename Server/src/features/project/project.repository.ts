@@ -3,7 +3,7 @@ import { ErrorResponse } from "../shared/helper/appError.helper";
 import { BaseResponseModel } from "../shared/models";
 import ProjectSchemaEntityModel from "./entity/featureProject.entity";
 import {
-   ProjectModel, RequestSearchProjectModel,
+   ProjectModel, RequestCreateProjectModel, RequestSearchProjectModel,
    ResponseSearchFeatureProjectModel, ResponseSearchProjectsItemModel,
    ResponseSearchProjectsModel
 } from "./models";
@@ -19,7 +19,6 @@ export async function create(req: ProjectModel): Promise<ProjectModel> {
    }
 };
 
-
 // export async function create(req: RequestCreateProjectModel): Promise<ResponseCreteProjectModel | null> {                          //! RequestCreateProjectModel): Promise<ResponseCreteProjectModel> 
 //    try {
 //       const projectCreated: ResponseCreteProjectModel | null = await ProjectSchemaEntityModel.create(req);
@@ -28,8 +27,6 @@ export async function create(req: ProjectModel): Promise<ProjectModel> {
 //       throw new ErrorResponse(httpStatus.INTERNAL_SERVER_ERROR, JSON.stringify(error));
 //    }
 // };
-
-
 
 export async function findProjectByTitle(title: string): Promise<number> {
    try {

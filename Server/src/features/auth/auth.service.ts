@@ -41,11 +41,15 @@ export async function register(body: RequestCreateUserModel): Promise<ResponseUs
    const hashPassword: string = await bcrypt.hash(body.password, CONFIG.SALT_ROUNDS)
    body.password = hashPassword;
 
+
    loggerHelper.error(`Password was not hashed, ${JSON.stringify(body)}`);
 
    const user = new UserSchemaEntityModel(body);
+   console.log(user);
+
 
    const userCreated: UserModel = await authRepository.create(user)
+
    return { ok: true, _id: userCreated._id }
 }
 

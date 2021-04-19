@@ -28,7 +28,7 @@ const userSchema = new Schema<UserModel>({
       type: Number,
       enum: [Gender.Female, Gender.Male],
       required: true,
-      default: Gender[Gender.Male]
+      default: Gender.Male
    },
    country: {
       type: String,
@@ -43,7 +43,7 @@ const userSchema = new Schema<UserModel>({
       type: Number,
       enum: [Role.User, Role.Admin],
       required: true,
-      default: Role[Role.User]
+      default: Role.User
    },
    createdAt: {
       type: Date,

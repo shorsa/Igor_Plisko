@@ -2,7 +2,8 @@ import {
    ProjectModel,
    RequestCreateProjectModel, ResponseCreteProjectModel,
    RequestSearchProjectModel, ResponseSearchProjectsModel,
-   ResponseSearchFeatureProjectModel
+   ResponseSearchFeatureProjectModel,
+
 } from "./models";
 import { loggerHelper } from "../shared/helper/logger.helper";
 import { projectCreateSchema } from "./validation/projectCreate.schema";
@@ -15,7 +16,6 @@ import { BaseResponseModel } from "../shared/models";
 
 
 export async function createProject(body: RequestCreateProjectModel): Promise<ResponseCreteProjectModel> {
-
    loggerHelper.debug(`Start of project creation! ${body}`);
 
    const isValid: boolean = await projectCreateSchema.isValid(body);
@@ -24,7 +24,7 @@ export async function createProject(body: RequestCreateProjectModel): Promise<Re
       loggerHelper.error(`Is the project valid? ${isValid}`);
    }
 
-   const createProjectModel = new ProjectSchemaEntityModel(body)    //? это что бы наследовало модели которых нет
+   const createProjectModel: ProjectModel = new ProjectSchemaEntityModel(body)
    console.log("createProject", createProjectModel);
 
    const checkProject: number = await projectRepository.findProjectByTitle(createProjectModel.title);
@@ -33,20 +33,15 @@ export async function createProject(body: RequestCreateProjectModel): Promise<Re
 
       throw new ErrorResponse(httpStatus.BAD_REQUEST, "This title already exists!");
    }
-   const projectCreate: ProjectModel | null = await projectRepository.create(createProjectModel);
+   const projectCreate: ProjectModel = await projectRepository.create(createProjectModel);
 
-   return { ok: true, ...projectCreate };
+   return { ok: true, _id: projectCreate._id };
 }
 
 export async function deleteProject(id: string): Promise<BaseResponseModel> {
 
    const deleteProject: BaseResponseModel = await projectRepository.deleteProjectById(id)
-   // if (!deleteProject) {
-   //    loggerHelper.debug(`Has the project been deleted? ${deleteProject}`);
 
-   //    return { ok: false, message: "The project was not deleted" };
-   // }
-   console.log('!!!!!!!!!!!', deleteProject)
    return deleteProject;
 }
 

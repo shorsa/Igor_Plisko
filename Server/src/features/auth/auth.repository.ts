@@ -11,6 +11,7 @@ export async function findCountByEmailRegister(requestEmail: string): Promise<nu
     } catch (error) {
         throw new ErrorResponse(httpStatus.INTERNAL_SERVER_ERROR, JSON.stringify(error))
     }
+
 }
 
 export async function create(user: UserModel): Promise<UserModel> {
