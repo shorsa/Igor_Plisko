@@ -11,8 +11,5 @@ export * from "./featureEntity.model"
 //Project
 export * from "./project.model"
 export * from "./projectEntity.model"
-//Entity
-export * from "../entity/featureProject.entity"
-
 
 

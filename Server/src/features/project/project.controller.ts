@@ -35,7 +35,7 @@ export function updateProject(req: Request, res: Response) {
 
 
 export function searchProjectHandler(req: Request, res: Response) {
-   projectService.searchPaginationProject(req.body)
+   projectService.searchProject(req.body)
       .then((result) => {
          res.send(result)
       })

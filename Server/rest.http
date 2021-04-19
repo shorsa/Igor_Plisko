@@ -78,7 +78,7 @@ content-type: application/json
 
 {
     "_id":"6062fea4d9fffcbc14dc9f7a14",
-     "ownerId": "asdfasdaffsdasdasd",
+     "ownerId": "a",
    "title": "Test",
    "description": "This is a great project! I really like it!",
    "isOpen":true,
@@ -102,9 +102,9 @@ POST http://localhost:3000/api/project/search
 content-type: application/json
 
 {
-    "page": 2,
-    "searchText": "r",
-    "pageSize" : 3
+    "page": 1,
+    "searchText": "",
+    "pageSize" : 6
 
 
 }

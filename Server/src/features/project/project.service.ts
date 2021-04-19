@@ -19,13 +19,13 @@ export async function createProject(body: RequestCreateProjectModel): Promise<Re
    loggerHelper.debug(`Start of project creation! ${body}`);
 
    const isValid: boolean = await projectCreateSchema.isValid(body);
-   console.log("isValid", isValid);
+
    if (!isValid) {
       loggerHelper.error(`Is the project valid? ${isValid}`);
    }
 
    const createProjectModel: ProjectModel = new ProjectSchemaEntityModel(body)
-   console.log("createProject", createProjectModel);
+
 
    const checkProject: number = await projectRepository.findProjectByTitle(createProjectModel.title);
    if (checkProject) {
@@ -68,7 +68,7 @@ export async function updateProject(body: ProjectModel): Promise<BaseResponseMod
    return { ok: true, message: "The project  updated!" };
 }
 
-export async function searchPaginationProject(body: RequestSearchProjectModel): Promise<ResponseSearchProjectsModel | BaseResponseModel> {
+export async function searchProject(body: RequestSearchProjectModel): Promise<ResponseSearchProjectsModel | BaseResponseModel> {
 
    const reqModel: RequestSearchProjectModel | null = {
       page: body.page ?? 1,
