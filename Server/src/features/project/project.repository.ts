@@ -3,7 +3,7 @@ import { ErrorResponse } from "../shared/helper/appError.helper";
 import { BaseResponseModel } from "../shared/models";
 import ProjectSchemaEntityModel from "./entity/featureProject.entity";
 import {
-   ProjectModel, RequestCreateProjectModel, RequestSearchProjectModel,
+   ProjectModel, RequestSearchProjectModel,
    ResponseSearchFeatureProjectModel, ResponseSearchProjectsItemModel,
    ResponseSearchProjectsModel
 } from "./models";
