@@ -46,8 +46,6 @@
   },
   "scripts": {
     "build": "env-cmd -f .env webpack --progress",
-    "build:prod": "env-cmd -f .env.prod webpack --progress",
-    "build:test": "env-cmd -f .env.test webpack --progress",
     "ci-build": "webpack",
     "start": "env-cmd webpack serve",
     "start:prod": "http-server --proxy http://localhost:8080? ./build"

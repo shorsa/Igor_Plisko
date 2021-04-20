@@ -9,6 +9,7 @@ import { appStore } from "./app-state";
 // import "./extensions/array";
 import { history } from "./history-instance";
 import "./index.scss";
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
 render(
   <Provider store={appStore}>
@@ -18,6 +19,8 @@ render(
   </Provider>,
   document.getElementById("root")
 );
+
+serviceWorkerRegistration.register();
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

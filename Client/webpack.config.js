@@ -47,14 +47,6 @@ const COPY_FILES = [
     from: "public/favicon.ico",
     to: "favicon.ico",
   },
-  {
-    from: "public/icons",
-    to: "icons",
-  },
-  {
-    from: "public/web.config",
-    to: "web.config",
-  },
 ];
 
 const PLUGINS = [

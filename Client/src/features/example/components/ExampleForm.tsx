@@ -1,4 +1,3 @@
-import { SendOutlined } from "@ant-design/icons";
 import { Button } from "antd";
 import { Formik } from "formik";
 import { Form, Input } from "formik-antd";
@@ -16,7 +15,7 @@ interface ExamplePageProps {
   onChange: (exampleModel: ExampleModel) => void;
 }
 
-const exampleValidationSchema = Yup.object<ExampleModel>({
+const exampleValidationSchema = Yup.object({
   test: Yup.string().required()
 });
 
@@ -41,7 +40,6 @@ export function ExampleForm({ value, onChange, loading }: ExamplePageProps): JSX
           shape="round"
           htmlType="submit"
           disabled={loading}
-          icon={<SendOutlined />}
           size="large"
         >
           Submit

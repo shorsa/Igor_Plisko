@@ -1,9 +1,9 @@
 /*-------------VENDORS-------------------*/
 import axios, { AxiosResponse } from "axios";
+import { API_SERVER } from "config";
 import { defineAction } from "rd-redux-utils";
 import { push } from "react-router-redux";
 import { put, takeEvery } from "redux-saga/effects";
-import { API_SERVERS } from "../../../../config";
 /*-------------HELPERS-------------------*/
 // import { MAIN_ASSET_URL } from "../../../home";
 /*-------------MODELS-------------------*/
@@ -33,7 +33,7 @@ export function* handleExampleSaga() {
         })
       );
       const response: AxiosResponse = yield axios.post(
-        `${API_SERVERS}/api/example/test`,
+        `${API_SERVER}/api/example/test`,
         testModel
       );
 
