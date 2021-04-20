@@ -11,6 +11,7 @@ export function ExampleLayout({ children }: ExampleLayoutProps) {
     return (
         <div className="example-layout">
             <div className="form-wrapper">
+                <h2>TEST </h2>
                 {children}
             </div>
         </div>

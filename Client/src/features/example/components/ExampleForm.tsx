@@ -19,9 +19,11 @@ const exampleValidationSchema = Yup.object({
   test: Yup.string().required()
 });
 
-export function ExampleForm({ value, onChange, loading }: ExamplePageProps): JSX.Element {
+export function ExampleForm({ value, onChange, loading }: ExamplePageProps) {
 
   const handleSubmit = useCallback((exampleModel: ExampleModel) => {
+    console.log(exampleModel);
+
     onChange(exampleModel);
   }, [onChange]);
 
@@ -34,6 +36,9 @@ export function ExampleForm({ value, onChange, loading }: ExamplePageProps): JSX
       <Form>
         <Form.Item name="test" label="Test">
           <Input name="test"></Input>
+        </Form.Item>
+        <Form.Item name="asd" label="asd1">
+          <Input name="asd"></Input>
         </Form.Item>
         <Button
           type="primary"

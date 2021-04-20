@@ -127,12 +127,10 @@ const MODULE_PULES = [
 
 module.exports = {
   mode: isProduction ? "production" : "development",
-  entry: {
-    main: "./src/index.tsx",
-  },
+  entry: "./src/index.tsx",
   devtool: "source-map",
   output: {
-    filename: "[name].[contenthash].js",
+    filename: "main.[contenthash].js",
     path: path.resolve(__dirname, "./build"),
     publicPath: "/",
   },
