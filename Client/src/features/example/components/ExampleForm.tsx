@@ -37,9 +37,6 @@ export function ExampleForm({ value, onChange, loading }: ExamplePageProps) {
         <Form.Item name="test" label="Test">
           <Input name="test"></Input>
         </Form.Item>
-        <Form.Item name="asd" label="asd1">
-          <Input name="asd"></Input>
-        </Form.Item>
         <Button
           type="primary"
           shape="round"
