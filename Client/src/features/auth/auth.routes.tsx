@@ -1,6 +1,6 @@
 import React from "react";
 import { Route } from "react-router";
-import { AuthPage } from "./pages/AuthPage";
+import { AuthPage } from "./pages/SingUpPage";
 import { AUTH_PAGE_URL } from "./auth.urls";
 
 export const ExampleRoutes = [

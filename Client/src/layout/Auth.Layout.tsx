@@ -13,6 +13,7 @@ export function AuthLayout({ children }: AuthLayoutProps) {
             <h1>Testing Auth</h1>
             {children}
          </div>
-   )</div>
+      </div>
+   )
 }
 

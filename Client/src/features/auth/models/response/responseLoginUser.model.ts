@@ -1,4 +1,4 @@
-import { BaseResponseModel } from "../../../shared/models";
+import { BaseResponseModel } from "../../../../shared/models";
 
 
 export interface ResponseLoginUserModel extends BaseResponseModel {
