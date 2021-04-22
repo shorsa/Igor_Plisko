@@ -22,31 +22,29 @@
     "noFallthroughCasesInSwitch": true,
     "downlevelIteration": true,
     "moduleResolution": "node",
-    "baseUrl": "./src",
+    "baseUrl": ".",
     "paths": {
       "features/*": [
         "features/*"
       ],
-      "config": [
-        "config"
+      "config/*": [
+        "config/*"
       ],
-      "utils": [
-        "utils"
+      "shared/*": [
+        "shared/*"
       ],
-      "shared": [
-        "shared"
-      ],
-      "app-state": [
+      "app-state/*": [
         "app-state"
-      ],
-      "layout": [
-        "layout"
       ]
     },
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true
   },
   "include": [
-    "src"
+    "./src"
+  ],
+  "exclude": [
+    "node_modules",
+    "build"
   ]
 }

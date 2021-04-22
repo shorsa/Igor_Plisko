@@ -1,14 +1,28 @@
-import React from "react";            //    , { Dispatch }
+
+import React from "react";
+import { SignUpComponent } from "../components/SignUpComponent";
+import { Gender } from "../enums";
+import { RequestSingUpModel } from "../models";
 // import { useDispatch } from "react-redux";
 
-export interface SingUpContainerProps { }
+const initialValues: RequestSingUpModel = {
+   email: '',
+   password: '',
+   firstName: '',
+   lastName: '',
+   phoneNumber: '',
+   gender: Gender.Female,
+   country: "",
+   age: new Date(),
+}
 
-export function SingUpContainer({ }: SingUpContainerProps) {
-   // const dispach: React.Dispatch<Action<any> = useDispatch()
+export interface SignUpContainerProps { }
 
+export function SignUpContainer({ }: SignUpContainerProps) {
+
+   console.log(test)
    return (
-      <div></div>
+
+      <SignUpComponent value={initialValues} onChange={() => { console.log("hello") }} loading={true} />
    )
-
-
 }

@@ -134,6 +134,7 @@ module.exports = {
     path: path.resolve(__dirname, "./build"),
     publicPath: "/",
   },
+  target: 'web',
   module: {
     rules: MODULE_PULES,
   },
