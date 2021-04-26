@@ -1,5 +1,5 @@
 import React from "react";
-import { ExampleLayout as ExampleLayout } from "../../../layout/ExampleLayout";
+import { ExampleLayout } from "../../../layout/ExampleLayout";
 import { ExampleFormContainer } from "../containers/ExampleFormContainer";
 
 interface ExamplePageProps { }
@@ -7,7 +7,7 @@ interface ExamplePageProps { }
 export function ExamplePage({ }: ExamplePageProps) {
     return (
         <ExampleLayout>
-            <ExampleFormContainer></ExampleFormContainer>
+            <ExampleFormContainer />
         </ExampleLayout>
     )
 }

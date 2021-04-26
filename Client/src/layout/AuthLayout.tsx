@@ -1,5 +1,5 @@
 import React from 'react';
-import "./Auth.Layout.scss"
+import "./AuthLayout.scss"
 
 
 export interface AuthLayoutProps {

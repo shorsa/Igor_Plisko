@@ -1,11 +1,11 @@
 import React from "react";
-import { AuthLayout as AuthLayout } from "../../../layout/Auth.Layout"
+import { AuthLayout } from "../../../layout/AuthLayout"
 import { SignUpContainer } from "../containers/SignUpContainer";
-// import { } from "../containers/SignUpContainer";
 
+interface SingPageProps {
+}
 
-
-export function AuthPage({ }) {
+export function SingUpPage({ }: SingPageProps) {
    return (
       <div>
          <AuthLayout>

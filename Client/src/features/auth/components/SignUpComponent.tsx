@@ -1,5 +1,5 @@
 import { Button } from "antd";
-import { Field, Formik } from "formik";
+import { Formik } from "formik";
 import { Form, Input } from "formik-antd";
 import React, { useCallback } from 'react';
 import * as Yup from "yup";
@@ -8,7 +8,7 @@ import { RequestSingUpModel } from "../models";
 import "./SignUp.scss";
 
 
-interface SingPageProps {
+interface SignUpComponentProps {
    value: RequestSingUpModel;
    loading: boolean;
    onChange: (signUpModel: RequestSingUpModel) => void
@@ -27,7 +27,7 @@ const SingUpValidationSchema = Yup.object({                                     
 
 
 
-export function SignUpComponent({ value, onChange, loading }: SingPageProps) {
+export function SignUpComponent({ value, onChange, loading }: SignUpComponentProps) {
    const handleSubmit = useCallback((signUpModel: RequestSingUpModel) => {
       console.log(signUpModel);
 
@@ -63,13 +63,23 @@ export function SignUpComponent({ value, onChange, loading }: SingPageProps) {
                <Input name="phoneNumber" type="text"></Input>
             </Form.Item>
 
-            <label>
-               <Field type="radio" name="gender" />
-                  Human
-                   </label>
+
+            {/* <div role="group" aria-labelledby="my-radio-group">
+               <label>
+                  <Field type="radio" name="picked" value="One" />
+                  Female
+            </label>
+               <label>
+                  <Field type="radio" name="picked" value="Two" />
+                  Male
+            </label>
+            </div> */}
+
+            <Form.Item name="country" label="Country">
+               <Input name=" country" type="text"></Input>
+            </Form.Item>
+
          </Form>
-
-
 
          <Button
             type="primary"

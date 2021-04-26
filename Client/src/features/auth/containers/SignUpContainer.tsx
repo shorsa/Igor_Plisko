@@ -19,8 +19,9 @@ const initialValues: RequestSingUpModel = {
 export interface SignUpContainerProps { }
 
 export function SignUpContainer({ }: SignUpContainerProps) {
+   // const dispatch:
 
-   console.log(test)
+   // console.log(test)
    return (
 
       <SignUpComponent value={initialValues} onChange={() => { console.log("hello") }} loading={true} />
