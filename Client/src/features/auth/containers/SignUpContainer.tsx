@@ -23,7 +23,6 @@ export function SignUpContainer({ }: SignUpContainerProps) {
 
    // console.log(test)
    return (
-
       <SignUpComponent value={initialValues} onChange={() => { console.log("hello") }} loading={true} />
    )
 }

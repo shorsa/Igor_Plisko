@@ -1,10 +1,11 @@
 import { Button } from "antd";
-import { Formik } from "formik";
+import { Field, Formik } from "formik";
 import { Form, Input } from "formik-antd";
 import React, { useCallback } from 'react';
 import * as Yup from "yup";
 import { Gender } from "../enums";
 import { RequestSingUpModel } from "../models";
+import { DatePicker, Space } from 'antd';
 import "./SignUp.scss";
 
 
@@ -35,64 +36,70 @@ export function SignUpComponent({ value, onChange, loading }: SignUpComponentPro
    }, [onChange]);
 
    return (
-      <Formik
-         initialValues={value}
-         validateOnBlur
-         onSubmit={handleSubmit}
-         validationSchema={SingUpValidationSchema}
-      >
-         <Form>
-            <Form.Item name="email" label="Email">
-               <Input name="email" type='text'></Input>
-            </Form.Item>
+      <div>
+         <Formik
+            initialValues={value}
+            validateOnBlur
+            onSubmit={handleSubmit}
+            validationSchema={SingUpValidationSchema}
+         >
+            <Form>
+               <Form.Item name="email" label="Email">
+                  <Input name="email" type='text'></Input>
+               </Form.Item>
 
-            <Form.Item name="password" label="Password">
-               <Input name=" password" type='text'></Input>
-            </Form.Item>
+               <Form.Item name="password" label="Password">
+                  <Input name="password" type='text'></Input>
+               </Form.Item>
 
-            <Form.Item name="firstName" label="First Name">
-               <Input name="firstName" type="text"></Input>
-            </Form.Item>
+               <Form.Item name="firstName" label="First Name">
+                  <Input name="firstName" type="text"></Input>
+               </Form.Item>
 
-            <Form.Item name="lastName" label="Last Name">
-               <Input name="lastName" type="text"></Input>
-            </Form.Item>
-
-
-            <Form.Item name="phoneNumber" label="Phone number">
-               <Input name="phoneNumber" type="text"></Input>
-            </Form.Item>
+               <Form.Item name="lastName" label="Last Name">
+                  <Input name="lastName" type="text"></Input>
+               </Form.Item>
 
 
-            {/* <div role="group" aria-labelledby="my-radio-group">
-               <label>
-                  <Field type="radio" name="picked" value="One" />
+               <Form.Item name="phoneNumber" label="Phone number">
+                  <Input name="phoneNumber" type="text"></Input>
+               </Form.Item>
+
+               <Form.Item name="country" label="Country">
+                  <Input name="country" type="text"></Input>
+               </Form.Item>
+
+               <Space className="datePicker" direction="vertical" size={14}>
+                  <DatePicker name="age" bordered={false} />
+                  <DatePicker name="age" picker="month" bordered={false} />
+                  <DatePicker name="age" picker="year" bordered={false} />
+               </Space>
+
+               <div role="group" aria-labelledby="my-radio-group">
+                  <label>
+                     <Field type="radio" name="gender" value="Female" />
                   Female
             </label>
-               <label>
-                  <Field type="radio" name="picked" value="Two" />
+                  <label>
+                     <Field type="radio" name="gender" value="Male" />
                   Male
             </label>
-            </div> */}
+               </div>
 
-            <Form.Item name="country" label="Country">
-               <Input name=" country" type="text"></Input>
-            </Form.Item>
+               <Button
+                  type="primary"
+                  shape="round"
+                  htmlType="submit"
+                  disabled={loading}
+                  size="large"
 
-         </Form>
-
-         <Button
-            type="primary"
-            shape="round"
-            htmlType="submit"
-            disabled={loading}
-            size="large"
-         >
-            Sing Up
+               >
+                  Sing Up
         </Button>
+            </Form>
 
-      </Formik>
-
+         </Formik>
+      </div>
    )
 }
 

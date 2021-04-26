@@ -1,6 +1,6 @@
 /*-------------VENDORS-------------------*/
 import axios, { AxiosResponse } from "axios";
-import { API_SERVER } from "config";
+import { API_SERVER } from "../../../../config";
 import { defineAction } from "rd-redux-utils";
 import { push } from "react-router-redux";
 import { put, takeEvery } from "redux-saga/effects";

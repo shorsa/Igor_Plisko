@@ -7,10 +7,8 @@ interface SingPageProps {
 
 export function SingUpPage({ }: SingPageProps) {
    return (
-      <div>
-         <AuthLayout>
-            <SignUpContainer />
-         </AuthLayout>
-      </div>
+      <AuthLayout>
+         <SignUpContainer />
+      </AuthLayout>
    )
 }

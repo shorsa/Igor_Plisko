@@ -1,6 +1,6 @@
 import { connectRouter, routerMiddleware } from "connected-react-router";
-import { exampleReducer } from "features/example/store/reducer";
-import { exampleSaga } from "features/example/store/saga";
+import { exampleReducer } from "./features/example/store/reducer";
+import { exampleSaga } from "./features/example/store/saga";
 import { applyMiddleware, combineReducers, compose, createStore } from "redux";
 import createSagaMiddleware from "redux-saga";
 import { all } from "redux-saga/effects";
