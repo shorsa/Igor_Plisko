@@ -1,11 +1,10 @@
 import { Button } from "antd";
 import { Field, Formik } from "formik";
-import { Form, Input } from "formik-antd";
+import { Form, Input, DatePicker } from "formik-antd";
 import React, { useCallback } from 'react';
 import * as Yup from "yup";
 import { Gender } from "../enums";
 import { RequestSingUpModel } from "../models";
-import { DatePicker, Space } from 'antd';
 import "./SignUp.scss";
 
 
@@ -15,13 +14,13 @@ interface SignUpComponentProps {
    onChange: (signUpModel: RequestSingUpModel) => void
 }
 
-const SingUpValidationSchema = Yup.object({                                                       //!разобраться с типизацией  ----------------------    Yup.object().shape({ 
+const SingUpValidationSchema = Yup.object({
    email: Yup.string().required().email('Please Enter your Email'),
    password: Yup.string().required('Please Enter your password').min(4),
    firstName: Yup.string().required('Please Enter your first name'),
    lastName: Yup.string().required('Please Enter your last name'),
    phoneNumber: Yup.string().required('Please Enter a phone number').min(9).max(15),
-   gender: Yup.mixed().oneOf(Object.values(Gender) as Gender[]).required('Choose your gender'),
+   gender: Yup.number().required('Choose your gender'),
    country: Yup.string().required('Please Enter your country'),
    age: Yup.date().required('Please Enter your age')
 });
@@ -29,6 +28,11 @@ const SingUpValidationSchema = Yup.object({                                     
 
 
 export function SignUpComponent({ value, onChange, loading }: SignUpComponentProps) {
+   console.log(value)
+
+
+
+
    const handleSubmit = useCallback((signUpModel: RequestSingUpModel) => {
       console.log(signUpModel);
 
@@ -69,30 +73,27 @@ export function SignUpComponent({ value, onChange, loading }: SignUpComponentPro
                   <Input name="country" type="text"></Input>
                </Form.Item>
 
-               <Space className="datePicker" direction="vertical" size={14}>
-                  <DatePicker name="age" bordered={false} />
-                  <DatePicker name="age" picker="month" bordered={false} />
-                  <DatePicker name="age" picker="year" bordered={false} />
-               </Space>
+               <DatePicker name="age" bordered={false} />
 
-               <div role="group" aria-labelledby="my-radio-group">
-                  <label>
-                     <Field type="radio" name="gender" value="Female" />
-                  Female
-            </label>
-                  <label>
-                     <Field type="radio" name="gender" value="Male" />
-                  Male
-            </label>
-               </div>
 
+               <Form.Item name="gender" label="Country">
+                  <div role="group" aria-labelledby="my-radio-group">
+                     <label>
+                        <Field type="radio" name="gender" value={Gender.Female} />
+                     Female
+                  </label>
+                     <label>
+                        <Field type="radio" name="gender" value={Gender.Male} />
+                    Male
+                  </label>
+                  </div>
+               </Form.Item>
                <Button
                   type="primary"
                   shape="round"
                   htmlType="submit"
                   disabled={loading}
                   size="large"
-
                >
                   Sing Up
         </Button>
@@ -104,7 +105,7 @@ export function SignUpComponent({ value, onChange, loading }: SignUpComponentPro
 }
 
   //?validateOnBlur  валидируемься когда  переходим на другое поле
- //!  {({  handleChange, handelBlur, isValid, handleSubmit}
+
 
 
 
