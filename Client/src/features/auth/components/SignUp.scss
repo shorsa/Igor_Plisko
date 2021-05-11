@@ -1,4 +1,32 @@
+@import "../../../assets/scss/utils/scss-variables";
+@import "../../../assets/scss/utils/mixines";
+
 .datePicker {
    display: flex;
    align-items: stretch;
+}
+
+.sign-up-wrapper {
+   & > h1 {
+      color: $violet;
+   }
+
+   & > form {
+      @include flex-row-content-align(flex-start);
+      background: $gradient-red-orange;
+      border-radius: $border-radius;
+      flex-wrap: wrap;
+
+      & > .ant-row {
+         background: black;
+
+         &.ant-form-item-has-error {
+            background: red;
+         }
+      }
+
+      .ant-form-item-control-input {
+         min-height: 50px;
+      }
+   }
 }

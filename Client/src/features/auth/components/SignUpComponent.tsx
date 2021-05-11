@@ -3,7 +3,7 @@ import { Field, Formik } from "formik";
 import { Form, Input, DatePicker } from "formik-antd";
 import React, { useCallback } from 'react';
 import * as Yup from "yup";
-import { Gender } from "../enums";
+// import { Gender } from "../enums";
 import { RequestSingUpModel } from "../models";
 import "./SignUp.scss";
 
@@ -40,7 +40,8 @@ export function SignUpComponent({ value, onChange, loading }: SignUpComponentPro
    }, [onChange]);
 
    return (
-      <div>
+      <div className="sign-up-wrapper">
+         <h1>Test</h1>
          <Formik
             initialValues={value}
             validateOnBlur
@@ -79,11 +80,11 @@ export function SignUpComponent({ value, onChange, loading }: SignUpComponentPro
                <Form.Item name="gender" label="Country">
                   <div role="group" aria-labelledby="my-radio-group">
                      <label>
-                        <Field type="radio" name="gender" value={Gender.Female} />
-                     Female
-                  </label>
+                        <Field type="radio" name="gender" value={1} />
+                        Female
+                     </label>
                      <label>
-                        <Field type="radio" name="gender" value={Gender.Male} />
+                        <Field type="radio" name="gender" value={0} />
                     Male
                   </label>
                   </div>

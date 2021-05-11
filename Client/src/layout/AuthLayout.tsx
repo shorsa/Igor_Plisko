@@ -8,11 +8,11 @@ export interface AuthLayoutProps {
 
 export function AuthLayout({ children }: AuthLayoutProps) {
    return (
-      <div>
-         <div className="auth-layout">
-            <h1>Testing Auth</h1>
-            {children}
-         </div>
+
+      <div className="auth-layout">
+         <h1>Testing Auth</h1>
+         {children}
+
       </div>
    )
 }
