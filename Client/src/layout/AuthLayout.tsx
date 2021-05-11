@@ -10,8 +10,28 @@ export function AuthLayout({ children }: AuthLayoutProps) {
    return (
 
       <div className="auth-layout">
-         <h1>Testing Auth</h1>
-         {children}
+
+         <div className="Content">
+            {children}
+         </div>
+
+
+         <div>
+            <h1>Static</h1>
+         </div>
+
+
+         <div>
+            <h1>Foter</h1>
+         </div>
+
+
+
+
+
+
+
+
 
       </div>
    )

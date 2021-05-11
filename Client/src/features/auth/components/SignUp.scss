@@ -12,13 +12,17 @@
    }
 
    & > form {
-      @include flex-row-content-align(flex-start);
-      background: $gradient-red-orange;
+      // @include flex-row-content-align(flex-start);
+      width: 960px;
+      // background: $gradient-rainbow;
+
       border-radius: $border-radius;
       flex-wrap: wrap;
 
       & > .ant-row {
-         background: black;
+         // background: $gradient-red-orange;
+         width: 410px;
+         justify-content: center;
 
          &.ant-form-item-has-error {
             background: red;

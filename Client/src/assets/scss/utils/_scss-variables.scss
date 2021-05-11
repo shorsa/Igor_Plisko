@@ -2,5 +2,8 @@ $violet: #5755ff;
 
 $border-radius: 10px;
 
+//gradient
 $gradient-red-orange: linear-gradient(180deg, #ff2850 0%, #ff8b37 100%);
-$gradient-lightgreen-to-darkgreen: (180deg, #16be32 0%, #01fc98 100%); ;
+$gradient-rainbow: linear-gradient(217deg, rgba(255, 0, 0, 0.8), rgba(255, 0, 0, 0) 70.71%),
+   linear-gradient(127deg, rgba(0, 255, 0, 0.8), rgba(0, 255, 0, 0) 70.71%),
+   linear-gradient(336deg, rgba(0, 0, 255, 0.8), rgba(0, 0, 255, 0) 70.71%);
