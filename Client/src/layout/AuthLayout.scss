@@ -1,24 +1,24 @@
 @import "../assets/scss/utils/mixines";
 @import "../assets/scss/utils/scss-variables";
 
-$footer-height: 80px;
+$footer-height: 94px;
 
 .auth-layout-wrapper {
    @include flex-column-align(initial);
+   overflow-y: hidden; //?
 
    & > .container {
       display: flex;
       height: calc(100vh - #{$footer-height});
 
       & > .content {
+         background: $gradient-black-and-white;
          // border: 1px solid #12fd11;
-         border-radius: 10px;
-         width: 960px;
+         width: 50%;
       }
 
       & > .static-layout {
          // border: 1px solid green;
-         border-radius: 10px;
          width: 960px;
          position: relative;
          background: $gradient-static-layout;
@@ -26,16 +26,28 @@ $footer-height: 80px;
          & > .round-elements {
             position: absolute;
             left: 0%;
-            right: 0%;
-            top: 0%;
-            bottom: 0%;
+            right: -1%;
+            top: 3%;
+            bottom: -11%;
+            z-index: 3;
+            box-shadow: 4px 4px 4px rgb(196, 125, 176);
          }
          & > .main-screen-graph {
             position: absolute;
-            width: 602px;
-            height: 441px;
-            left: 178px;
+            width: 691px;
+            height: 534px;
+            left: 87px;
             top: 244px;
+            z-index: 3;
+            animation: rotate 1s infinite;
+            @keyframes rotate {
+               from {
+                  transform: rotateX(0deg);
+               }
+               to {
+                  transform: rotateX(360deg);
+               }
+            }
          }
 
          & > .dotted-background {
@@ -44,6 +56,7 @@ $footer-height: 80px;
             height: 214px;
             left: 0px;
             top: 148px;
+            z-index: 1;
          }
          & > .dotted-background_two {
             position: absolute;
@@ -51,13 +64,15 @@ $footer-height: 80px;
             height: 214px;
             left: 567px;
             top: 480px;
+            z-index: 1;
          }
          & > .txt-layout {
             position: absolute;
             width: 447px;
-            /* height: 192px; */
-            left: 311px;
-            top: 613px;
+            // height: 192px;
+            left: 263px;
+            top: 720px;
+            z-index: 3;
 
             & > h4 {
                height: 18px;
@@ -69,13 +84,16 @@ $footer-height: 80px;
                font-size: 24px;
                line-height: 40px;
                text-align: center;
+               text-shadow: 2px 2px 4px black; //?
             }
             & > h3 {
+               padding-top: 4%;
                font-family: Encode Sans;
                font-size: 16px;
                line-height: 24px;
                text-align: center;
                color: #758391;
+               // white-space: pre-line;
             }
          }
       }

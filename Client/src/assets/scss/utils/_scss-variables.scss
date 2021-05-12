@@ -6,7 +6,4 @@ $border-radius: 10px;
 $gradient-static-layout: linear-gradient(38.31deg, #f8f9ff 0%, #f5f5ff 49.25%, #ffffff 100%);
 
 //------------------------------------------------------------------------------
-$gradient-red-orange: linear-gradient(180deg, #ff2850 0%, #ff8b37 100%);
-$gradient-rainbow: linear-gradient(217deg, rgba(255, 0, 0, 0.8), rgba(255, 0, 0, 0) 70.71%),
-   linear-gradient(127deg, rgba(0, 255, 0, 0.8), rgba(0, 255, 0, 0) 70.71%),
-   linear-gradient(336deg, rgba(0, 0, 255, 0.8), rgba(0, 0, 255, 0) 70.71%);
+$gradient-black-and-white: linear-gradient(to left, #333, #333 50%, #eee 75%, #333 75%);

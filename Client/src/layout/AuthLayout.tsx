@@ -29,7 +29,8 @@ export function AuthLayout({ children }: AuthLayoutProps) {
                <div className='txt-layout'>
                   <h4>Coreg Wdget Platform</h4>
                   <h2>What if you could save $100 (or more)  on your SEO services today?</h2>
-                  <h3>Discover The Growth Opportunities Your Website Is Missing</h3>
+                  <h3>Discover The Growth Opportunities
+                      Your Website Is Missing</h3>
 
                </div>
 

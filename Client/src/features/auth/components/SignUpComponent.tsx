@@ -41,7 +41,7 @@ export function SignUpComponent({ value, onChange, loading }: SignUpComponentPro
 
    return (
       <div className="sign-up-wrapper">
-         <h1>Test</h1>
+         <h1>Sign Up</h1>
          <Formik
             initialValues={value}
             validateOnBlur
