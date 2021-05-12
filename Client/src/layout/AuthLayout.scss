@@ -1,0 +1,89 @@
+@import "../assets/scss/utils/mixines";
+@import "../assets/scss/utils/scss-variables";
+
+$footer-height: 80px;
+
+.auth-layout-wrapper {
+   @include flex-column-align(initial);
+
+   & > .container {
+      display: flex;
+      height: calc(100vh - #{$footer-height});
+
+      & > .content {
+         // border: 1px solid #12fd11;
+         border-radius: 10px;
+         width: 960px;
+      }
+
+      & > .static-layout {
+         // border: 1px solid green;
+         border-radius: 10px;
+         width: 960px;
+         position: relative;
+         background: $gradient-static-layout;
+
+         & > .round-elements {
+            position: absolute;
+            left: 0%;
+            right: 0%;
+            top: 0%;
+            bottom: 0%;
+         }
+         & > .main-screen-graph {
+            position: absolute;
+            width: 602px;
+            height: 441px;
+            left: 178px;
+            top: 244px;
+         }
+
+         & > .dotted-background {
+            position: absolute;
+            width: 426px;
+            height: 214px;
+            left: 0px;
+            top: 148px;
+         }
+         & > .dotted-background_two {
+            position: absolute;
+            width: 426px;
+            height: 214px;
+            left: 567px;
+            top: 480px;
+         }
+         & > .txt-layout {
+            position: absolute;
+            width: 447px;
+            /* height: 192px; */
+            left: 311px;
+            top: 613px;
+
+            & > h4 {
+               height: 18px;
+               text-align: center;
+               color: #5755ff;
+            }
+
+            & > h2 {
+               font-size: 24px;
+               line-height: 40px;
+               text-align: center;
+            }
+            & > h3 {
+               font-family: Encode Sans;
+               font-size: 16px;
+               line-height: 24px;
+               text-align: center;
+               color: #758391;
+            }
+         }
+      }
+   }
+
+   & > .footer {
+      border: 1px solid blue;
+      border-radius: 10px;
+      height: $footer-height;
+   }
+}
