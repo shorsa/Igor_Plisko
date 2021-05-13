@@ -11,9 +11,16 @@ $footer-height: 94px;
       height: calc(100vh - #{$footer-height});
 
       & > .content {
-         // background: $gradient-black-and-white;
          border: 1px solid #12fd11; //?
          width: 50%;
+         padding: calc(50px + 3%) calc(50px + 8%);
+         .logo {
+            letter-spacing: 4px;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #5755ff;
+            margin: 0;
+         }
       }
 
       & > .static-layout {
@@ -25,17 +32,18 @@ $footer-height: 94px;
          & > .round-elements {
             position: absolute;
             left: 0%;
-            right: -1%;
             top: 3%;
-            bottom: -11%;
             z-index: 3;
          }
          & > .main-screen-graph {
             position: absolute;
-            width: 691px;
-            height: 534px;
-            left: 87px;
-            top: 244px;
+            // width: 691px;
+            // height: 534px;
+            width: 36.5vw;
+            min-width: 400px;
+            max-width: 711px;
+            left: calc(20px + 6.3%);
+            top: 24.4%;
             z-index: 3;
             // animation: rotate 1s infinite;
             // @keyframes rotate {
@@ -47,35 +55,35 @@ $footer-height: 94px;
             //    }
             // }
          }
+         & > .dotted {
+            position: absolute;
+            z-index: 1;
+            width: 22vw;
+            min-width: 200px;
+            max-width: 600px;
 
-         & > .dotted-background {
-            position: absolute;
-            width: 426px;
-            height: 214px;
-            left: 0px;
-            top: 148px;
-            z-index: 1;
+            &.top {
+               left: 1rem;
+               top: 9rem;
+            }
+
+            &.bottom {
+               right: 1rem;
+               top: 31.7rem;
+            }
          }
-         & > .dotted-background_two {
-            position: absolute;
-            width: 426px;
-            height: 214px;
-            left: 522px;
-            top: 471px;
-            z-index: 1;
-         }
+
          & > .txt-layout {
             position: absolute;
-            width: 447px;
-            left: 263px;
-            /* top: 720px; */
-            bottom: 1%;
+            width: 49vh;
+            left: 17rem;
+            bottom: 1rem;
             z-index: 3;
 
             & > h4 {
                height: 18px;
                text-align: center;
-               color: #5755ff;
+               color: $violet;
             }
 
             & > h2 {
@@ -89,7 +97,7 @@ $footer-height: 94px;
                font-size: 16px;
                line-height: 24px;
                text-align: center;
-               color: #758391;
+               color: $grey-text;
             }
          }
       }
@@ -99,5 +107,24 @@ $footer-height: 94px;
       border: 1px solid blue;
       border-radius: 10px;
       height: $footer-height;
+
+      .nav {
+         display: block;
+         width: 660px;
+         margin: 0 auto 30px;
+         padding: 2em 0;
+      }
+
+      .nav > li {
+         border: 1px solid rgb(255, 255, 255);
+         // text-align: end;
+         // text-align: center;
+         list-style-type: none;
+         color: $grey-text;
+         font-size: 12px;
+         line-height: 16px;
+         display: inline;
+         padding-left: 3em;
+      }
    }
 }

@@ -15,17 +15,21 @@ export function AuthLayout({ children }: AuthLayoutProps) {
    return (
 
       <div className="auth-layout-wrapper">
-
          <div className="container">
+
             <div className="content">
+               <div>
+                  <h1 className="logo">сoreg widget</h1>
+               </div>
+
                {children}
             </div>
 
             <div className="static-layout">
                <img className="round-elements" src={roundElements} alt="" />
                <img className="main-screen-graph" src={mainScreenGraph} alt="" />
-               <img className="dotted-background" src={dottedBackground} alt="" />
-               <img className="dotted-background_two" src={dottedBackground} alt="" />
+               <img className="dotted top" src={dottedBackground} alt="" />
+               <img className="dotted bottom" src={dottedBackground} alt="" />
                <div className='txt-layout'>
                   <h4>Coreg Wdget Platform</h4>
                   <h2>What if you could save $100 (or more)  on your SEO services today?</h2>
@@ -39,7 +43,15 @@ export function AuthLayout({ children }: AuthLayoutProps) {
 
 
          <div className="footer">
-            <h1>Footer</h1>
+            <ul className='nav'>
+               <li>© Coreg Widget — 2021, All Rights Reserved</li>
+               <li>Privacy policy</li>
+               <li>Terms {'&'} Conditions</li>
+               <li>Contacts</li>
+            </ul>
+
+
+
          </div>
 
 

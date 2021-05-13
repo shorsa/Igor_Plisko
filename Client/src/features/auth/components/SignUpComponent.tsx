@@ -28,10 +28,7 @@ const SingUpValidationSchema = Yup.object({
 
 
 export function SignUpComponent({ value, onChange, loading }: SignUpComponentProps) {
-   console.log(value)
-
-
-
+   // console.log(value)
 
    const handleSubmit = useCallback((signUpModel: RequestSingUpModel) => {
       console.log(signUpModel);
@@ -76,19 +73,25 @@ export function SignUpComponent({ value, onChange, loading }: SignUpComponentPro
 
                <DatePicker name="age" bordered={false} />
 
+               <Field component="div" name="myRadioGroup">
+                  <input
+                     className="radio-male"
+                     type="radio"
+                     // Checked={value.----- === "one"}
+                     name="gender"
+                     value="male"
+                  />
+                  <label>Male </label>
 
-               <Form.Item name="gender" label="Country">
-                  <div role="group" aria-labelledby="my-radio-group">
-                     <label>
-                        <Field type="radio" name="gender" value={1} />
-                        Female
-                     </label>
-                     <label>
-                        <Field type="radio" name="gender" value={0} />
-                    Male
-                  </label>
-                  </div>
-               </Form.Item>
+                  <input
+                     className="radio-female"
+                     type="radio"
+                     //  Checked={value.----- === "two"}
+                     name="gender"
+                     value="female"
+                  />
+                  <label>Female </label>
+               </Field>
                <Button
                   type="primary"
                   shape="round"
@@ -110,3 +113,18 @@ export function SignUpComponent({ value, onChange, loading }: SignUpComponentPro
 
 
 
+
+
+
+//   <Form.Item name="gender" label="Country">
+//   <div role="group" aria-labelledby="my-radio-group">
+//      <label>
+//         <Field type="radio" name="gender" value={1} />
+//         Female
+//      </label>
+//      <label>
+//         <Field type="radio" name="gender" value={0} />
+//     Male
+//   </label>
+//   </div>
+// </Form.Item>
