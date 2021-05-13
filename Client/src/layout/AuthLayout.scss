@@ -5,21 +5,20 @@ $footer-height: 94px;
 
 .auth-layout-wrapper {
    @include flex-column-align(initial);
-   overflow-y: hidden; //?
 
    & > .container {
       display: flex;
       height: calc(100vh - #{$footer-height});
 
       & > .content {
-         background: $gradient-black-and-white;
-         // border: 1px solid #12fd11;
+         // background: $gradient-black-and-white;
+         border: 1px solid #12fd11; //?
          width: 50%;
       }
 
       & > .static-layout {
-         // border: 1px solid green;
-         width: 960px;
+         border: 1px solid green;
+         width: 50%;
          position: relative;
          background: $gradient-static-layout;
 
@@ -30,7 +29,6 @@ $footer-height: 94px;
             top: 3%;
             bottom: -11%;
             z-index: 3;
-            box-shadow: 4px 4px 4px rgb(196, 125, 176);
          }
          & > .main-screen-graph {
             position: absolute;
@@ -39,15 +37,15 @@ $footer-height: 94px;
             left: 87px;
             top: 244px;
             z-index: 3;
-            animation: rotate 1s infinite;
-            @keyframes rotate {
-               from {
-                  transform: rotateX(0deg);
-               }
-               to {
-                  transform: rotateX(360deg);
-               }
-            }
+            // animation: rotate 1s infinite;
+            // @keyframes rotate {
+            //    from {
+            //       transform: rotateX(0deg);
+            //    }
+            //    to {
+            //       transform: rotateX(360deg);
+            //    }
+            // }
          }
 
          & > .dotted-background {
@@ -62,16 +60,16 @@ $footer-height: 94px;
             position: absolute;
             width: 426px;
             height: 214px;
-            left: 567px;
-            top: 480px;
+            left: 522px;
+            top: 471px;
             z-index: 1;
          }
          & > .txt-layout {
             position: absolute;
             width: 447px;
-            // height: 192px;
             left: 263px;
-            top: 720px;
+            /* top: 720px; */
+            bottom: 1%;
             z-index: 3;
 
             & > h4 {
@@ -84,7 +82,6 @@ $footer-height: 94px;
                font-size: 24px;
                line-height: 40px;
                text-align: center;
-               text-shadow: 2px 2px 4px black; //?
             }
             & > h3 {
                padding-top: 4%;
@@ -93,7 +90,6 @@ $footer-height: 94px;
                line-height: 24px;
                text-align: center;
                color: #758391;
-               // white-space: pre-line;
             }
          }
       }
