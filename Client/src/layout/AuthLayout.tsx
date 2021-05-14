@@ -5,8 +5,6 @@ import mainScreenGraph from "../assets/img/auth-layout/main-screen-graph.svg"
 import dottedBackground from "../assets/img/auth-layout/dotted-background.svg"
 
 
-
-
 export interface AuthLayoutProps {
    children: React.ReactChild | React.ReactChild[]
 }

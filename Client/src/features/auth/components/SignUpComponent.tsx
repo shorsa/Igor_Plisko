@@ -1,8 +1,10 @@
 import { Button } from "antd";
 import { Field, Formik } from "formik";
-import { Form, Input, DatePicker } from "formik-antd";
+import { DatePicker, Form } from "formik-antd";
 import React, { useCallback } from 'react';
+import { Link } from "react-router-dom";
 import * as Yup from "yup";
+import { FormInput } from "../../../shared/components/formInput";
 // import { Gender } from "../enums";
 import { RequestSingUpModel } from "../models";
 import "./SignUp.scss";
@@ -11,7 +13,8 @@ import "./SignUp.scss";
 interface SignUpComponentProps {
    value: RequestSingUpModel;
    loading: boolean;
-   onChange: (signUpModel: RequestSingUpModel) => void
+   onChange: (signUpModel: RequestSingUpModel) => void;
+
 }
 
 const SingUpValidationSchema = Yup.object({
@@ -38,7 +41,11 @@ export function SignUpComponent({ value, onChange, loading }: SignUpComponentPro
 
    return (
       <div className="sign-up-wrapper">
+
          <h1>Sign Up</h1>
+         <span>Already have an account?</span>
+         <Link className="link-sing-in" to={'#'}>Sing in here</Link>
+
          <Formik
             initialValues={value}
             validateOnBlur
@@ -46,36 +53,17 @@ export function SignUpComponent({ value, onChange, loading }: SignUpComponentPro
             validationSchema={SingUpValidationSchema}
          >
             <Form>
-               <Form.Item name="email" label="Email">
-                  <Input name="email" type='text'></Input>
-               </Form.Item>
-
-               <Form.Item name="password" label="Password">
-                  <Input name="password" type='text'></Input>
-               </Form.Item>
-
-               <Form.Item name="firstName" label="First Name">
-                  <Input name="firstName" type="text"></Input>
-               </Form.Item>
-
-               <Form.Item name="lastName" label="Last Name">
-                  <Input name="lastName" type="text"></Input>
-               </Form.Item>
-
-
-               <Form.Item name="phoneNumber" label="Phone number">
-                  <Input name="phoneNumber" type="text"></Input>
-               </Form.Item>
-
-               <Form.Item name="country" label="Country">
-                  <Input name="country" type="text"></Input>
-               </Form.Item>
+               <FormInput name="email" label="Email" />
+               <FormInput name="password" label="Password" />
+               <FormInput name="firstName" label="FirstName" />
+               <FormInput name="lastName" label="LastName" />
+               <FormInput name="phoneNumber" label="PhoneNumber" />
+               <FormInput name="country" label="Country" />
 
                <DatePicker name="age" bordered={false} />
 
-               <Field component="div" name="myRadioGroup">
+               <Field className="radio-button" component="div" name="myRadioGroup">
                   <input
-                     className="radio-male"
                      type="radio"
                      // Checked={value.----- === "one"}
                      name="gender"
@@ -84,7 +72,6 @@ export function SignUpComponent({ value, onChange, loading }: SignUpComponentPro
                   <label>Male </label>
 
                   <input
-                     className="radio-female"
                      type="radio"
                      //  Checked={value.----- === "two"}
                      name="gender"

@@ -12,26 +12,51 @@
    & > h1 {
       color: $violet;
    }
+   & > span {
+      color: $grey-text;
+      margin-right: 1%;
+      font-size: 15px;
+      font-weight: 400;
+   }
+   & > .link-sing-in {
+      color: $violet;
+      font-weight: 500;
+      font-size: 15px;
+   }
 
    & > form {
-      width: 960px;
-      // background: $gradient-rainbow;
-
+      width: 460px;
       border-radius: $border-radius;
       flex-wrap: wrap;
 
       & > .ant-row {
          width: 410px;
-
-         justify-content: center;
-
+         margin: 0 0 10px 0;
+         // form > .ant-row. ant-form-item-has-error
          &.ant-form-item-has-error {
-            background: red;
+            background: $gradient-input-error;
+            border-radius: 8px;
          }
       }
 
       .ant-form-item-control-input {
-         min-height: 50px;
+         min-height: 5px;
+      }
+      & > atn-btn {
+         background: $violet;
+      }
+      & > .radio-button {
+         margin-top: 8px;
+         margin-bottom: 12px;
       }
    }
+
+   // & > .radio-button {
+   //    margin-top: 8px;
+   //    margin-bottom: 12px;
+   // }
 }
+//  & > .date-piker {
+//       margin: 15px;
+//       padding-top: 15px;
+//    }
