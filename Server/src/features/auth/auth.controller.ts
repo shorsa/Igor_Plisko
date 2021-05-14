@@ -6,7 +6,7 @@ export function registerHandler(req: Request, res: Response) {
         .then((result) => {
             res.send(result)
         })
-        .catch((err) => res.send(err));
+        .catch((err) => res.sendStatus(400));
 }
 
 export function loginHandler(req: Request, res: Response) {
@@ -14,7 +14,7 @@ export function loginHandler(req: Request, res: Response) {
         .then((result) => {
             res.send(result)
         })
-        .catch((err) => res.send(err));
+        .catch((err) => res.send());
 }
 
 

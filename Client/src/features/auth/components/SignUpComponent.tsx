@@ -13,7 +13,7 @@ import "./SignUp.scss";
 interface SignUpComponentProps {
    value: RequestSingUpModel;
    loading: boolean;
-   onChange: (signUpModel: RequestSingUpModel) => void;
+   onSubmit: (signUpModel: RequestSingUpModel) => void;
 
 }
 
@@ -30,14 +30,14 @@ const SingUpValidationSchema = Yup.object({
 
 
 
-export function SignUpComponent({ value, onChange, loading }: SignUpComponentProps) {
+export function SignUpComponent({ value, onSubmit, loading }: SignUpComponentProps) {
    // console.log(value)
 
    const handleSubmit = useCallback((signUpModel: RequestSingUpModel) => {
       console.log(signUpModel);
 
-      onChange(signUpModel);
-   }, [onChange]);
+      onSubmit(signUpModel);
+   }, [onSubmit]);
 
    return (
       <div className="sign-up-wrapper">

@@ -5,17 +5,20 @@ import { applyMiddleware, combineReducers, compose, createStore } from "redux";
 import createSagaMiddleware from "redux-saga";
 import { all } from "redux-saga/effects";
 import { history } from "./history-instance";
+import { authSaga } from "./features/auth/store/saga";
+import { authReducer } from "./features/auth/store/reducer";
 
 //Reducers
 const reducerMap = {
     router: connectRouter(history),
     example: exampleReducer,
+    authState: authReducer
 };
 const reducers = combineReducers(reducerMap);
 
 //Sagas
 function* appSaga() {
-    yield all([exampleSaga()]);
+    yield all([exampleSaga(), authSaga()]);
 }
 const sagaMiddleware = createSagaMiddleware();
 

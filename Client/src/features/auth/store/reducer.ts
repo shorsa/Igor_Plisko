@@ -2,8 +2,9 @@ import { Action } from "redux";
 import { authAtServerCompletedAction, authAtServerStartedAction } from "./saga/handleAuth";
 
 export interface AuthAppState {
-   status: "initial" | "running" | "success" | "error";
+   status?: "initial" | "running" | "success" | "error";
    error?: string;
+   userId?: string;
 }
 
 
@@ -16,8 +17,11 @@ export function authReducer(state: AuthAppState = { status: "initial" }, action:
       };
    }
    if (authAtServerCompletedAction.is(action)) {
+      console.log(action);
+
       return {
          ...state,
+         userId: action.userId,
          status: action.status,
          error: action.error
       };
