@@ -11,8 +11,6 @@ import { signUpAction } from "../actions";
 import { AuthAppState } from "../reducer";
 
 
-
-
 export const authAtServerStartedAction = defineAction<AuthAppState>(
    "AUTH_AT_SERVER_STARTED"
 );
@@ -22,16 +20,14 @@ export const authAtServerCompletedAction = defineAction<AuthAppState>(
 );
 
 export function* handleSignUpSaga() {
-   yield takeEvery(signUpAction.TYPE, function* (
+   yield takeEvery(signUpAction.TYPE, function* (                         //!  takeEvry производит отслеживание 
       action: typeof signUpAction.typeOf.action
    ) {
       let testModel = action.payload;
       console.log("signUpAction", testModel);
-
-
       try {
          yield put(
-            authAtServerStartedAction({})
+            authAtServerStartedAction({})                             //!yield put  Мы помешаем дату в наш  Redux  yeald put это как dispatch 
          );
          const response: AxiosResponse<ResponseSingUpModel> = yield axios.post(
             `${API_SERVER}/api/auth/register`,
@@ -45,7 +41,6 @@ export function* handleSignUpSaga() {
                userId: response.data._id
             })
          );
-
          yield put(push("/home"));
       } catch (e) {
          yield put(

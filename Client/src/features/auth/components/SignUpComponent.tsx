@@ -73,7 +73,6 @@ export function SignUpComponent({ value, onSubmit, loading }: SignUpComponentPro
 
                   <input
                      type="radio"
-                     //  Checked={value.----- === "two"}
                      name="gender"
                      value="female"
                   />
@@ -94,9 +93,6 @@ export function SignUpComponent({ value, onSubmit, loading }: SignUpComponentPro
       </div>
    )
 }
-
-  //?validateOnBlur  валидируемься когда  переходим на другое поле
-
 
 
 

@@ -14,15 +14,12 @@ export function AuthLayout({ children }: AuthLayoutProps) {
 
       <div className="auth-layout-wrapper">
          <div className="container">
-
             <div className="content">
                <div>
                   <h1 className="logo">сoreg widget</h1>
                </div>
-
                {children}
             </div>
-
             <div className="static-layout">
                <img className="round-elements" src={roundElements} alt="" />
                <img className="main-screen-graph" src={mainScreenGraph} alt="" />
@@ -33,13 +30,9 @@ export function AuthLayout({ children }: AuthLayoutProps) {
                   <h2>What if you could save $100 (or more)  on your SEO services today?</h2>
                   <h3>Discover The Growth Opportunities
                       Your Website Is Missing</h3>
-
                </div>
-
             </div>
          </div>
-
-
          <div className="footer">
             <ul className='nav'>
                <li>© Coreg Widget — 2021, All Rights Reserved</li>
@@ -47,19 +40,7 @@ export function AuthLayout({ children }: AuthLayoutProps) {
                <li>Terms {'&'} Conditions</li>
                <li>Contacts</li>
             </ul>
-
-
-
          </div>
-
-
-
-
-
-
-
-
-
       </div>
    )
 }
