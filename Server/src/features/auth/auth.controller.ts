@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { errorHandler } from "../shared/helper/appError.helper";
 import * as authService from "./auth.service";
 
 export function registerHandler(req: Request, res: Response) {
@@ -6,7 +7,9 @@ export function registerHandler(req: Request, res: Response) {
         .then((result) => {
             res.send(result)
         })
-        .catch((err) => res.sendStatus(400));
+        .catch((err) => {
+            errorHandler(err, res)
+        });
 }
 
 export function loginHandler(req: Request, res: Response) {
@@ -14,7 +17,11 @@ export function loginHandler(req: Request, res: Response) {
         .then((result) => {
             res.send(result)
         })
-        .catch((err) => res.send());
+        .catch((err) => {
+            errorHandler(err, res)
+        });
+
+
 }
 
 

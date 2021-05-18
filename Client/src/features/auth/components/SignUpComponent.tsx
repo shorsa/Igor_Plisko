@@ -4,7 +4,7 @@ import { DatePicker, Form } from "formik-antd";
 import React, { useCallback } from 'react';
 import { Link } from "react-router-dom";
 import * as Yup from "yup";
-import { FormInput } from "../../../shared/components/formInput";
+import { FormInput } from "../../../shared/components/formInput/FormInput";
 // import { Gender } from "../enums";
 import { RequestSingUpModel } from "../models";
 import "./SignUp.scss";
@@ -88,7 +88,6 @@ export function SignUpComponent({ value, onSubmit, loading }: SignUpComponentPro
                   Sing Up
         </Button>
             </Form>
-
          </Formik>
       </div>
    )

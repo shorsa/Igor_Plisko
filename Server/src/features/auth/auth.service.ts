@@ -45,7 +45,7 @@ export async function register(body: RequestCreateUserModel): Promise<ResponseUs
 
    const userCreated: UserModel = await authRepository.create(user);
 
-   return { ok: true, _id: userCreated._id }
+   return { ok: true, _id: userCreated._id, message: "User registered successfully" }
 }
 
 

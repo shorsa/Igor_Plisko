@@ -10,10 +10,12 @@ import { appStore } from "./app-state";
 import { history } from "./history-instance";
 import "./index.scss";
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
+import { Notification } from "./shared/components/notification/Notification";
 
 render(
   <Provider store={appStore}>
     <ConnectedRouter history={history}>
+      <Notification />
       <Switch>{AppRoutes}</Switch>
     </ConnectedRouter>
   </Provider>,
