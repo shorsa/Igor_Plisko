@@ -1,0 +1,15 @@
+@import "../../../assets/scss/utils/scss-variables";
+
+.wrapper {
+   position: fixed;
+   z-index: 9999;
+   top: 0;
+   right: 0;
+   left: 0;
+   bottom: 0;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+
+// ! сделать так что бы было как модальное окно что бы звдний фон затемнялся
