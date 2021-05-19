@@ -1,6 +1,6 @@
 import { BaseResponseModel } from "../../../../shared/models";
 
 
-export interface ResponseLoginUserModel extends BaseResponseModel {
+export interface ResponseSignInModel extends BaseResponseModel {
    token: string;
 }

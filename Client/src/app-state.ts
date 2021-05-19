@@ -21,7 +21,7 @@ const reducers = combineReducers(reducerMap);
 
 //Sagas
 function* appSaga() {
-    yield all([exampleSaga(), authSaga()]);
+    yield all([exampleSaga(), authSaga()]);       //!
 }
 const sagaMiddleware = createSagaMiddleware();
 

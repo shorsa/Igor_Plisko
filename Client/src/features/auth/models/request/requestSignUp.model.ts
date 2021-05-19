@@ -1,5 +1,5 @@
 import { Gender } from "../../enums";
-export interface RequestSingUpModel {
+export interface RequestSignUpModel {
    email: string;
    password: string;
    firstName: string;

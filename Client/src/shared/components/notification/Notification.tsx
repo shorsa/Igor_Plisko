@@ -3,7 +3,6 @@ import React from 'react'
 import { notification } from 'antd';
 import { useSelector } from 'react-redux';
 import { AppState } from '../../../app-state';
-
 interface NotificationProps {
 }
 
@@ -22,7 +21,6 @@ export function Notification({ }: NotificationProps) {
       showError()
    }
 
-
    const isSuccess = useSelector((state: AppState) => state.appState.status) === "success";
 
    const showSuccess = () => {
@@ -34,8 +32,6 @@ export function Notification({ }: NotificationProps) {
    if (isSuccess) {
       showSuccess()
    }
-
-
 
    return (
       <></>

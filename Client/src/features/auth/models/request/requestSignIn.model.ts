@@ -1,5 +1,4 @@
-
-export interface TestModel {
+export interface RequestSignInModel {
    email: string;
    password: string;
 }

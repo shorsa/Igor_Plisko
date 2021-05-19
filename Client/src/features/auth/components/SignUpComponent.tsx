@@ -5,19 +5,19 @@ import React, { useCallback } from 'react';
 import { Link } from "react-router-dom";
 import * as Yup from "yup";
 import { FormInput } from "../../../shared/components/formInput/FormInput";
+import { RequestSignUpModel } from "../models";
+import "./SignUpComponent.scss";
 // import { Gender } from "../enums";
-import { RequestSingUpModel } from "../models";
-import "./SignUp.scss";
 
 
 interface SignUpComponentProps {
-   value: RequestSingUpModel;
+   value: RequestSignUpModel;
    loading: boolean;
-   onSubmit: (signUpModel: RequestSingUpModel) => void;
+   onSubmit: (signUpModel: RequestSignUpModel) => void;
 
 }
 
-const SingUpValidationSchema = Yup.object({
+const SignUpValidationSchema = Yup.object({
    email: Yup.string().required().email('Please Enter your Email'),
    password: Yup.string().required('Please Enter your password').min(4),
    firstName: Yup.string().required('Please Enter your first name'),
@@ -33,7 +33,7 @@ const SingUpValidationSchema = Yup.object({
 export function SignUpComponent({ value, onSubmit, loading }: SignUpComponentProps) {
    // console.log(value)
 
-   const handleSubmit = useCallback((signUpModel: RequestSingUpModel) => {
+   const handleSubmit = useCallback((signUpModel: RequestSignUpModel) => {
       console.log(signUpModel);
 
       onSubmit(signUpModel);
@@ -50,7 +50,7 @@ export function SignUpComponent({ value, onSubmit, loading }: SignUpComponentPro
             initialValues={value}
             validateOnBlur
             onSubmit={handleSubmit}
-            validationSchema={SingUpValidationSchema}
+            validationSchema={SignUpValidationSchema}
          >
             <Form>
                <FormInput name="email" label="Email" />

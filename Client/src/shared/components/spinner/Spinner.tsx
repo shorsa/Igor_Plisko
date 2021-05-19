@@ -11,9 +11,14 @@ export function Spinner() {
 
 
    return (
-      <div className="wrapper">
-         {true ? <Spin size="large" /> : null}
-      </div>
+      <>
+         {
+            runningSpinner ?
+               <div className="wrapper">
+                  < Spin size="large" />
+               </div > : null
+         }
+      </>
 
 
    );

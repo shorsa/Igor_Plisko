@@ -1,6 +1,6 @@
 import { all } from "redux-saga/effects";
-import { handleSignUpSaga } from "./handleAuth";
+import { handleSignInSaga, handleSignUpSaga } from "./handleAuth";
 
 export function* authSaga() {
-   yield all([handleSignUpSaga()]);
+   yield all([handleSignUpSaga(), handleSignInSaga()]);
 }

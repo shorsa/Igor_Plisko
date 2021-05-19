@@ -3,6 +3,7 @@ import { authAtServerCompletedAction } from "./saga/handleAuth";
 
 export interface AuthAppState {
    userId?: string;
+   accessToken?: string;
 }
 
 
@@ -14,6 +15,8 @@ export function authReducer(state: AuthAppState = {}, action: Action): AuthAppSt
          ...state,
          userId: action.userId,
       };
+
+
    }
    return state;
 }

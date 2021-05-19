@@ -3,11 +3,11 @@ import React, { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { SignUpComponent } from "../components/SignUpComponent";
 import { Gender } from "../enums";
-import { RequestSingUpModel } from "../models";
+import { RequestSignUpModel } from "../models";
 import { signUpAction } from "../store/actions";
 // import { useDispatch } from "react-redux";
 
-const initialValues: RequestSingUpModel = {
+const initialValues: RequestSignUpModel = {
    email: '',
    password: '',
    firstName: '',
