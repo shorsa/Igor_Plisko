@@ -1,5 +1,4 @@
 import React from 'react';
-import "./ExampleLayout.scss"
 
 
 export interface ExampleLayoutProps {

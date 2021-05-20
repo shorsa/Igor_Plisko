@@ -1,5 +1,5 @@
 import { Action } from "redux";
-import { authAtServerCompletedAction } from "./saga/handleAuth";
+import { signInAtServerCompletedAction, signUpAtServerCompletedAction } from "./saga/handleAuth";
 
 export interface AuthAppState {
    userId?: string;
@@ -8,12 +8,22 @@ export interface AuthAppState {
 
 
 export function authReducer(state: AuthAppState = {}, action: Action): AuthAppState {
-   if (authAtServerCompletedAction.is(action)) {
+   if (signUpAtServerCompletedAction.is(action)) {
       console.log(action);
 
       return {
          ...state,
          userId: action.userId,
+      };
+
+
+   }
+   if (signInAtServerCompletedAction.is(action)) {
+      console.log(action);
+
+      return {
+         ...state,
+         accessToken: action.accessToken
       };
 
 

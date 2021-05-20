@@ -4,6 +4,7 @@ import axios, { AxiosResponse } from "axios";
 import { push } from "connected-react-router";
 import { defineAction } from "rd-redux-utils";
 import { put, takeEvery } from "redux-saga/effects";
+import { SIGN_IN_PAGE_URL } from "../..";
 import { appStateAction } from "../../../../app-state.reducer";
 import { API_SERVER } from "../../../../config";
 import { ResponseSignInModel, ResponseSingUpModel } from "../../models";
@@ -12,8 +13,11 @@ import { signInAction, signUpAction } from "../actions";
 import { AuthAppState } from "../reducer";
 
 
-export const authAtServerCompletedAction = defineAction<AuthAppState>(
-   "AUTH_AT_SERVER_SUCCESS"
+export const signUpAtServerCompletedAction = defineAction<AuthAppState>(
+   "SIGN_UP_AT_SERVER_SUCCESS"
+);
+export const signInAtServerCompletedAction = defineAction<AuthAppState>(
+   "SIGN_IN_AT_SERVER_SUCCESS"
 );
 
 
@@ -36,7 +40,7 @@ export function* handleSignUpSaga() {
          console.log(response);
 
          yield put(
-            authAtServerCompletedAction({
+            signUpAtServerCompletedAction({
                userId: response.data._id
             })
          );
@@ -47,10 +51,8 @@ export function* handleSignUpSaga() {
             })
          );
 
-         yield put(push("/home"));
+         yield put(push(SIGN_IN_PAGE_URL.urlTemplate));
       } catch (e) {
-         console.dir();
-
          yield put(appStateAction({
             status: "error",
             message: e.response.data.message
@@ -60,11 +62,8 @@ export function* handleSignUpSaga() {
    })
 }
 
-
-
-
 export function* handleSignInSaga() {
-   yield takeEvery(signInAction.TYPE, function* (                         //!  takeEvry производит отслеживание 
+   yield takeEvery(signInAction.TYPE, function* (
       action: typeof signInAction.typeOf.action
    ) {
       let model = action.payload;
@@ -82,9 +81,8 @@ export function* handleSignInSaga() {
          console.log(response);
 
          yield put(
-            authAtServerCompletedAction({
+            signInAtServerCompletedAction({
                accessToken: response.data.token
-
             })
          );
          yield put(
@@ -92,8 +90,7 @@ export function* handleSignInSaga() {
                status: "success"
             })
          );
-
-         yield put(push("/home"));
+         yield put(push("/"));     //! here you will need to specify the path to the future "/project"
       } catch (e) {
 
          yield put(appStateAction({
