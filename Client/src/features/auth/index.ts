@@ -1,2 +1,2 @@
 export * from "./auth.routes";
-export * from "./auth.urls"
+export * from "./auth.urls";

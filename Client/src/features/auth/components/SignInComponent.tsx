@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useState, useRef } from 'react'
 import { Button } from 'antd'
 import { FormInput } from '../../../shared/components/formInput/FormInput'
 import { Formik } from "formik";
@@ -22,13 +22,36 @@ export const SignInValidationSchema = Yup.object(
 );
 
 export function SignInComponent({ value, loading, onSubmit }: SignInComponentProps) {
+
    const handleSubmit = useCallback((signInModel: RequestSignInModel) => {
       console.log("!!!!!???", signInModel);
       onSubmit(signInModel);
    }, [onSubmit]);
 
+
+
+   //? ----------------------------------------------------------------------------
+   // const [state, setState] = useState("");
+   // let input2: React.MutableRefObject<null | HTMLInputElement> = useRef(null);
+
+   // const click = () => {
+   //    console.log(state)
+   //    console.log(input2.current?.value)
+   // }
+
+
+
    return (
       <div className="sign-up-wrapper">
+
+         {/* <div className="App" style={{ height: "300vh", margin: "98px" }}>
+            <input onChange={((event) => setState(event.target.value))} placeholder="Управляемый" />
+            <input ref={input2} placeholder="Не управляемый" />
+            <button onClick={click}> Get value </button>
+         </div>              -------------------- 32 minutes*/ }
+
+
+
          <h1>Sign In</h1>
          <Formik
             initialValues={value}
@@ -49,7 +72,7 @@ export function SignInComponent({ value, loading, onSubmit }: SignInComponentPro
                </Button>
             </Form>
          </Formik>
-      </div>
+      </div >
 
    )
 }

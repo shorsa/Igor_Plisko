@@ -1,12 +1,17 @@
 import React from 'react'
+import { MainLayout } from '../../../layout/MainLayout'
 import { ProjectContainer } from '../containers/ProjectContainer'
 
-export function ProjectPage() {
 
+interface ProjectProps { }
 
+export function ProjectPage({ }: ProjectProps) {
    return (
       <div>
-         <ProjectContainer />
+         < MainLayout>
+            <ProjectContainer />
+         </MainLayout>
+
       </div>
    )
 }

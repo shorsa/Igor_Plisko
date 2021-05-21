@@ -1,4 +1,4 @@
-// import { BaseResponseModel } from "../../../shared/models/base-response.model";
+// import { BaseResponseModel } from "../../../../shared/models";
 import { FeatureModel } from "../feature.model";
 export interface ResponseSearchFeatureProjectModel {
    _id: string;

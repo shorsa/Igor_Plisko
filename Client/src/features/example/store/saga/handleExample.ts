@@ -46,7 +46,7 @@ export function* handleExampleSaga() {
         })
       );
 
-      yield put(push("/home"));
+      yield put(push("/home-example"));
     } catch (e) {
       yield put(
         exampleAtServerCompletedAction({
