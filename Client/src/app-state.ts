@@ -7,21 +7,24 @@ import { all } from "redux-saga/effects";
 import { history } from "./history-instance";
 //--------------------------------------------------
 import { authSaga } from "./features/auth/store/saga";
+import { projectSaga } from "./features/projects/store/saga";
 import { authReducer } from "./features/auth/store/reducer";
 import { AppStateReducer } from "./app-state.reducer";
+import { projectReducer } from "./features/projects/store/reducer";
 
 //Reducers
 const reducerMap = {
     router: connectRouter(history),
     example: exampleReducer,
     authState: authReducer,
+    projectState: projectReducer,
     appState: AppStateReducer
 };
 const reducers = combineReducers(reducerMap);
 
 //Sagas
 function* appSaga() {
-    yield all([exampleSaga(), authSaga()]);       //!
+    yield all([exampleSaga(), authSaga(), projectSaga()]);
 }
 const sagaMiddleware = createSagaMiddleware();
 

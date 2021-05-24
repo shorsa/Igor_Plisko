@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useRef } from 'react'
+import React, { useCallback } from 'react'
 import { Button } from 'antd'
 import { FormInput } from '../../../shared/components/formInput/FormInput'
 import { Formik } from "formik";
@@ -30,7 +30,7 @@ export function SignInComponent({ value, loading, onSubmit }: SignInComponentPro
 
 
 
-   //? ----------------------------------------------------------------------------
+   // //? ----------------------------------------------------------------------------
    // const [state, setState] = useState("");
    // let input2: React.MutableRefObject<null | HTMLInputElement> = useRef(null);
 
@@ -44,11 +44,11 @@ export function SignInComponent({ value, loading, onSubmit }: SignInComponentPro
    return (
       <div className="sign-up-wrapper">
 
-         {/* <div className="App" style={{ height: "300vh", margin: "98px" }}>
-            <input onChange={((event) => setState(event.target.value))} placeholder="Управляемый" />
-            <input ref={input2} placeholder="Не управляемый" />
-            <button onClick={click}> Get value </button>
-         </div>              -------------------- 32 minutes*/ }
+         {/* //    <div className="App" style={{ height: "300vh", margin: "98px" }}>
+      //       <input onChange={((event) => setState(event.target.value))} placeholder="Управляемый" />
+      //       <input ref={input2} placeholder="Не управляемый" />
+      //       <button onClick={click}> Get value </button>
+        // </div> */}
 
 
 

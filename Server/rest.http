@@ -104,7 +104,7 @@ content-type: application/json
 {
     "page": 1,
     "searchText": "",
-    "pageSize" : 6
+    "pageSize" : 10
 
 
 }

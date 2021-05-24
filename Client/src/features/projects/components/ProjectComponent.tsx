@@ -1,27 +1,16 @@
-import { Table } from 'antd';
-import React from 'react'
-import { ResponseSearchProjectsItemModel } from '../models';
+import { Table, Tag } from 'antd';
+import React from 'react';
+import { ResponseSearchProjectsItemModel, ResponseSearchProjectsModel } from '../models';
 
-export function ProjectComponent() {
-   const dataSource: ResponseSearchProjectsItemModel[] = [
-      {
-         _id: "1",
-         ownerId: "1",
-         title: 'Name',
-         description: 'This is a great project! I really like it',
-         creationDate: new Date(),
-         editDate: new Date(),
-         isOpen: true,
-         estimateMin: 8,
-         estimateMax: 30,
-      },
-      // {
-      //    key: '2',
-      //    name: 'John',
-      //    age: 42,
-      //    address: '10 Downing Street',
-      // },
-   ];
+
+export interface ProjectComponentProps {
+   projectsData?: ResponseSearchProjectsModel
+
+}
+
+
+export function ProjectComponent({ projectsData }: ProjectComponentProps) {
+   console.log(projectsData)
 
    const columns = [
       {
@@ -31,15 +20,15 @@ export function ProjectComponent() {
          render: (_w: any, row: ResponseSearchProjectsItemModel) => <span>{row.isOpen}</span>
       },
       {
-         title: ' Description',
+         title: 'Description',
          dataIndex: 'description',
-         key: '   description',
+         key: 'description',
       },
       {
          title: 'Creation Date',
          dataIndex: 'creationDate',
          key: 'creationDate',
-         render: (_w: any, row: ResponseSearchProjectsItemModel) => <span>{row.creationDate.toISOString()
+         render: (_w: any, row: ResponseSearchProjectsItemModel) => <span>{row.creationDate.toLocaleString()
          }</span>
       },
       {
@@ -56,6 +45,17 @@ export function ProjectComponent() {
          title: 'Is open',
          dataIndex: 'isOpen',
          key: 'isOpen',
+         render: (isOpen: boolean, row: any) => (
+            <>
+               {isOpen ?
+                  <Tag key={row._id}>    //!задать цвет 
+                  Open
+                </Tag> : <Tag key={row._id}>
+                     Close
+                </Tag>
+               }
+            </>
+         ),
       },
       {
          title: 'Estimate Min-Max ',
@@ -67,6 +67,6 @@ export function ProjectComponent() {
    ];
 
    return (
-      <Table dataSource={dataSource} columns={columns} />
+      <Table dataSource={projectsData?.items} columns={columns} />
    )
 }
