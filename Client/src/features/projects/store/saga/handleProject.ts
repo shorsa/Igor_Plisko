@@ -42,7 +42,7 @@ export function* handleGetProjectSaga() {
          );
          yield put(
             appStateAction({
-               status: "success"
+               status: "initial"
             })
          );
 

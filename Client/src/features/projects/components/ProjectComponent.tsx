@@ -1,11 +1,11 @@
-import { Table, Tag } from 'antd';
+//? import {  } from '@ant-design/icons';
+import { Table, Tag, Typography } from 'antd';
 import React from 'react';
 import { ResponseSearchProjectsItemModel, ResponseSearchProjectsModel } from '../models';
 
 
 export interface ProjectComponentProps {
    projectsData?: ResponseSearchProjectsModel
-
 }
 
 
@@ -23,23 +23,28 @@ export function ProjectComponent({ projectsData }: ProjectComponentProps) {
          title: 'Description',
          dataIndex: 'description',
          key: 'description',
+         width: '30%',
+         render: (text: any) => <Typography.Text copyable>{text}</Typography.Text>
       },
       {
          title: 'Creation Date',
          dataIndex: 'creationDate',
          key: 'creationDate',
          render: (_w: any, row: ResponseSearchProjectsItemModel) => <span>{row.creationDate.toLocaleString()
-         }</span>
+         }</span>,
+         sorter: (a: any, b: any) => a.fleeRate - b.fleeRate,
       },
       {
          title: 'Title',
          dataIndex: 'title',
          key: 'title',
+         window: '10%',
       },
       {
          title: ' Edit Date',
          dataIndex: 'editDate',
          key: 'editDate',
+         sorter: (a: any, b: any) => a.fleeRate - b.fleeRate,
       },
       {
          title: 'Is open',
@@ -48,8 +53,8 @@ export function ProjectComponent({ projectsData }: ProjectComponentProps) {
          render: (isOpen: boolean, row: any) => (
             <>
                {isOpen ?
-                  <Tag key={row._id}>    //!задать цвет 
-                  Open
+                  <Tag key={row._id}>
+                     Open
                 </Tag> : <Tag key={row._id}>
                      Close
                 </Tag>
@@ -67,6 +72,15 @@ export function ProjectComponent({ projectsData }: ProjectComponentProps) {
    ];
 
    return (
-      <Table dataSource={projectsData?.items} columns={columns} />
+      <div>
+         <Table dataSource={projectsData?.items} columns={columns} pagination={{ pageSizeOptions: ["2", "4", "6", "8", "10"], total: projectsData?.total, pageSize: 2, showSizeChanger: true }}
+            onChange={(pagination: any, filters: any, sorter: any) => {
+               console.log("pagination", pagination);
+               console.log("filters", filters);
+               console.log("sorter", sorter);
+
+            }} />
+
+      </div>
    )
 }

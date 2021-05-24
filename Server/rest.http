@@ -4,7 +4,7 @@ POST http://localhost:3000/api/auth/register
 content-type: application/json
 
 {
-    "email": "email@mailf123.com",
+    "email": "emtaitl@mailf123.com",
     "password": "password",
     "firstName": "firstName",
     "lastName": "lastName",
@@ -29,8 +29,8 @@ content-type: application/json
 
 {
   "ownerId": "1111ccc1",
-   "title": "Test creffffffffffffffffate",
-   "description": "This is a great project! I really like it!",
+   "title": "Pidr!!!",
+   "description": "!!!!!!!",
    "isOpen":true,
    "estimateMin": 1,
    "estimateMax": 1,
@@ -102,9 +102,9 @@ POST http://localhost:3000/api/project/search
 content-type: application/json
 
 {
-    "page": 1,
+    "page": 3,
     "searchText": "",
-    "pageSize" : 10
+    "pageSize" : 40
 
 
 }

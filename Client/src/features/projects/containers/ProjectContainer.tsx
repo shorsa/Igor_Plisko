@@ -1,4 +1,5 @@
 
+import { Row, Col } from 'antd'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../../../app-state';
@@ -14,7 +15,7 @@ export function ProjectContainer() {
    useEffect(() => {
       const model: RequestSearchProjectModel = {
          page: 1,
-         pageSize: 10,
+         pageSize: 2,
          searchText: ""
       };
       dispatch(getAllProjectsDataAction({ payload: model }))
@@ -27,7 +28,13 @@ export function ProjectContainer() {
 
 
    return (
-      <ProjectComponent projectsData={projectsData} />
+      <>
+         <Row>
+            <Col xs={24} md={{ span: 14, offset: 6 }} >
+               <ProjectComponent projectsData={projectsData} />
+            </Col>
+         </Row>
+      </>
    )
 }
 
