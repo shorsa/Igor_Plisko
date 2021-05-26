@@ -91,7 +91,7 @@ export async function searchFeatureProject(searchText: string): Promise<Response
                { $project: { _id: true, title: true, features: true } }
             ]
          )
-      console.log(findFeatureByHeader);
+
 
       return findFeatureByHeader;
    } catch (error) {

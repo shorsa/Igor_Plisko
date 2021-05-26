@@ -9,7 +9,7 @@ export interface AuthAppState {
 
 export function authReducer(state: AuthAppState = {}, action: Action): AuthAppState {
    if (signUpAtServerCompletedAction.is(action)) {
-      console.log(action);
+
 
       return {
          ...state,
@@ -19,7 +19,7 @@ export function authReducer(state: AuthAppState = {}, action: Action): AuthAppSt
 
    }
    if (signInAtServerCompletedAction.is(action)) {
-      console.log(action);
+
 
       return {
          ...state,

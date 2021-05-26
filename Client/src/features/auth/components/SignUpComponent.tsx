@@ -35,7 +35,6 @@ export function SignUpComponent({ value, onSubmit, loading }: SignUpComponentPro
 
    const handleSubmit = useCallback((signUpModel: RequestSignUpModel) => {
       console.log(signUpModel);
-
       onSubmit(signUpModel);
    }, [onSubmit]);
 

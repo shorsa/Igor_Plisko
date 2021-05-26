@@ -26,7 +26,7 @@ export function* handleSignUpSaga() {
       action: typeof signUpAction.typeOf.action
    ) {
       let testModel = action.payload;
-      console.log("signUpAction", testModel);
+
       try {
          yield put(
             appStateAction({
@@ -37,7 +37,7 @@ export function* handleSignUpSaga() {
             `${API_SERVER}/api/auth/register`,
             testModel
          );
-         console.log(response);
+
 
          yield put(
             signUpAtServerCompletedAction({

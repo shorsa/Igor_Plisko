@@ -1,7 +1,9 @@
 //? import {  } from '@ant-design/icons';
 import { Table, Tag, Typography } from 'antd';
 import React from 'react';
+// import { useDispatch } from 'react-redux';
 import { ResponseSearchProjectsItemModel, ResponseSearchProjectsModel } from '../models';
+// import { usePagination } from './HookPagination';
 
 
 export interface ProjectComponentProps {
@@ -10,7 +12,30 @@ export interface ProjectComponentProps {
 }
 
 
+
+
+
+
+
+
 export function ProjectComponent({ projectsData, rows = 10 }: ProjectComponentProps) {
+
+   console.log('!!!!!!!!!!!!!!!!!!!!!', projectsData)
+   // const dispatch = useDispatch();
+
+   // const isFetching = useIsFetchingPublisher();
+   // const [
+
+   //    currentPage,
+   //    setCurrentPage,
+   //    pageSize
+   // ] = usePagination(publishers);
+
+   // useEffect(() => {
+   //    dispatch(getAllPublishersAsync());
+   // }, []);
+
+
 
    const columns = [
       {
@@ -72,11 +97,40 @@ export function ProjectComponent({ projectsData, rows = 10 }: ProjectComponentPr
    ];
 
    return (
-      <div>
+
+      // <>
+      //    <PageHeader
+      //       title="Publisher"
+      //       subTitle="Manage all publishers"
+      //       extra={[
+      //          <Pagination
+
+      //             key={"pagination"}
+      //             current={currentPage}
+      //             onChange={setCurrentPage}
+      //             pageSize={pageSize}
+      //             total={publishers.length}
+      //             size="small"
+      //          />
+      //       ]}
+      //    />
+
+      //    <Table
+      //       dataSource={projectsData?.items}
+      //       columns={columns}
+      //       rowKey="id"
+      //       size="small"
+      //       bordered
+      //       pagination={false}
+      //       tableLayout="fixed"
+      //       loading={isFetching}
+      //    />
+
+      <>
 
          <Table
             rowKey={obj => obj._id}
-            dataSource={projectsData?.items}
+            dataSource={projectsData}
             columns={columns}
             pagination={{
                pageSize: rows,
@@ -93,6 +147,9 @@ export function ProjectComponent({ projectsData, rows = 10 }: ProjectComponentPr
                console.log("sorter", sorter);
             }}
          />
-      </div>
+
+      </>
    )
 }
+
+

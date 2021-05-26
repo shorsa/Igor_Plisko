@@ -7,7 +7,7 @@ import "./Spinner.scss";
 
 export function Spinner() {
    const runningSpinner = useSelector((state: AppState) => state.appState.status) === "running";
-   console.log(runningSpinner);
+
 
 
    return (

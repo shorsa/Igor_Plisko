@@ -25,7 +25,7 @@ export function SignInContainer({ }: SignInContainerProps) {
 
    return (
       < SignInComponent value={initialValues} onSubmit={handleSubmit} loading={false} />
-      // <SignInComponent value={initialValues} onChange={(value) => { console.log(value) }} loading={false} />
+
    )
 }
 

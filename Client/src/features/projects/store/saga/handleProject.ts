@@ -33,7 +33,7 @@ export function* handleGetProjectSaga() {
             `${API_SERVER}/api/project/search`,
             testModel
          );
-         console.log(response);
+         // console.log(response);
 
          yield put(searchProjectsServerCompletedAction({
             projects: response.data

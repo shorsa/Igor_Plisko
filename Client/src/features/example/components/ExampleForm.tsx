@@ -22,7 +22,7 @@ const exampleValidationSchema = Yup.object({
 export function ExampleForm({ value, onChange, loading }: ExamplePageProps) {
 
   const handleSubmit = useCallback((exampleModel: ExampleModel) => {
-    console.log(exampleModel);
+
 
     onChange(exampleModel);
   }, [onChange]);
