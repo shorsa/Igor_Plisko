@@ -1,80 +1,54 @@
-//? import {  } from '@ant-design/icons';
+import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import { Table, Tag, Typography } from 'antd';
-import React from 'react';
-// import { useDispatch } from 'react-redux';
+import React, { useCallback } from 'react';
 import { ResponseSearchProjectsItemModel, ResponseSearchProjectsModel } from '../models';
-// import { usePagination } from './HookPagination';
 
 
 export interface ProjectComponentProps {
    projectsData?: ResponseSearchProjectsModel,
-   rows: any
+   onPaginate: () => void;
 }
 
 
-
-
-
-
-
-
-export function ProjectComponent({ projectsData, rows = 10 }: ProjectComponentProps) {
-
-   console.log('!!!!!!!!!!!!!!!!!!!!!', projectsData)
-   // const dispatch = useDispatch();
-
-   // const isFetching = useIsFetchingPublisher();
-   // const [
-
-   //    currentPage,
-   //    setCurrentPage,
-   //    pageSize
-   // ] = usePagination(publishers);
-
-   // useEffect(() => {
-   //    dispatch(getAllPublishersAsync());
-   // }, []);
-
-
+export function ProjectComponent({ projectsData, onPaginate }: ProjectComponentProps) {
+   const pageSizeOptions: string[] = ['5', '10'];
 
    const columns = [
       {
          title: 'Title',
          dataIndex: 'title',
          key: 'title',
-         render: (_w: any, row: ResponseSearchProjectsItemModel,) => <span key={row._id}>{row.isOpen}</span>
+         sorter: true,
       },
       {
          title: 'Description',
          dataIndex: 'description',
          key: 'description',
+         sorter: true,
          width: '30%',
-         render: (text: any) => <Typography.Text copyable>{text}</Typography.Text>
+         render: (text: string) => <Typography.Text copyable>{text}</Typography.Text>
       },
       {
          title: 'Creation Date',
          dataIndex: 'creationDate',
          key: 'creationDate',
-         render: (_w: any, row: ResponseSearchProjectsItemModel) => <span key={row._id}>{row.creationDate.toLocaleString()
+         sorter: true,
+         render: (_value: number, row: ResponseSearchProjectsItemModel) => <span key={row._id}>{row.creationDate.toLocaleString()
          }</span>,
-         sorter: (a: any, b: any) => a.fleeRate - b.fleeRate,
-      },
-      {
-         title: 'Title',
-         dataIndex: 'title',
-         key: 'title',
-         window: '10%',
+
       },
       {
          title: ' Edit Date',
          dataIndex: 'editDate',
          key: 'editDate',
-         sorter: (a: any, b: any) => a.fleeRate - b.fleeRate,
+         sorter: true,
+
       },
       {
          title: 'Is open',
          dataIndex: 'isOpen',
          key: 'isOpen',
+         sorter: true,
          render: (isOpen: boolean, row: any) => (
             <>
                {isOpen ?
@@ -91,53 +65,49 @@ export function ProjectComponent({ projectsData, rows = 10 }: ProjectComponentPr
          title: 'Estimate Min-Max ',
          dataIndex: 'estimateMin',
          key: 'estimateMin',
-         render: (_r: any, row: ResponseSearchProjectsItemModel) => <span key={row._id}>{row.estimateMin} - {row.estimateMax}</span>
+         render: (_value: number, row: ResponseSearchProjectsItemModel) => <span key={row._id}>{row.estimateMin} - {row.estimateMax}</span>
       },
-
+      {
+         title: 'Actions',
+         dataIndex: 'actions',
+         key: 'action',
+         render: (_value: undefined, row: ResponseSearchProjectsItemModel) => {
+            return (
+               <>
+                  <DeleteOutlined style={{ fontSize: '16px', color: 'red', paddingRight: '4px' }} onClick={() => handleDelete(row._id)} />
+                  <EditOutlined id={row._id} style={{ fontSize: '16px', color: '#08c' }} onClick={() => handleEdit(row._id)} />
+               </>
+            )
+         }
+      }
    ];
 
+   const handleDelete = (deleteProject: string) => {
+      return deleteProject
+   }
+
+   const handleEdit = (editProject: string) => {
+      console.log(editProject);
+      return editProject
+   }
+
+   onchange = useCallback(
+      (pagination: any, filters: any, sorter: any) => {
+      },
+      [],
+   )
+
    return (
-
-      // <>
-      //    <PageHeader
-      //       title="Publisher"
-      //       subTitle="Manage all publishers"
-      //       extra={[
-      //          <Pagination
-
-      //             key={"pagination"}
-      //             current={currentPage}
-      //             onChange={setCurrentPage}
-      //             pageSize={pageSize}
-      //             total={publishers.length}
-      //             size="small"
-      //          />
-      //       ]}
-      //    />
-
-      //    <Table
-      //       dataSource={projectsData?.items}
-      //       columns={columns}
-      //       rowKey="id"
-      //       size="small"
-      //       bordered
-      //       pagination={false}
-      //       tableLayout="fixed"
-      //       loading={isFetching}
-      //    />
-
-      <>
-
+      <div>
          <Table
             rowKey={obj => obj._id}
-            dataSource={projectsData}
+            dataSource={projectsData?.items}
             columns={columns}
             pagination={{
-               pageSize: rows,
+               pageSize: Number(pageSizeOptions[0]),
                total: projectsData?.total,
-               // defaultPageSize: 3,
                showSizeChanger: true,
-               pageSizeOptions: ["5", "10", "15", "20"],
+               pageSizeOptions: pageSizeOptions,
                showQuickJumper: true,
 
             }}
@@ -145,11 +115,11 @@ export function ProjectComponent({ projectsData, rows = 10 }: ProjectComponentPr
                console.log("pagination", pagination);
                console.log("filters", filters);
                console.log("sorter", sorter);
+               onPaginate(onchange)
             }}
          />
-
-      </>
+      </div>
    )
 }
 
-
+//? isOpen - I should add color
