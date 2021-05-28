@@ -6,19 +6,31 @@ import { ResponseSearchProjectsItemModel, ResponseSearchProjectsModel } from '..
 
 export interface ProjectComponentProps {
    projectsData?: ResponseSearchProjectsModel,
-   onPaginate: () => void;
+   onPaginate: (p: any, f: any, s: any) => void;
 }
 
 
+
+// export interface ProjectComponentProps {
+//    projectsData?: ResponseSearchProjectsModel,
+//    onPaginate: () => void;
+// }
+
+
+// export function ProjectComponent({ projectsData, onPaginate }: ProjectComponentProps) {     //onPaginate 
+
 export function ProjectComponent({ projectsData, onPaginate }: ProjectComponentProps) {
    const pageSizeOptions: string[] = ['5', '10'];
+   // console.log('projectsData', projectsData)
+   console.log('onPaginate', onPaginate)
 
    const columns = [
       {
          title: 'Title',
-         dataIndex: 'title',
          key: 'title',
          sorter: true,
+         dataIndex: 'title',
+
       },
       {
          title: 'Description',
@@ -33,7 +45,7 @@ export function ProjectComponent({ projectsData, onPaginate }: ProjectComponentP
          dataIndex: 'creationDate',
          key: 'creationDate',
          sorter: true,
-         render: (_value: number, row: ResponseSearchProjectsItemModel) => <span key={row._id}>{row.creationDate.toLocaleString()
+         render: (_value: number, row: ResponseSearchProjectsItemModel) => <span key={row._id}>{new Date(row.creationDate).toLocaleString()
          }</span>,
 
       },
@@ -91,11 +103,29 @@ export function ProjectComponent({ projectsData, onPaginate }: ProjectComponentP
       return editProject
    }
 
-   onchange = useCallback(
+   // const onChange = useCallback(
+   //    (pagination: any, filters: any, sorter: any) => {
+
+   //    },
+   //    [],
+   // )
+
+
+   // const onChange = useCallback(
+   //    (pagination: any, filters: any, sorter: any) => {
+   //       return onChange
+   //    },
+   //    [],
+   // )
+
+   const onChange = useCallback(
       (pagination: any, filters: any, sorter: any) => {
+         // onPaginate(pagination, filters, sorter)
+         onPaginate(pagination, filters, sorter)
+
       },
-      [],
-   )
+      [onPaginate],
+   );
 
    return (
       <div>
@@ -111,15 +141,26 @@ export function ProjectComponent({ projectsData, onPaginate }: ProjectComponentP
                showQuickJumper: true,
 
             }}
-            onChange={(pagination: any, filters: any, sorter: any) => {
-               console.log("pagination", pagination);
-               console.log("filters", filters);
-               console.log("sorter", sorter);
-               onPaginate(onchange)
-            }}
+            onChange={onChange}
          />
       </div>
    )
 }
 
 //? isOpen - I should add color
+//? isOpen - I should add color
+
+
+  // onChange={(pagination: any, filters: any, sorter: any) => {
+         //    console.log("pagination", pagination);
+
+         //    onPaginate(pagination, filters, sorter)
+         // }}
+
+
+         // onChange={(pagination: any, filters: any, sorter: any) => {
+         //    console.log("pagination", pagination);
+         //    console.log("filters", filters);
+         //    console.log("sorter", sorter);
+         //    onPaginate(onChange)
+         // }}

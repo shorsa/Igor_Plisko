@@ -20,7 +20,7 @@ export function ProjectContainer() {
       };
       dispatch(getAllProjectsDataAction({ payload: model }))
    },
-      []
+      [dispatch]
    )
 
    const onPaginate = useCallback(
@@ -33,7 +33,7 @@ export function ProjectContainer() {
          dispatch(getAllProjectsDataAction({ payload: model }))
 
       },
-      [],
+      [dispatch],
    )
 
    const projectsData = useSelector((state: AppState) => state.projectState.projects)
@@ -45,6 +45,7 @@ export function ProjectContainer() {
             <Col xs={24} md={{ span: 14, offset: 6 }} >
                <Typography.Title level={4}>Number of items per page!</Typography.Title>
                <Slider min={1} max={20} defaultValue={rows} onChange={setRows} />
+               {/* <ProjectComponent projectsData={projectsData} /> */}
                <ProjectComponent projectsData={projectsData} onPaginate={onPaginate} />
             </Col>
          </Row>
@@ -52,3 +53,4 @@ export function ProjectContainer() {
    )
 }
 
+// <ProjectComponent projectsData={projectsData} onPaginate={onPaginate} />   

@@ -22,7 +22,7 @@ export function* handleGetProjectSaga() {
       action: typeof getAllProjectsDataAction.typeOf.action
    ) {
       let testModel = action.payload;
-      console.log("getAllProjectsDataAction", testModel);
+      // console.log("getAllProjectsDataAction", testModel);
       try {
          yield put(
             appStateAction({
