@@ -4,23 +4,14 @@ import React, { useCallback } from 'react';
 import { ResponseSearchProjectsItemModel, ResponseSearchProjectsModel } from '../models';
 
 
-export interface ProjectComponentProps {
+export interface ProjectsComponentProps {
    projectsData?: ResponseSearchProjectsModel,
    onPaginate: (p: any, f: any, s: any) => void;
 }
 
 
-
-// export interface ProjectComponentProps {
-//    projectsData?: ResponseSearchProjectsModel,
-//    onPaginate: () => void;
-// }
-
-
-// export function ProjectComponent({ projectsData, onPaginate }: ProjectComponentProps) {     //onPaginate 
-
-export function ProjectComponent({ projectsData, onPaginate }: ProjectComponentProps) {
-   const pageSizeOptions: string[] = ['5', '10'];
+export function ProjectsComponent({ projectsData, onPaginate }: ProjectsComponentProps) {
+   const pageSizeOptions: string[] = ['5', '10', '15', '20'];
    // console.log('projectsData', projectsData)
    console.log('onPaginate', onPaginate)
 
@@ -103,26 +94,10 @@ export function ProjectComponent({ projectsData, onPaginate }: ProjectComponentP
       return editProject
    }
 
-   // const onChange = useCallback(
-   //    (pagination: any, filters: any, sorter: any) => {
-
-   //    },
-   //    [],
-   // )
-
-
-   // const onChange = useCallback(
-   //    (pagination: any, filters: any, sorter: any) => {
-   //       return onChange
-   //    },
-   //    [],
-   // )
 
    const onChange = useCallback(
       (pagination: any, filters: any, sorter: any) => {
-         // onPaginate(pagination, filters, sorter)
          onPaginate(pagination, filters, sorter)
-
       },
       [onPaginate],
    );
@@ -148,19 +123,3 @@ export function ProjectComponent({ projectsData, onPaginate }: ProjectComponentP
 }
 
 //? isOpen - I should add color
-//? isOpen - I should add color
-
-
-  // onChange={(pagination: any, filters: any, sorter: any) => {
-         //    console.log("pagination", pagination);
-
-         //    onPaginate(pagination, filters, sorter)
-         // }}
-
-
-         // onChange={(pagination: any, filters: any, sorter: any) => {
-         //    console.log("pagination", pagination);
-         //    console.log("filters", filters);
-         //    console.log("sorter", sorter);
-         //    onPaginate(onChange)
-         // }}

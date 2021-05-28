@@ -1,2 +1,2 @@
-export * from "./project.routes";
-export * from "./project.urls"
+export * from "./projects.routes";
+export * from "./projects.urls"

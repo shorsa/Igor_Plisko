@@ -1,16 +1,15 @@
 
-import { Row, Col, Slider, Typography } from 'antd'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../../../app-state';
-import { ProjectComponent } from '../components/ProjectComponent';
+import { ProjectsComponent } from '../components/ProjectsComponent';
 import { RequestSearchProjectModel } from '../models';
 import { getAllProjectsDataAction } from '../store/actions';
 
 
 
 
-export function ProjectContainer() {
+export function ProjectsContainer() {
    const dispatch = useDispatch();
    useEffect(() => {
       const model: RequestSearchProjectModel = {
@@ -37,20 +36,17 @@ export function ProjectContainer() {
    )
 
    const projectsData = useSelector((state: AppState) => state.projectState.projects)
-   const [rows, setRows] = useState(10)
+   // const [rows, setRows] = useState(10)
 
    return (
       <>
-         <Row>
-            <Col xs={24} md={{ span: 14, offset: 6 }} >
-               <Typography.Title level={4}>Number of items per page!</Typography.Title>
-               <Slider min={1} max={20} defaultValue={rows} onChange={setRows} />
-               {/* <ProjectComponent projectsData={projectsData} /> */}
-               <ProjectComponent projectsData={projectsData} onPaginate={onPaginate} />
-            </Col>
-         </Row>
+         {/* 
+         <Slider min={1} max={20} defaultValue={rows} onChange={setRows} /> */}
+         {/* <ProjectComponent projectsData={projectsData} /> */}
+
+         <ProjectsComponent projectsData={projectsData} onPaginate={onPaginate} />
+
       </>
    )
 }
 
-// <ProjectComponent projectsData={projectsData} onPaginate={onPaginate} />   
