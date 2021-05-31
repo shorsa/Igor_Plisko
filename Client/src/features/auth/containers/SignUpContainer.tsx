@@ -28,7 +28,7 @@ export function SignUpContainer({ }: SignUpContainerProps) {
       (value: any) => {
          dispatch(signUpAction({ payload: value }))
       },
-      [],
+      [dispatch],
    )
 
    return (

@@ -2,7 +2,6 @@
 ###
 POST http://localhost:3000/api/auth/register
 content-type: application/json
-
 {
     "email": "emtaitl@mailf123.com",
     "password": "password",
@@ -17,7 +16,6 @@ content-type: application/json
 ###
 POST http://localhost:3000/api/auth/login
 content-type: application/json
-
 {
     "email": "email@mailf123.com",
     "password": "password" 
@@ -26,7 +24,6 @@ content-type: application/json
 ###
 POST http://localhost:3000/api/project/create
 content-type: application/json
-
 {
   "ownerId": "1111ccc1",
    "title": "Pidr!!!",
@@ -59,8 +56,21 @@ content-type: application/json
             "estimateMax": 1
          }
          ]
+}
 
 
+###
+POST http://localhost:3000/api/project/create
+content-type: application/json
+
+{
+  "ownerId": "1111cccgre1",
+   "title": "Pegidr!!!",
+   "description": "!!!!!!!",
+   "isOpen":true,
+   "estimateMin": 1,
+   "estimateMax": 1,
+    "features": [ ]
 }
 
 ###

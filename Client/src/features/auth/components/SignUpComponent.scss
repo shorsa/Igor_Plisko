@@ -23,7 +23,6 @@
       font-weight: 500;
       font-size: 15px;
    }
-
    & > form {
       width: 460px;
       border-radius: $border-radius;
@@ -34,7 +33,7 @@
          margin: 0 0 10px 0;
          // form > .ant-row. ant-form-item-has-error
          &.ant-form-item-has-error {
-            background: $gradient-input-error;
+            // background: $gradient-input-error;
             border-radius: 8px;
          }
       }

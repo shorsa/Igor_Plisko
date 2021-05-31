@@ -1,0 +1,33 @@
+.input-wrapper {
+   display: block;
+   padding: 50px;
+   width: 100%;
+   margin-right: auto;
+   margin-left: auto;
+   // display: flex;
+   // flex-direction: row;
+   align-items: center;
+
+   // label {
+   //    float: left;
+   //    padding-right: 10px;
+   // }
+
+   .form-item {
+      display: flex;
+      & > :first-child {
+         width: 1%;
+      }
+   }
+
+   input[type="text"] {
+      width: 210px;
+      text-align: center;
+      padding: 10px;
+      margin-bottom: 20px;
+      margin-left: 10%;
+      // width: 23%;
+      height: 15px;
+      border: 1px solid #e2e2e2;
+   }
+}
