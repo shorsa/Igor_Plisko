@@ -1,10 +1,12 @@
 import React from 'react'
+// import { useDispatch } from 'react-redux';
 import { CreateAndUpdateProjectComponent } from '../components/CreateAndUpdateProjectComponent'
+import { RequestUpdateProjectModel } from '../models'
 
-import { RequestCreateProjectModel } from '../models'
 
 
-const initialValues: RequestCreateProjectModel = {
+const initialValues: RequestUpdateProjectModel = {
+   _id: '',
    title: '',
    description: '',
    isOpen: true,
@@ -14,18 +16,17 @@ const initialValues: RequestCreateProjectModel = {
 }
 
 
-export interface CreateProjectContainerProps { }
-
-export function CreateProjectContainer({ }: CreateProjectContainerProps) {
-
+export function UpdateProjectContainer() {
+   // const dispatch = useDispatch();
 
 
    return (
       <>
+         <span>this is update </span>
          <CreateAndUpdateProjectComponent value={initialValues} onSubmit={(value) => { console.log(value) }} />
 
       </>
    )
 }
 
-//   <CreateProjectComponent  value={initialValues} onChange={(value) => { console.log(value) }}  />
+

@@ -5,14 +5,18 @@ import { put, takeEvery } from "redux-saga/effects";
 import { appStateAction } from "../../../../app-state.reducer";
 import { API_SERVER } from "../../../../config";
 import { ResponseSearchProjectsModel } from "../../models";
-import { getAllProjectsDataAction } from "../actions";
+import { getAllProjectsDataAction, updateProjectDataAction } from "../actions";
 import { ProjectAppState } from "../reducer";
 /*-------------REDUCERS-------------------*/
 
 
 
 export const searchProjectsServerCompletedAction = defineAction<ProjectAppState>(
-   "PROJECT_GET_AT_SERVER_SUCCESS"
+   "GET_PROJECT_AT_SERVER_SUCCESS"
+);
+
+export const updateProjectsServerCompletedAction = defineAction<ProjectAppState>(
+   'UPDATE_PROJECT_AT_SERVER_SUCCESS'
 );
 
 
@@ -55,4 +59,45 @@ export function* handleGetProjectSaga() {
       }
    })
 }
+
+export function* handleUpdateProjectSaga() {
+   yield takeEvery(updateProjectDataAction.TYPE, function* (
+      action: typeof updateProjectDataAction.typeOf.action
+   ) {
+      let testModel = action.payload;
+      // console.log("updateProjectDataAction", testModel);
+      try {
+         yield put(
+            appStateAction({
+               status: "running"
+            })
+         );
+         const response: AxiosResponse<ResponseSearchProjectsModel> = yield axios.post(
+            `${API_SERVER}/api/project/update `,
+            testModel
+         );
+         // console.log(response);
+
+         yield put(updateProjectsServerCompletedAction({
+            projects: response.data
+         })
+
+         );
+         yield put(
+            appStateAction({
+               status: "initial"
+            })
+         );
+
+      } catch (e) {
+         yield put(appStateAction({
+            status: "error",
+
+         })
+         );
+      }
+   })
+}
+
+
 

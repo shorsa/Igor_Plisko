@@ -3,11 +3,18 @@ import "./FeaturesProjectComponent.scss";
 
 
 export function FeaturesProjectComponent() {
-   const [checked, setChecked] = useState(true);
+
+   const [x, setX] = useState();
+   const handleClick = ({ target: { checked } }: any) => {
+      console.log(checked);
+      setX(checked);
+   };
+
+
 
    return (
       <>
-         <span> Array Feture</span>
+
          <div className="input-wrapper">
 
             <div className="form-item">
@@ -38,17 +45,11 @@ export function FeaturesProjectComponent() {
                <input type="text" name="estimateMax" id="estimateMax" /><br />
             </div>
 
-            {/* 
-            <input type="checkbox" name="isOpen" value="">
-               <label > Is Open</label><br /> */}
-
             <label>
-               <input type="checkbox"
-                  defaultChecked={checked}
-                  onChange={() => setChecked(!checked)}
-               />
-                 Is Open
-             </label>
+               <input type="checkbox" checked={x} onChange={handleClick} />
+               {' '}Is Required
+            </label>
+
          </div>
       </>
 

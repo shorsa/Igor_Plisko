@@ -1,6 +1,6 @@
 import { Action } from "redux";
 import { ResponseSearchProjectsModel } from "../models";
-import { searchProjectsServerCompletedAction } from "./saga/handleProject";
+import { searchProjectsServerCompletedAction, updateProjectsServerCompletedAction } from "./saga/handleProject";
 
 
 export interface ProjectAppState {
@@ -15,10 +15,16 @@ export function projectReducer(state: ProjectAppState = {}, action: Action): Pro
       return {
          ...state,
          projects: action.projects,
+      };
+   }
+
+   if (updateProjectsServerCompletedAction.is(action)) {
+      return {
+         ...state,
 
       };
 
-
    }
+
    return state;
 }

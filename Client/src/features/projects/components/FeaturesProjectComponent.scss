@@ -1,33 +1,25 @@
 .input-wrapper {
-   display: block;
-   padding: 50px;
+   padding-top: 3%;
    width: 100%;
-   margin-right: auto;
-   margin-left: auto;
-   // display: flex;
-   // flex-direction: row;
-   align-items: center;
-
-   // label {
-   //    float: left;
-   //    padding-right: 10px;
-   // }
+   // margin-right: auto;
+   // margin-left: auto;
 
    .form-item {
       display: flex;
       & > :first-child {
-         width: 1%;
+         width: 8%;
       }
    }
 
    input[type="text"] {
       width: 210px;
-      text-align: center;
       padding: 10px;
       margin-bottom: 20px;
-      margin-left: 10%;
-      // width: 23%;
       height: 15px;
       border: 1px solid #e2e2e2;
+   }
+
+   & > .checkbox-style {
+      margin-top: 30%;
    }
 }

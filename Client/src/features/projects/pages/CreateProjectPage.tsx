@@ -4,9 +4,9 @@ import { CreateProjectContainer } from '../containers/CreateProjectContainer'
 
 
 
-interface ProjectsProps { }
+interface CreateProjectsProps { }
 
-export function CreateProjectPage({ }: ProjectsProps) {
+export function CreateProjectPage({ }: CreateProjectsProps) {
    return (
       <>
          < MainLayout>

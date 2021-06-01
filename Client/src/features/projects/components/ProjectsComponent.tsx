@@ -2,7 +2,7 @@ import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import { Table, Tag, Typography } from 'antd';
 import React, { useCallback } from 'react';
 import { ResponseSearchProjectsItemModel, ResponseSearchProjectsModel } from '../models';
-
+import { useHistory } from "react-router-dom";
 
 export interface ProjectsComponentProps {
    projectsData?: ResponseSearchProjectsModel,
@@ -10,7 +10,14 @@ export interface ProjectsComponentProps {
 }
 
 
-export function ProjectsComponent({ projectsData, onPaginate }: ProjectsComponentProps) {
+export function ProjectsComponent({ projectsData, onPaginate, }: ProjectsComponentProps) {
+   const history = useHistory();
+
+   // function handleClick() {
+   //    history.push("/home/update");
+
+
+   // }
    const pageSizeOptions: string[] = ['5', '10', '15', '20'];
    // console.log('projectsData', projectsData)
    console.log('onPaginate', onPaginate)
@@ -78,7 +85,17 @@ export function ProjectsComponent({ projectsData, onPaginate }: ProjectsComponen
             return (
                <>
                   <DeleteOutlined style={{ fontSize: '16px', color: 'red', paddingRight: '4px' }} onClick={() => handleDelete(row._id)} />
-                  <EditOutlined id={row._id} style={{ fontSize: '16px', color: '#08c' }} onClick={() => handleEdit(row._id)} />
+                  {/* <EditOutlined id={row._id} style={{ fontSize: '16px', color: '#08c' }} onClick={() => history.push('/home/update', { update: true })} /> */}
+                  <EditOutlined id={row._id} style={{ fontSize: '16px', color: '#08c' }} onClick={() =>
+                     history.push({
+                        pathname: 'home/update',
+                        state: {  // location state
+                           id: row._id
+                        },
+
+                     }
+
+                     )} />
                </>
             )
          }
@@ -89,10 +106,10 @@ export function ProjectsComponent({ projectsData, onPaginate }: ProjectsComponen
       return deleteProject
    }
 
-   const handleEdit = (editProject: string) => {
-      console.log(editProject);
-      return editProject
-   }
+   // const handleEdit = (editProject: string) => {
+   //    console.log(editProject);
+   //    onClick={() => handleEdit(row._id)}
+   // }
 
 
    const onChange = useCallback(

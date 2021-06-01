@@ -10,23 +10,19 @@ export interface AuthAppState {
 export function authReducer(state: AuthAppState = {}, action: Action): AuthAppState {
    if (signUpAtServerCompletedAction.is(action)) {
 
-
       return {
          ...state,
          userId: action.userId,
       };
-
-
    }
-   if (signInAtServerCompletedAction.is(action)) {
 
+   if (signInAtServerCompletedAction.is(action)) {
 
       return {
          ...state,
          accessToken: action.accessToken
       };
-
-
    }
+
    return state;
 }

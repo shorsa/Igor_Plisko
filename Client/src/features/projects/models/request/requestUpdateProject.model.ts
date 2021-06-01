@@ -1,6 +1,6 @@
 import { FeatureModel } from "../feature.model";
-export interface RequestCreateProjectModel {
-
+export interface RequestUpdateProjectModel {
+   _id: string;
    ownerId?: string;
    title: string;
    description: string;

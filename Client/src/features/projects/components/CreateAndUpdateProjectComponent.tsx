@@ -1,19 +1,22 @@
 import React, { useCallback } from 'react'
-import { Button } from "antd";
-import { Field, Formik } from "formik";
+import { Button, Switch } from "antd";
+import { Formik } from "formik";
 import { Form } from "formik-antd";
 import { FormInput } from "../../../shared/components/formInput/FormInput";
 import { RequestCreateProjectModel } from '../models';
 import * as Yup from "yup";
 import { FeaturesProjectComponent } from './FeaturesProjectComponent';
+import "./CreateAndUpdateProjectComponent.scss";
+import { TestComponent } from './TestComponent';
 
 
 
+//?schemaOf<RequestCreateProjectModel>
 interface CreateProjectProps {
    value: RequestCreateProjectModel;
    onSubmit: (createProjectModel: RequestCreateProjectModel) => void;
 }
-//schemaOf<RequestCreateProjectModel>
+
 const CreateProjectValidationSchema = Yup.object(
    {
       title: Yup.string().required('Please Enter your Title'),
@@ -24,12 +27,16 @@ const CreateProjectValidationSchema = Yup.object(
    }
 );
 
-export function CreateProjectComponent({ value, onSubmit }: CreateProjectProps) {
-
+export function CreateAndUpdateProjectComponent({ value, onSubmit }: CreateProjectProps) {
    const createProjectHandleSubmit = useCallback((createProjectModel: RequestCreateProjectModel) => {
 
       onSubmit(createProjectModel);
    }, [onSubmit]);
+
+   function onChange(checked: any) {
+      console.log(`switch to ${checked}`);
+   }
+
 
    return (
       <>
@@ -41,24 +48,18 @@ export function CreateProjectComponent({ value, onSubmit }: CreateProjectProps) 
 
          >
             <Form>
-               <FormInput name="title" label="Title" />
-               <FormInput name="description" label="Description" />
-               <FormInput name="estimateMin" label="Estimate Min" />
-               <FormInput name="estimateMin" label="Estimate Max" />
+               <FormInput position="column" name="title" label="Title" />
+               <FormInput position="column" name="description" label="Description" />
+               <FormInput position="column" name="estimateMin" label="Estimate Min" />
+               <FormInput position="column" name="estimateMax" label="Estimate Max" />
 
-               <Field className="radio-button" component="div" name="myRadioGroup">
-                  <input
-                     type="radio"
-                     name="isOpen"
-                  // value="male"
-                  />
-                  <label> Is Open</label>
-               </Field>
-               <label>
-                  <Field type="checkbox" name="checked" value="Two" />
+
+               <Switch defaultChecked onChange={onChange} />
+               {/* <label>
+                  <Field type="checkbox" name="checked" value="Two" className="checkbox-style" />
             Is Open
             </label>
-               <br />
+               <br /> */}
 
                < FeaturesProjectComponent /><br />
 
@@ -72,6 +73,10 @@ export function CreateProjectComponent({ value, onSubmit }: CreateProjectProps) 
                </Button>
             </Form>
          </Formik>
+
+
+         <TestComponent /><br />
+
       </>
    )
 }
