@@ -20,7 +20,7 @@ export function SignInContainer({ }: SignInContainerProps) {
       (value: RequestSignInModel) => {
          dispatch(signInAction({ payload: value }))
       },
-      [],
+      [dispatch],
    )
 
    return (

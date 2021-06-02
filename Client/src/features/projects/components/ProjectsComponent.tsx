@@ -2,7 +2,8 @@ import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import { Table, Tag, Typography } from 'antd';
 import React, { useCallback } from 'react';
 import { ResponseSearchProjectsItemModel, ResponseSearchProjectsModel } from '../models';
-import { useHistory } from "react-router-dom";
+import { useHistory } from "react-router";
+import { UPDATE_PAGE_URL } from '../projects.urls';
 
 export interface ProjectsComponentProps {
    projectsData?: ResponseSearchProjectsModel,
@@ -13,11 +14,15 @@ export interface ProjectsComponentProps {
 export function ProjectsComponent({ projectsData, onPaginate, }: ProjectsComponentProps) {
    const history = useHistory();
 
-   // function handleClick() {
-   //    history.push("/home/update");
+
+   const handleEditHistory = (id: string) => {
+      history.push(UPDATE_PAGE_URL.format({
+         id: id
+      }));
+
+   }
 
 
-   // }
    const pageSizeOptions: string[] = ['5', '10', '15', '20'];
    // console.log('projectsData', projectsData)
    console.log('onPaginate', onPaginate)
@@ -28,7 +33,6 @@ export function ProjectsComponent({ projectsData, onPaginate, }: ProjectsCompone
          key: 'title',
          sorter: true,
          dataIndex: 'title',
-
       },
       {
          title: 'Description',
@@ -52,7 +56,6 @@ export function ProjectsComponent({ projectsData, onPaginate, }: ProjectsCompone
          dataIndex: 'editDate',
          key: 'editDate',
          sorter: true,
-
       },
       {
          title: 'Is open',
@@ -86,21 +89,15 @@ export function ProjectsComponent({ projectsData, onPaginate, }: ProjectsCompone
                <>
                   <DeleteOutlined style={{ fontSize: '16px', color: 'red', paddingRight: '4px' }} onClick={() => handleDelete(row._id)} />
                   {/* <EditOutlined id={row._id} style={{ fontSize: '16px', color: '#08c' }} onClick={() => history.push('/home/update', { update: true })} /> */}
-                  <EditOutlined id={row._id} style={{ fontSize: '16px', color: '#08c' }} onClick={() =>
-                     history.push({
-                        pathname: 'home/update',
-                        state: {  // location state
-                           id: row._id
-                        },
-
-                     }
-
-                     )} />
+                  <EditOutlined id={row._id} style={{ fontSize: '16px', color: '#08c' }} onClick={() => handleEditHistory(row._id)}
+                  />
                </>
             )
          }
       }
    ];
+
+
 
    const handleDelete = (deleteProject: string) => {
       return deleteProject
