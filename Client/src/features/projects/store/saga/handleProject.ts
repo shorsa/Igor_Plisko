@@ -5,10 +5,10 @@ import { put, takeEvery } from "redux-saga/effects";
 import { appStateAction } from "../../../../app-state.reducer";
 import { API_SERVER } from "../../../../config";
 import { ResponseSearchProjectsModel } from "../../models";
-import { getAllProjectsDataAction, updateProjectDataAction } from "../actions";
+import { ResponseGetOneProjectModel } from "../../models/response/responseGetOneProject.model";
+import { getAllProjectsDataAction, getOneProjectDataAction, updateProjectDataAction } from "../actions";
 import { ProjectAppState } from "../reducer";
 /*-------------REDUCERS-------------------*/
-
 
 
 export const searchProjectsServerCompletedAction = defineAction<ProjectAppState>(
@@ -19,6 +19,9 @@ export const updateProjectsServerCompletedAction = defineAction<ProjectAppState>
    'UPDATE_PROJECT_AT_SERVER_SUCCESS'
 );
 
+export const getOneProjectServerCompleted = defineAction<ProjectAppState>(
+   'GET_ONE_PROJECT_SERVER_SUCCESS'
+)
 
 
 export function* handleGetProjectSaga() {
@@ -99,5 +102,43 @@ export function* handleUpdateProjectSaga() {
    })
 }
 
+
+export function* handleGetOneProjectByIdSaga() {
+   yield takeEvery(getOneProjectDataAction.TYPE, function* (
+      action: typeof getOneProjectDataAction.typeOf.action
+   ) {
+      let id: string = action.id;
+      console.log("Get id ", id);
+      try {
+         yield put(
+            appStateAction({
+               status: "running"
+            })
+         );
+         const response: AxiosResponse<ResponseGetOneProjectModel> = yield axios.get(
+            `${API_SERVER}/api/project/get?id=${id}`
+         );
+         console.log(response);
+
+         yield put(getOneProjectServerCompleted({
+            project: response.data
+         })
+
+         );
+         yield put(
+            appStateAction({
+               status: "initial"
+            })
+         );
+
+      } catch (e) {
+         yield put(appStateAction({
+            status: "error",
+
+         })
+         );
+      }
+   })
+}
 
 

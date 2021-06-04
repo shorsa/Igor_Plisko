@@ -1,37 +1,29 @@
-import React, { useEffect } from 'react'
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from "react-router-dom";
-import { CreateAndUpdateProjectComponent } from '../components/CreateAndUpdateProjectComponent'
-import { RequestUpdateProjectModel } from '../models'
-// import { getOneProjectDataAction } from '../store/actions';
-// import { useDispatch } from 'react-redux';
+import { AppState } from 'src/app-state';
+import { CreateAndUpdateProjectComponent } from '../components/CreateAndUpdateProjectComponent';
+import { ResponseGetOneProjectModel } from '../models/response/responseGetOneProject.model';
+import { getOneProjectDataAction } from '../store/actions';
 
 
 
-const initialValues: RequestUpdateProjectModel = {
-   _id: '',
-   title: '',
-   description: '',
-   isOpen: true,
-   estimateMin: 0,
-   estimateMax: 0,
-   features: []
-}
 
-export interface UpdateProjectsComponentProps {
+export interface UpdateProjectsContainerProps {
+
 }
 
 
-export function UpdateProjectContainer({ }: UpdateProjectsComponentProps) {
-   // const dispatch = useDispatch();
-
+export function UpdateProjectContainer({ }: UpdateProjectsContainerProps) {
+   const dispatch = useDispatch();
+   const getOneProject: ResponseGetOneProjectModel | undefined = useSelector((state: AppState) => state.projectState.project);
    const { id } = useParams<{ id: string }>();
 
-   useEffect(() => {
 
-      console.log('innit Useeffect')
-      // dispatch(getOneProjectDataAction())
+   useEffect(() => {
+      dispatch(getOneProjectDataAction({ id: id }))
    },
-      []
+      [dispatch, id]
    )
 
 
@@ -41,8 +33,10 @@ export function UpdateProjectContainer({ }: UpdateProjectsComponentProps) {
       <>
          <span>this is update{id} </span>
 
-         {/* <CreateAndUpdateProjectComponent value={initialValues} onSubmit={(value) => { console.log(value) }} /> */}
-         <CreateAndUpdateProjectComponent value={initialValues} onSubmit={(value) => { console.log(value) }} />
+         {getOneProject ? <CreateAndUpdateProjectComponent value={getOneProject} onSubmit={(value) => { console.log(value) }} /> :
+            null}
+
+         {/* <CreateAndUpdateProjectComponent value={initialValues} onSubmit={(getOneProject) => { console.log("!!!!!!!!!!!", getOneProject) }} /> */}
 
       </>
    )

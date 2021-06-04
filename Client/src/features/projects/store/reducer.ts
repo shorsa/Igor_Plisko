@@ -1,10 +1,12 @@
 import { Action } from "redux";
 import { ResponseSearchProjectsModel } from "../models";
-import { searchProjectsServerCompletedAction, updateProjectsServerCompletedAction } from "./saga/handleProject";
+import { ResponseGetOneProjectModel } from "../models/response/responseGetOneProject.model";
+import { getOneProjectServerCompleted, searchProjectsServerCompletedAction, updateProjectsServerCompletedAction } from "./saga/handleProject";
 
 
 export interface ProjectAppState {
    projects?: ResponseSearchProjectsModel;
+   project?: ResponseGetOneProjectModel
 
 }
 
@@ -17,6 +19,16 @@ export function projectReducer(state: ProjectAppState = {}, action: Action): Pro
          projects: action.projects,
       };
    }
+
+   if (getOneProjectServerCompleted.is(action)) {
+
+      return {
+         ...state,
+         project: action.project
+      }
+   }
+
+
 
    if (updateProjectsServerCompletedAction.is(action)) {
       return {

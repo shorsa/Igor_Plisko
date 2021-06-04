@@ -1,6 +1,6 @@
 import { all } from "redux-saga/effects";
-import { handleGetProjectSaga } from "./handleProject";
+import { handleGetOneProjectByIdSaga, handleGetProjectSaga, handleUpdateProjectSaga } from "./handleProject";
 
 export function* projectSaga() {
-   yield all([handleGetProjectSaga()]);
+   yield all([handleGetProjectSaga(), handleUpdateProjectSaga(), handleGetOneProjectByIdSaga()]);
 }

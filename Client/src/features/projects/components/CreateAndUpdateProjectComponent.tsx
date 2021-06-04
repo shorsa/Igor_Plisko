@@ -1,20 +1,24 @@
-import React, { useCallback } from 'react'
 import { Button, Switch } from "antd";
 import { Formik } from "formik";
 import { Form } from "formik-antd";
+import React, { useCallback } from 'react';
+import * as Yup from "yup";
 import { FormInput } from "../../../shared/components/formInput/FormInput";
 import { RequestCreateProjectModel } from '../models';
-import * as Yup from "yup";
-import { FeaturesProjectComponent } from './FeaturesProjectComponent';
+import { ResponseGetOneProjectModel } from '../models/response/responseGetOneProject.model';
 import "./CreateAndUpdateProjectComponent.scss";
+import { FeaturesProjectComponent } from './FeaturesProjectComponent';
 import { TestComponent } from './TestComponent';
 
 
 
 //?schemaOf<RequestCreateProjectModel>
 interface CreateProjectProps {
-   value: RequestCreateProjectModel;
+   value: RequestCreateProjectModel | ResponseGetOneProjectModel;
    onSubmit: (createProjectModel: RequestCreateProjectModel) => void;
+
+
+
 }
 
 const CreateProjectValidationSchema = Yup.object(
@@ -28,6 +32,13 @@ const CreateProjectValidationSchema = Yup.object(
 );
 
 export function CreateAndUpdateProjectComponent({ value, onSubmit }: CreateProjectProps) {
+
+   console.log('heyyyyyy', value)
+   // console.log(initialValues)
+
+   //  const valueProject = getOneProject === undefined ?
+
+
    const createProjectHandleSubmit = useCallback((createProjectModel: RequestCreateProjectModel) => {
 
       onSubmit(createProjectModel);
