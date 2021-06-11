@@ -22,6 +22,7 @@ export async function createProject(body: RequestCreateProjectModel): Promise<Re
 
    if (!isValid) {
       loggerHelper.error(`Is the project valid? ${isValid}`);
+
    }
 
    const createProjectModel: ProjectModel = new ProjectSchemaEntityModel(body)
@@ -58,7 +59,15 @@ export async function getProject(id: string): Promise<ProjectModel | BaseRespons
 }
 
 export async function updateProject(body: ProjectModel): Promise<BaseResponseModel> {
+   const isValid: boolean = await projectCreateSchema.isValid(body);
+
+   if (!isValid) {
+      loggerHelper.error(`Is the project update? ${isValid}`);
+      throw new ErrorResponse(httpStatus.BAD_REQUEST, "This project not update")
+   }
+
    const updateProject: ProjectModel | null = await projectRepository.updateProjectById(body)
+
 
    if (!updateProject) {
       loggerHelper.debug(`Has the project been updated? ${updateProject}`);

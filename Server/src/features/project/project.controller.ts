@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { errorHandler } from "../shared/helper/appError.helper";
 import * as projectService from "./project.service";
 
 export function projectHandler(req: Request, res: Response) {
@@ -6,7 +7,9 @@ export function projectHandler(req: Request, res: Response) {
       .then((result) => {
          res.send(result)
       })
-      .catch((err) => res.send(err));
+      .catch((err) => {
+         errorHandler(err, res)
+      });
 }
 
 export function deleteProject(req: Request, res: Response) {
@@ -14,7 +17,9 @@ export function deleteProject(req: Request, res: Response) {
       .then((result) => {
          res.send(result)
       })
-      .catch((err) => res.send(err));
+      .catch((err) => {
+         errorHandler(err, res)
+      });
 }
 
 export function getProject(req: Request, res: Response) {
@@ -22,7 +27,9 @@ export function getProject(req: Request, res: Response) {
       .then((result) => {
          res.send(result)
       })
-      .catch((err) => res.send(err));
+      .catch((err) => {
+         errorHandler(err, res)
+      });
 }
 
 export function updateProject(req: Request, res: Response) {
@@ -30,7 +37,10 @@ export function updateProject(req: Request, res: Response) {
       .then((result) => {
          res.send(result)
       })
-      .catch((err) => res.send(err));
+      .catch((err) => {
+         errorHandler(err, res)
+      });
+
 }
 
 
@@ -39,7 +49,9 @@ export function searchProjectHandler(req: Request, res: Response) {
       .then((result) => {
          res.send(result)
       })
-      .catch((err) => res.send(err));
+      .catch((err) => {
+         errorHandler(err, res)
+      });
 }
 
 export function searchFeatureHandler(req: Request, res: Response) {
@@ -47,6 +59,8 @@ export function searchFeatureHandler(req: Request, res: Response) {
       .then((result) => {
          res.send(result)
       })
-      .catch((err) => res.send(err));
+      .catch((err) => {
+         errorHandler(err, res)
+      });
 }
 

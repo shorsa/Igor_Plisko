@@ -1,7 +1,7 @@
 import { Button, Switch } from "antd";
 import { Formik } from "formik";
 import { Form } from "formik-antd";
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import * as Yup from "yup";
 import { FormInput } from "../../../shared/components/formInput/FormInput";
 import { RequestCreateProjectModel } from '../models';
@@ -16,9 +16,6 @@ import { TestComponent } from './TestComponent';
 interface CreateProjectProps {
    value: RequestCreateProjectModel | ResponseGetOneProjectModel;
    onSubmit: (createProjectModel: RequestCreateProjectModel) => void;
-
-
-
 }
 
 const CreateProjectValidationSchema = Yup.object(
@@ -32,12 +29,19 @@ const CreateProjectValidationSchema = Yup.object(
 );
 
 export function CreateAndUpdateProjectComponent({ value, onSubmit }: CreateProjectProps) {
+   const [changeFeature, setChangeFeature] = useState(value)
 
-   console.log('heyyyyyy', value)
-   // console.log(initialValues)
+   const handleChange = (index: number, qwerty: any) => {
+      if (changeFeature.features) {
+         console.log("index", index);
+         console.log("Feature for update", qwerty);
 
-   //  const valueProject = getOneProject === undefined ?
+         console.log(changeFeature.features);
+         changeFeature.features[index] = qwerty
 
+         setChangeFeature(changeFeature)
+      }
+   }
 
    const createProjectHandleSubmit = useCallback((createProjectModel: RequestCreateProjectModel) => {
 
@@ -56,7 +60,6 @@ export function CreateAndUpdateProjectComponent({ value, onSubmit }: CreateProje
             initialValues={value}
             onSubmit={createProjectHandleSubmit}
             validationSchema={CreateProjectValidationSchema}
-
          >
             <Form>
                <FormInput position="column" name="title" label="Title" />
@@ -72,8 +75,11 @@ export function CreateAndUpdateProjectComponent({ value, onSubmit }: CreateProje
             </label>
                <br /> */}
 
-               < FeaturesProjectComponent /><br />
-
+               {
+                  changeFeature.features?.map((feature, index) => (
+                     < FeaturesProjectComponent feature={feature} key={index} onChange={(qwerty) => handleChange(index, qwerty)} />
+                  ))
+               }
                <Button
                   type="primary"
                   shape="round"
