@@ -7,6 +7,6 @@ export interface RequestSignUpModel {
    phoneNumber: string;
    gender: Gender;
    country: string;
-   age: Date;
+   age: string;
 }
 

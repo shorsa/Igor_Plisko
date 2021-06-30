@@ -1,5 +1,3 @@
-// import axios, { AxiosResponse } from "axios";
-// import { API_SERVER } from "../../../../config";
 import axios, { AxiosResponse } from "axios";
 import { push } from "connected-react-router";
 import { defineAction } from "rd-redux-utils";
@@ -7,7 +5,7 @@ import { put, takeEvery } from "redux-saga/effects";
 import { SIGN_IN_PAGE_URL } from "../..";
 import { appStateAction } from "../../../../app-state.reducer";
 import { API_SERVER } from "../../../../config";
-import { ResponseSignInModel, ResponseSingUpModel } from "../../models";
+import { RequestSignInModel, RequestSignUpModel, ResponseSignInModel, ResponseSingUpModel } from "../../models";
 import { signInAction, signUpAction } from "../actions";
 /*-------------REDUCERS-------------------*/
 import { AuthAppState } from "../reducer";
@@ -22,10 +20,10 @@ export const signInAtServerCompletedAction = defineAction<AuthAppState>(
 
 
 export function* handleSignUpSaga() {
-   yield takeEvery(signUpAction.TYPE, function* (                         //!  takeEvry производит отслеживание 
+   yield takeEvery(signUpAction.TYPE, function* (
       action: typeof signUpAction.typeOf.action
    ) {
-      let testModel = action.payload;
+      let requestModel: RequestSignUpModel = action.payload;
 
       try {
          yield put(
@@ -35,7 +33,7 @@ export function* handleSignUpSaga() {
          );
          const response: AxiosResponse<ResponseSingUpModel> = yield axios.post(
             `${API_SERVER}/api/auth/register`,
-            testModel
+            requestModel
          );
 
 
@@ -66,7 +64,7 @@ export function* handleSignInSaga() {
    yield takeEvery(signInAction.TYPE, function* (
       action: typeof signInAction.typeOf.action
    ) {
-      let model = action.payload;
+      let requestModel: RequestSignInModel = action.payload;
 
       try {
          yield put(
@@ -76,7 +74,7 @@ export function* handleSignInSaga() {
          );
          const response: AxiosResponse<ResponseSignInModel> = yield axios.post(
             `${API_SERVER}/api/auth/login`,
-            model
+            requestModel
          );
          console.log(response);
 
@@ -90,7 +88,7 @@ export function* handleSignInSaga() {
                status: "success"
             })
          );
-         yield put(push("/"));     //! here you will need to specify the path to the future "/project"
+         yield put(push("/home/project"));
       } catch (e) {
 
          yield put(appStateAction({

@@ -20,16 +20,6 @@ export const getOneProjectServerCompleted = defineAction<ProjectAppState>(
    'GET_ONE_PROJECT_SERVER_SUCCESS'
 );
 
-// export const updateProjectsServerCompletedAction = defineAction<ProjectAppState>(
-//    'UPDATE_PROJECT_SERVER_SUCCESS'
-// );
-
-// export const createProjectsServerCompletedAction = defineAction<ProjectAppState>(
-//    'CREATE_PROJECT_SERVER_SUCCESS'
-// );
-
-
-
 export function* handleGetProjectSaga() {
    yield takeEvery(getAllProjectsDataAction.TYPE, function* (
       action: typeof getAllProjectsDataAction.typeOf.action
@@ -70,13 +60,11 @@ export function* handleGetProjectSaga() {
 }
 
 
-
 export function* handleGetOneProjectByIdSaga() {
    yield takeEvery(getOneProjectDataAction.TYPE, function* (
       action: typeof getOneProjectDataAction.typeOf.action
    ) {
       let id: string = action.id;
-      // console.log("Get id ", id);
       try {
          yield put(
             appStateAction({
@@ -86,8 +74,6 @@ export function* handleGetOneProjectByIdSaga() {
          const response: AxiosResponse<ResponseGetOneProjectModel> = yield axios.get(
             `${API_SERVER}/api/project/get?id=${id}`
          );
-         // console.log(response);
-
          yield put(getOneProjectServerCompleted({
             project: response.data
          })
@@ -115,7 +101,6 @@ export function* handleUpdateProjectSaga() {
       action: typeof updateProjectDataAction.typeOf.action
    ) {
       let updateProject = action.payload;
-      // console.log("updateProjectDataAction", testModel);
       try {
          yield put(
             appStateAction({
@@ -148,8 +133,6 @@ export function* handleUpdateProjectSaga() {
       }
    })
 }
-
-//?-----------------------------------------------------
 
 export function* handleCreateProjectSaga() {
    yield takeEvery(createProjectDataAction.TYPE, function* (

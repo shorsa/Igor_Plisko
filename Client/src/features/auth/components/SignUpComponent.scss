@@ -7,8 +7,6 @@
 }
 
 .sign-up-wrapper {
-   // position: relative;
-
    & > h1 {
       color: $violet;
    }
@@ -31,9 +29,7 @@
       & > .ant-row {
          width: 410px;
          margin: 0 0 10px 0;
-         // form > .ant-row. ant-form-item-has-error
          &.ant-form-item-has-error {
-            // background: $gradient-input-error;
             border-radius: 8px;
          }
       }
@@ -50,12 +46,3 @@
       }
    }
 
-   // & > .radio-button {
-   //    margin-top: 8px;
-   //    margin-bottom: 12px;
-   // }
-}
-//  & > .date-piker {
-//       margin: 15px;
-//       padding-top: 15px;
-//    }
