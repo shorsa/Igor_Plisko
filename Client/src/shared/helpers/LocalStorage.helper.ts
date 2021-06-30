@@ -9,6 +9,7 @@ export function getAccessToken(): string | undefined {
    if (token) {
       return JSON.parse(token);
    }
+   return;
 }
 
 export function removeAuth(): void {
