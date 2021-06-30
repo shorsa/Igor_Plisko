@@ -4,11 +4,11 @@ import { DatePicker, Form } from "formik-antd";
 import React, { useCallback } from 'react';
 import { Link } from "react-router-dom";
 import * as Yup from "yup";
+import { SchemaOf } from "yup";
 import { FormInput } from "../../../shared/components/formInput/FormInput";
+import { Gender } from "../enums";
 import { RequestSignUpModel } from "../models";
 import "./SignUpComponent.scss";
-// import { Gender } from "../enums";
-
 
 interface SignUpComponentProps {
    value: RequestSignUpModel;
@@ -17,7 +17,7 @@ interface SignUpComponentProps {
 
 }
 
-const SignUpValidationSchema = Yup.object({
+const SignUpValidationSchema: SchemaOf<RequestSignUpModel> = Yup.object({
    email: Yup.string().required().email('Please Enter your Email'),
    password: Yup.string().required('Please Enter your password').min(4),
    firstName: Yup.string().required('Please Enter your first name'),
@@ -25,13 +25,12 @@ const SignUpValidationSchema = Yup.object({
    phoneNumber: Yup.string().required('Please Enter a phone number').min(9).max(15),
    gender: Yup.number().required('Choose your gender'),
    country: Yup.string().required('Please Enter your country'),
-   age: Yup.date().required('Please Enter your age')
+   age: Yup.string().required('Please Enter your age')
 });
 
 
 
 export function SignUpComponent({ value, onSubmit, loading }: SignUpComponentProps) {
-   // console.log(value)
 
    const handleSubmit = useCallback((signUpModel: RequestSignUpModel) => {
       console.log(signUpModel);
@@ -40,7 +39,6 @@ export function SignUpComponent({ value, onSubmit, loading }: SignUpComponentPro
 
    return (
       <div className="sign-up-wrapper">
-
          <h1>Sign Up</h1>
          <span>Already have an account?</span>
          <Link className="link-sing-in" to={'#'}>Sing in here</Link>
@@ -53,29 +51,26 @@ export function SignUpComponent({ value, onSubmit, loading }: SignUpComponentPro
          >
             <Form>
                <FormInput name="email" label="Email" />
-               <FormInput name="password" label="Password" />
+               <FormInput name="password" label="Password" type="password" />
                <FormInput name="firstName" label="FirstName" />
                <FormInput name="lastName" label="LastName" />
-               <FormInput name="phoneNumber" label="PhoneNumber" />
+               <FormInput name="phoneNumber" label="PhoneNumber" type="number" />
                <FormInput name="country" label="Country" />
-
                <DatePicker name="age" bordered={false} />
-
-               <Field className="radio-button" component="div" name="myRadioGroup">
+               <Field className="radio-button" component="div" name="gender">
                   <input
                      type="radio"
-                     // Checked={value.----- === "one"}
                      name="gender"
-                     value="male"
+                     value={Gender.Male}
                   />
-                  <label>Male </label>
+                  <label>{Gender[Gender.Male]}</label>
 
                   <input
                      type="radio"
                      name="gender"
-                     value="female"
+                     value={Gender.Female}
                   />
-                  <label>Female </label>
+                  <label>{Gender[Gender.Female]} </label>
                </Field>
                <Button
                   type="primary"
@@ -85,27 +80,10 @@ export function SignUpComponent({ value, onSubmit, loading }: SignUpComponentPro
                   size="large"
                >
                   Sing Up
-        </Button>
+               </Button>
             </Form>
          </Formik>
       </div>
    )
 }
 
-
-
-
-
-
-//   <Form.Item name="gender" label="Country">
-//   <div role="group" aria-labelledby="my-radio-group">
-//      <label>
-//         <Field type="radio" name="gender" value={1} />
-//         Female
-//      </label>
-//      <label>
-//         <Field type="radio" name="gender" value={0} />
-//     Male
-//   </label>
-//   </div>
-// </Form.Item>

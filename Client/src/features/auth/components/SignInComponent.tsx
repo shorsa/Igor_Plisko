@@ -5,6 +5,7 @@ import { Formik } from "formik";
 import { Form } from "formik-antd";
 import { RequestSignInModel } from '../models';
 import * as Yup from "yup";
+import { SchemaOf } from 'yup';
 
 
 interface SignInComponentProps {
@@ -13,8 +14,7 @@ interface SignInComponentProps {
    onSubmit: (signInModel: RequestSignInModel) => void;
 }
 
-
-export const SignInValidationSchema = Yup.object(
+export const SignInValidationSchema: SchemaOf<RequestSignInModel> = Yup.object(
    {
       email: Yup.string().required().email('Please Enter your Email'),
       password: Yup.string().required('Please Enter your password').min(4),
@@ -22,9 +22,8 @@ export const SignInValidationSchema = Yup.object(
 );
 
 export function SignInComponent({ value, loading, onSubmit }: SignInComponentProps) {
-
    const handleSubmit = useCallback((signInModel: RequestSignInModel) => {
-      // console.log("!!!!!???", signInModel);
+
       onSubmit(signInModel);
    }, [onSubmit]);
 
@@ -39,7 +38,7 @@ export function SignInComponent({ value, loading, onSubmit }: SignInComponentPro
          >
             <Form>
                <FormInput name="email" label="Email" />
-               <FormInput name="password" label="Password" />
+               <FormInput name="password" label="Password" type="password" />
                <Button
                   type="primary"
                   shape="round"
@@ -52,7 +51,6 @@ export function SignInComponent({ value, loading, onSubmit }: SignInComponentPro
             </Form>
          </Formik>
       </div >
-
    )
 }
 

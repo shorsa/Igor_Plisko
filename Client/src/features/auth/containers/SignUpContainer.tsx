@@ -15,7 +15,7 @@ const initialValues: RequestSignUpModel = {
    phoneNumber: '',
    gender: Gender.Female,
    country: "",
-   age: new Date(),
+   age: new Date().toISOString(),
 }
 
 export interface SignUpContainerProps { }
