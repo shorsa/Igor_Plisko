@@ -42,15 +42,6 @@ $footer-height: 94px;
             left: calc(20px + 6.3%);
             top: 24.4%;
             z-index: 3;
-            // animation: rotate 1s infinite;
-            // @keyframes rotate {
-            //    from {
-            //       transform: rotateX(0deg);
-            //    }
-            //    to {
-            //       transform: rotateX(360deg);
-            //    }
-            // }
          }
          & > .dotted {
             position: absolute;

@@ -14,7 +14,6 @@ export const appStateAction = defineAction<AppStateControl>(
 export function AppStateReducer(state: AppStateControl = { status: "initial" }, action: Action): AppStateControl {
    if (appStateAction.is(action)) {
 
-
       return {
          ...state,
          status: action.status,
