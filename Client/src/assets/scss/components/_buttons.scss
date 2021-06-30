@@ -1,0 +1,10 @@
+@import "../utils/scss-variables";
+
+.ant-btn {
+   width: 410px;
+
+   &-primary {
+      background: $violet;
+      border-radius: 8px !important;
+   }
+}

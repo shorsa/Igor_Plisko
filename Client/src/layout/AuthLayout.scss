@@ -1,0 +1,124 @@
+@import "../assets/scss/utils/mixines";
+@import "../assets/scss/utils/scss-variables";
+
+$footer-height: 94px;
+
+.auth-layout-wrapper {
+   @include flex-column-align(initial);
+
+   & > .container {
+      display: flex;
+      height: calc(100vh - #{$footer-height});
+
+      & > .content {
+         width: 50%;
+         padding: calc(50px + 3%) calc(50px + 8%);
+         .logo {
+            letter-spacing: 4px;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #5755ff;
+            margin: 0;
+         }
+      }
+
+      & > .static-layout {
+         border: 1px solid green;
+         width: 50%;
+         position: relative;
+         background: $gradient-static-layout;
+
+         & > .round-elements {
+            position: absolute;
+            left: 0%;
+            top: 3%;
+            z-index: 3;
+         }
+         & > .main-screen-graph {
+            position: absolute;
+            width: 36.5vw;
+            min-width: 400px;
+            max-width: 711px;
+            left: calc(20px + 6.3%);
+            top: 24.4%;
+            z-index: 3;
+            // animation: rotate 1s infinite;
+            // @keyframes rotate {
+            //    from {
+            //       transform: rotateX(0deg);
+            //    }
+            //    to {
+            //       transform: rotateX(360deg);
+            //    }
+            // }
+         }
+         & > .dotted {
+            position: absolute;
+            z-index: 1;
+            width: 22vw;
+            min-width: 200px;
+            max-width: 600px;
+
+            &.top {
+               left: 1rem;
+               top: 9rem;
+            }
+
+            &.bottom {
+               right: 1rem;
+               top: 31.7rem;
+            }
+         }
+
+         & > .txt-layout {
+            position: absolute;
+            width: 49vh;
+            left: 17rem;
+            bottom: 1rem;
+            z-index: 3;
+
+            & > h4 {
+               height: 18px;
+               text-align: center;
+               color: $violet;
+            }
+
+            & > h2 {
+               font-size: 24px;
+               line-height: 40px;
+               text-align: center;
+            }
+            & > h3 {
+               padding-top: 4%;
+               font-family: Encode Sans;
+               font-size: 16px;
+               line-height: 24px;
+               text-align: center;
+               color: $grey-text;
+            }
+         }
+      }
+   }
+
+   & > .footer {
+      border-radius: 10px;
+      height: $footer-height;
+
+      .nav {
+         display: block;
+         width: 660px;
+         margin: 0 auto 30px;
+         padding: 2em 0;
+      }
+
+      .nav > li {
+         border: 1px solid rgb(255, 255, 255);
+         list-style-type: none;
+         color: $grey-text;
+         font-size: 12px;
+         line-height: 16px;
+         display: inline;
+         padding-left: 3em;
+      }
+   }
+}

@@ -41,16 +41,11 @@ export async function register(body: RequestCreateUserModel): Promise<ResponseUs
    const hashPassword: string = await bcrypt.hash(body.password, CONFIG.SALT_ROUNDS)
    body.password = hashPassword;
 
-
-   loggerHelper.error(`Password was not hashed, ${JSON.stringify(body)}`);
-
    const user = new UserSchemaEntityModel(body);
-   console.log(user);
 
+   const userCreated: UserModel = await authRepository.create(user);
 
-   const userCreated: UserModel = await authRepository.create(user)
-
-   return { ok: true, _id: userCreated._id }
+   return { ok: true, _id: userCreated._id, message: "User registered successfully" }
 }
 
 
@@ -61,7 +56,7 @@ export async function login(body: RequestLoginUserModel): Promise<ResponseLoginU
    const isValidLogin: boolean = await userLoginSchema.isValid(body);
    if (!isValidLogin) {
       loggerHelper.error(`User credentials invalid ${body.email}`);
-      throw new ErrorResponse(httpStatus.BAD_REQUEST, "This email does not exist");
+      throw new ErrorResponse(httpStatus.BAD_REQUEST, "The user is not valid");
    }
 
    const foundedUser: UserModel | null = await authRepository.findUserByEmailLogin(body.email);

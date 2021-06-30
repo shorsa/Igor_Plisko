@@ -1,5 +1,4 @@
 import React from 'react';
-import "./ExampleLayout.scss"
 
 
 export interface ExampleLayoutProps {
@@ -11,7 +10,9 @@ export function ExampleLayout({ children }: ExampleLayoutProps) {
     return (
         <div className="example-layout">
             <div className="form-wrapper">
+                <h2>TESTING  </h2>
                 {children}
+
             </div>
         </div>
     );

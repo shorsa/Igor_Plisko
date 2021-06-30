@@ -3,7 +3,7 @@ import { Gender, Role } from "../enums";
 import { UserModel } from "../models";
 import { UserEntityModel } from "../models/userEntity.model";
 
-const userSchema = new Schema<UserModel>({
+const userSchema = new Schema<UserEntityModel>({
    email: {
       type: String,
       required: true

@@ -1,0 +1,25 @@
+.input-wrapper {
+   padding-top: 3%;
+   width: 100%;
+   // margin-right: auto;
+   // margin-left: auto;
+
+   .form-item {
+      display: flex;
+      & > :first-child {
+         width: 8%;
+      }
+   }
+
+   input[type="text"] {
+      width: 210px;
+      padding: 10px;
+      margin-bottom: 20px;
+      height: 15px;
+      border: 1px solid #e2e2e2;
+   }
+
+   & > .checkbox-style {
+      margin-top: 30%;
+   }
+}

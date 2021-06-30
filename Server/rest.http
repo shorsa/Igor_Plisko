@@ -2,9 +2,8 @@
 ###
 POST http://localhost:3000/api/auth/register
 content-type: application/json
-
 {
-    "email": "email2y11@maiugul12331.com",
+    "email": "emtaitl@mailf123.com",
     "password": "password",
     "firstName": "firstName",
     "lastName": "lastName",
@@ -17,20 +16,18 @@ content-type: application/json
 ###
 POST http://localhost:3000/api/auth/login
 content-type: application/json
-
 {
-    "email": "email@mail123.com",
+    "email": "email@mailf123.com",
     "password": "password" 
 }
 
 ###
 POST http://localhost:3000/api/project/create
 content-type: application/json
-
 {
   "ownerId": "1111ccc1",
-   "title": "Test creffffffffffffffffate",
-   "description": "This is a great project! I really like it!",
+   "title": "Pidr!!!",
+   "description": "!!!!!!!",
    "isOpen":true,
    "estimateMin": 1,
    "estimateMax": 1,
@@ -59,8 +56,21 @@ content-type: application/json
             "estimateMax": 1
          }
          ]
+}
 
 
+###
+POST http://localhost:3000/api/project/create
+content-type: application/json
+
+{
+  "ownerId": "1111cccgre1",
+   "title": "Pegidr!!!",
+   "description": "!!!!!!!",
+   "isOpen":true,
+   "estimateMin": 1,
+   "estimateMax": 1,
+    "features": [ ]
 }
 
 ###
@@ -78,7 +88,7 @@ content-type: application/json
 
 {
     "_id":"6062fea4d9fffcbc14dc9f7a14",
-     "ownerId": "asdfasdaffsdasdasd",
+     "ownerId": "a",
    "title": "Test",
    "description": "This is a great project! I really like it!",
    "isOpen":true,
@@ -102,9 +112,9 @@ POST http://localhost:3000/api/project/search
 content-type: application/json
 
 {
-    "page": 2,
-    "searchText": "r",
-    "pageSize" : 3
+    "page": 3,
+    "searchText": "",
+    "pageSize" : 40
 
 
 }

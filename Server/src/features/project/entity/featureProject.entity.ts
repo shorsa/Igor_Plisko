@@ -29,7 +29,7 @@ const featureSchema = new Schema<FeatureModel>({
    }
 })
 
-const projectSchema = new Schema<ProjectModel>({
+const projectSchema = new Schema<ProjectEntityModel>({
    ownerId: {
       type: String,
       required: true

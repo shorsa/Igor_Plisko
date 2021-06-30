@@ -19,9 +19,11 @@ const exampleValidationSchema = Yup.object({
   test: Yup.string().required()
 });
 
-export function ExampleForm({ value, onChange, loading }: ExamplePageProps): JSX.Element {
+export function ExampleForm({ value, onChange, loading }: ExamplePageProps) {
 
   const handleSubmit = useCallback((exampleModel: ExampleModel) => {
+
+
     onChange(exampleModel);
   }, [onChange]);
 

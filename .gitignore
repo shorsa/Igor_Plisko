@@ -21,6 +21,7 @@ npm-debug.log*
 /.sass-cache
 /.sourcemaps
 /.versions
+build
 /.vscode
 /coverage
 /Client/dist
