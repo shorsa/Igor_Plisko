@@ -1,18 +1,14 @@
 import React from 'react'
 import { MainLayout } from '../../../layout/MainLayout'
-import { ProjectsContainer as ProjectsContainer } from '../containers/ProjectsContainer'
+import { ProjectsContainer } from '../containers/ProjectsContainer'
 
 
-interface ProjectsProps { }
 
-export function ProjectsPage({ }: ProjectsProps) {
+export function ProjectsPage() {
    return (
-      <div>
-         < MainLayout>
-            <ProjectsContainer />
-         </MainLayout>
-
-      </div>
+      < MainLayout>
+         <ProjectsContainer />
+      </MainLayout>
    )
 }
 

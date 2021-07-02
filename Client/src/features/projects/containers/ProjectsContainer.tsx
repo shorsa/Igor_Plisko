@@ -36,14 +36,9 @@ export function ProjectsContainer() {
    )
 
    const projectsData = useSelector((state: AppState) => state.projectState.projects)
-   // const [rows, setRows] = useState(10)
 
    return (
       <>
-         {/* 
-         <Slider min={1} max={20} defaultValue={rows} onChange={setRows} /> */}
-         {/* <ProjectComponent projectsData={projectsData} /> */}
-
          <ProjectsComponent projectsData={projectsData} onPaginate={onPaginate} />
 
       </>

@@ -16,6 +16,7 @@ content-type: application/json
 ###
 POST http://localhost:3000/api/auth/login
 content-type: application/json
+
 {
     "email": "email@mailf123.com",
     "password": "password" 
@@ -75,11 +76,13 @@ content-type: application/json
 
 ###
 GET http://localhost:3000/api/project/get?id=6062fe8ed9fcbc14dc9f7a12
+content-type: application/json
 
 
 
 ###
 DELETE http://localhost:3000/api/project/delete?id=6062febf6c82de2c48c7c8dc
+content-type: application/json
 
 
 ###
@@ -123,5 +126,6 @@ content-type: application/json
 //Agreggation
 ###
 GET http://localhost:3000/api/project/search_feature?search=1
+content-type: application/json
 
 

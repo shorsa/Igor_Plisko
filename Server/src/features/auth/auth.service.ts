@@ -14,11 +14,19 @@ import { userLoginSchema, userRegisterSchema } from "./validation";
 import UserSchemaEntityModel from "./entities/user.entity";
 
 function generatedToken(foundedUser: UserModel): string {
-   const generatedToken = jwt.sign({
+
+   const model: TokenPayloadData = {
       email: foundedUser.email,
       userId: foundedUser._id
-   }, CONFIG.JWT_ENCRYPTION, { expiresIn: CONFIG.JWT_EXPIRATION })
+   }
+   const generatedToken = jwt.sign(model, CONFIG.JWT_ENCRYPTION, { expiresIn: CONFIG.JWT_EXPIRATION })
    return generatedToken
+}
+
+interface TokenPayloadData {
+   email: string;
+   userId: string;
+
 }
 
 export async function register(body: RequestCreateUserModel): Promise<ResponseUserRegisterModel> {

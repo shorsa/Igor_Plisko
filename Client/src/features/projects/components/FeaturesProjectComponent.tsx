@@ -29,32 +29,31 @@ export function FeaturesProjectComponent({ feature, onChange }: FeaturesProjectC
    return (
       <>
          <div className="input-wrapper">
-
             <div className="form-item">
                <label htmlFor="title">
                   Title:
-            </label>
+               </label>
                <input value={featureState.title} type="text" name="title" id="title" onChange={handleOnChange} /><br />
             </div>
 
             <div className="form-item">
                <label htmlFor="description">
                   Description:
-            </label>
+               </label>
                <input value={featureState.description} type="text" name="description" id="description" onChange={handleOnChange} /><br />
             </div>
 
             <div className="form-item">
                <label htmlFor="estimateMin">
                   EstimateMin:
-            </label>
+               </label>
                <input value={featureState.estimateMin} type="text" name="estimateMin" id="estimateMin" onChange={handleOnChange} /><br />
             </div>
 
             <div className="form-item">
                <label htmlFor="estimateMax">
                   EstimateMax
-            </label>
+               </label>
                <input value={featureState.estimateMax} type="text" name="estimateMax" id="estimateMax" onChange={handleOnChange} /><br />
             </div>
             <label>
@@ -63,7 +62,6 @@ export function FeaturesProjectComponent({ feature, onChange }: FeaturesProjectC
             </label>
          </div>
       </>
-
    )
 }
 

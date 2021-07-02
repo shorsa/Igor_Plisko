@@ -10,6 +10,7 @@ import { RequestSignInModel, RequestSignUpModel, ResponseSignInModel, ResponseSi
 import { signInAction, signUpAction } from "../actions";
 /*-------------REDUCERS-------------------*/
 import { AuthAppState } from "../reducer";
+import { setAccessToken } from "../../../../shared/helpers/LocalStorage.helper";
 
 
 export const signUpAtServerCompletedAction = defineAction<AuthAppState>(
@@ -77,6 +78,7 @@ export function* handleSignInSaga() {
             `${API_SERVER}/api/auth/login`,
             requestModel
          );
+         setAccessToken(response.data.token)
          console.log(response);
 
          yield put(
