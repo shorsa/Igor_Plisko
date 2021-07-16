@@ -62,11 +62,16 @@ export function CreateAndUpdateProjectComponent({ value, onSubmit }: CreateProje
             validationSchema={CreateProjectValidationSchema}
          >
             <Form>
-               <FormInput position="column" name="title" label="Title" />
-               <FormInput position="column" name="description" label="Description" />
-               <FormInput position="column" name="estimateMin" label="Estimate Min" />
-               <FormInput position="column" name="estimateMax" label="Estimate Max" />
-               <Switch defaultChecked onChange={onChange} />
+               <div className="mainInput">
+                  <div className="twoInput">
+                     <FormInput position="column" name="title" label="Title" />
+                     <FormInput position="column" name="description" label="Description" />
+                  </div>
+
+                  <FormInput position="column" name="estimateMin" label="Estimate Min" className="estimateInput" />
+                  <FormInput position="column" name="estimateMax" label="Estimate Max" className="estimateInput" />
+                  <Switch defaultChecked onChange={onChange} />
+               </div>
 
                {
                   changeFeature.features?.map((feature, index) => (
