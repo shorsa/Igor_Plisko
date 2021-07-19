@@ -3,10 +3,7 @@ import { MainLayout } from '../../../layout/MainLayout'
 import { UpdateProjectContainer } from '../containers/UpdateProjectContainer'
 
 
-
-interface UpdateProjectsProps { }
-
-export function UpdateProjectPage({ }: UpdateProjectsProps) {
+export function UpdateProjectPage() {
    return (
       <>
          < MainLayout>

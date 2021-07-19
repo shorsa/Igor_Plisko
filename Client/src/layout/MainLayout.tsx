@@ -6,7 +6,6 @@ import {
 import { Layout, Menu } from 'antd';
 import React, { useCallback, useState } from 'react';
 
-
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 
@@ -34,14 +33,12 @@ export function MainLayout({ children }: MainLayoutProps) {
                <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
                   <Menu.Item key="2" icon={<ScheduleOutlined />}>
                      Statistics
-            </Menu.Item>
+                  </Menu.Item>
                   <SubMenu key="sub1" icon={<FundProjectionScreenOutlined />} title="Projects">
                      <Menu.Item key="3">Create new project</Menu.Item>
                      <Menu.Item key="4">View all projects </Menu.Item>
                      <Menu.Item key="5">View my projects</Menu.Item>
                   </SubMenu>
-
-
                </Menu>
             </Sider>
             <Layout className="site-layout">

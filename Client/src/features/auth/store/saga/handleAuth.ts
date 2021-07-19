@@ -2,6 +2,7 @@ import axios, { AxiosResponse } from "axios";
 import { push } from "connected-react-router";
 import { defineAction } from "rd-redux-utils";
 import { put, takeEvery } from "redux-saga/effects";
+import { PROJECT_PAGE_URL } from "../../../projects";
 import { SIGN_IN_PAGE_URL } from "../..";
 import { appStateAction } from "../../../../app-state.reducer";
 import { API_SERVER } from "../../../../config";
@@ -9,6 +10,7 @@ import { RequestSignInModel, RequestSignUpModel, ResponseSignInModel, ResponseSi
 import { signInAction, signUpAction } from "../actions";
 /*-------------REDUCERS-------------------*/
 import { AuthAppState } from "../reducer";
+import { setAccessToken } from "../../../../shared/helpers/LocalStorage.helper";
 
 
 export const signUpAtServerCompletedAction = defineAction<AuthAppState>(
@@ -76,6 +78,7 @@ export function* handleSignInSaga() {
             `${API_SERVER}/api/auth/login`,
             requestModel
          );
+         setAccessToken(response.data.token)
          console.log(response);
 
          yield put(
@@ -88,7 +91,7 @@ export function* handleSignInSaga() {
                status: "success"
             })
          );
-         yield put(push("/home/project"));
+         yield put(push(PROJECT_PAGE_URL.urlTemplate));
       } catch (e) {
 
          yield put(appStateAction({

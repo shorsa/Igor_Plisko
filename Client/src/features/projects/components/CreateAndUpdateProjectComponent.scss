@@ -5,3 +5,27 @@
 .ant-switch {
    margin-top: 3%;
 }
+
+// border: none;
+// background: transparent;
+// border-bottom: 2px solid red;
+
+.ant-input {
+   display: flex;
+   // margin-bottom: 10em;
+   // display: flex;
+   // flex-direction: row;
+   // flex-wrap: nowrap;
+   border: none;
+   background: transparent;
+   border-bottom: 1px solid rgb(0, 0, 0);
+}
+
+.mainInput {
+   display: flex !important;
+   // padding: 30px;
+
+   .twoInput {
+      flex-direction: column;
+   }
+}

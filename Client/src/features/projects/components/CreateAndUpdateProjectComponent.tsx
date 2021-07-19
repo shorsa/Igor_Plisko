@@ -2,23 +2,24 @@ import { Button, Switch } from "antd";
 import { Formik } from "formik";
 import { Form } from "formik-antd";
 import React, { useCallback, useState } from 'react';
-import * as Yup from "yup";
 import { FormInput } from "../../../shared/components/formInput/FormInput";
 import { RequestCreateProjectModel } from '../models';
 import { ResponseGetOneProjectModel } from '../models/response/responseGetOneProject.model';
 import "./CreateAndUpdateProjectComponent.scss";
 import { FeaturesProjectComponent } from './FeaturesProjectComponent';
 import { TestComponent } from './TestComponent';
+import * as Yup from "yup";
+import { SchemaOf } from 'yup';
 
 
-
-//?schemaOf<RequestCreateProjectModel>
 interface CreateProjectProps {
    value: RequestCreateProjectModel | ResponseGetOneProjectModel;
    onSubmit: (createProjectModel: RequestCreateProjectModel) => void;
 }
 
-const CreateProjectValidationSchema = Yup.object(
+type ValidationType = Omit<RequestCreateProjectModel, "features" | "ownerId">
+
+const CreateProjectValidationSchema: SchemaOf<ValidationType> = Yup.object(
    {
       title: Yup.string().required('Please Enter your Title'),
       description: Yup.string().required('Please Enter your Title'),
@@ -52,7 +53,6 @@ export function CreateAndUpdateProjectComponent({ value, onSubmit }: CreateProje
       console.log(`switch to ${checked}`);
    }
 
-
    return (
       <>
          <span>Hello, Do you wanna to create new project ?</span>
@@ -62,18 +62,16 @@ export function CreateAndUpdateProjectComponent({ value, onSubmit }: CreateProje
             validationSchema={CreateProjectValidationSchema}
          >
             <Form>
-               <FormInput position="column" name="title" label="Title" />
-               <FormInput position="column" name="description" label="Description" />
-               <FormInput position="column" name="estimateMin" label="Estimate Min" />
-               <FormInput position="column" name="estimateMax" label="Estimate Max" />
+               <div className="mainInput">
+                  <div className="twoInput">
+                     <FormInput position="column" name="title" label="Title" />
+                     <FormInput position="column" name="description" label="Description" />
+                  </div>
 
-
-               <Switch defaultChecked onChange={onChange} />
-               {/* <label>
-                  <Field type="checkbox" name="checked" value="Two" className="checkbox-style" />
-            Is Open
-            </label>
-               <br /> */}
+                  <FormInput position="column" name="estimateMin" label="Estimate Min" className="estimateInput" />
+                  <FormInput position="column" name="estimateMax" label="Estimate Max" className="estimateInput" />
+                  <Switch defaultChecked onChange={onChange} />
+               </div>
 
                {
                   changeFeature.features?.map((feature, index) => (
@@ -90,8 +88,6 @@ export function CreateAndUpdateProjectComponent({ value, onSubmit }: CreateProje
                </Button>
             </Form>
          </Formik>
-
-
          <TestComponent /><br />
 
       </>
@@ -101,9 +97,3 @@ export function CreateAndUpdateProjectComponent({ value, onSubmit }: CreateProje
 
 
 
-
-
-//    < label >
-//    <Field type="checkbox" name=" isOpen" label="Is Open" />
-// {/* {`${values.toggle}`} */ }
-//          </label >

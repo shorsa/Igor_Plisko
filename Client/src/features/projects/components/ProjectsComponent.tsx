@@ -10,21 +10,16 @@ export interface ProjectsComponentProps {
    onPaginate: (p: any, f: any, s: any) => void;
 }
 
-
 export function ProjectsComponent({ projectsData, onPaginate, }: ProjectsComponentProps) {
    const history = useHistory();
-
 
    const handleEditHistory = (id: string) => {
       history.push(UPDATE_PAGE_URL.format({
          id: id
       }));
-
    }
 
-
    const pageSizeOptions: string[] = ['5', '10', '15', '20'];
-   // console.log('projectsData', projectsData)
    console.log('onPaginate', onPaginate)
 
    const columns = [
@@ -67,9 +62,9 @@ export function ProjectsComponent({ projectsData, onPaginate, }: ProjectsCompone
                {isOpen ?
                   <Tag key={row._id}>
                      Open
-                </Tag> : <Tag key={row._id}>
+                  </Tag> : <Tag key={row._id}>
                      Close
-                </Tag>
+                  </Tag>
                }
             </>
          ),
@@ -98,16 +93,9 @@ export function ProjectsComponent({ projectsData, onPaginate, }: ProjectsCompone
    ];
 
 
-
    const handleDelete = (deleteProject: string) => {
       return deleteProject
    }
-
-   // const handleEdit = (editProject: string) => {
-   //    console.log(editProject);
-   //    onClick={() => handleEdit(row._id)}
-   // }
-
 
    const onChange = useCallback(
       (pagination: any, filters: any, sorter: any) => {

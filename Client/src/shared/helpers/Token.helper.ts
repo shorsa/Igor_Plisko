@@ -1,21 +1,18 @@
-// import jwt_decode from "jwt-decode"
-// import { getAccessToken } from "./LocalStorage.helper"
+import jwt_decode from "jwt-decode"
+import { TokenPayloadData } from "../models"
+import { getAccessToken } from "./LocalStorage.helper"
 
-// export function getUserId(): any {
-//    const token: string | undefined = getAccessToken()
-//    let decoded = jwt_decode(token)
-//    console.log(decoded)
-
-
-//    if (!token) {
-//       return false
-//    }
+export function getUserId(): string | null {
+   const token: string | undefined = getAccessToken()
 
 
-//    else {
-//       let decoded = jwt_decode(token)
+   if (!token) {
+      return null
+   }
 
+   else {
+      let decoded: TokenPayloadData = jwt_decode(token)
+      return decoded.userId
+   }
+}
 
-//    }
-
-// }

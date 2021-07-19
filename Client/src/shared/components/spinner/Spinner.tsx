@@ -5,10 +5,10 @@ import { AppState } from '../../../app-state';
 import "./Spinner.scss";
 
 
-export function Spinner() {
-   const runningSpinner = useSelector((state: AppState) => state.appState.status) === "running";
+interface spinnerProps { }
 
-
+export function Spinner({ }: spinnerProps) {
+   const runningSpinner: boolean = useSelector((state: AppState) => state.appState.status) === "running";
 
    return (
       <>

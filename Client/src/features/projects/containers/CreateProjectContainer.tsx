@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react'
 import { useDispatch } from 'react-redux';
+import { getUserId } from '../../../shared/helpers/Token.helper';
 import { CreateAndUpdateProjectComponent } from '../components/CreateAndUpdateProjectComponent'
 
 import { RequestCreateProjectModel } from '../models'
@@ -22,8 +23,16 @@ export function CreateProjectContainer({ }: CreateProjectContainerProps) {
    const dispatch = useDispatch();
 
    const handleCreateProjectSubmit = useCallback(
-      (value: any) => {
-         dispatch(createProjectDataAction({ payload: value }))
+      (value: RequestCreateProjectModel) => {
+         const userId: string = getUserId() as string;
+
+         const model: RequestCreateProjectModel = {
+            ...value,
+            ownerId: userId
+         }
+         console.log(model);
+
+         dispatch(createProjectDataAction({ payload: model }))
       },
       [dispatch],
    )
