@@ -1,23 +1,94 @@
-.input-wrapper {
-   padding-top: 3%;
+$primary: #11998e;
+$secondary: #38ef7d;
+$white: #fff;
+$gray: #9b9b9b;
+
+.features-wrapper {
+   display: flex;
+   margin: 2% auto;
    width: 100%;
+   border-radius: 15px;
+   background-color: #ffffff;
+   box-shadow: 0px 5px 6px rgba(0, 0, 0, 0.15);
+   padding: 4% 2vw;
+   transition-duration: 1s;
+
+   &:hover {
+      transition-duration: 1s;
+      box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.3);
+      transform: scale(1.01);
+   }
 
    .form-item {
-      display: flex;
-      & > :first-child {
-         width: 8%;
+      position: relative;
+      padding: 15px 0 0;
+      margin-top: 10px;
+      width: 150px;
+      & > .formLabel {
+         display: block;
+         transition: 0.2s;
+         font-size: 1rem;
+         color: $gray;
+      }
+
+      & > .formField {
+         width: 100%;
+         border: 0;
+         border-bottom: 2px solid $gray;
+         outline: 0;
+         font-size: 1.3rem;
+
+         padding: 7px 0;
+         background: transparent;
+         transition: border-color 0.2s;
+
+         &::placeholder {
+            color: transparent;
+         }
+
+         &:focus {
+            padding-bottom: 6px;
+            font-weight: 700;
+            border-width: 3px;
+            border-image: linear-gradient(to right, $primary, $secondary);
+            border-image-slice: 1;
+         }
+      }
+
+      & > .checkbox-style {
+         margin-top: 30%;
       }
    }
-
-   input[type="text"] {
-      width: 210px;
-      padding: 10px;
-      margin-bottom: 20px;
-      height: 15px;
-      border: 1px solid #e2e2e2;
-   }
-
-   & > .checkbox-style {
-      margin-top: 30%;
+   & > .block-inputs {
+      width: 30%;
    }
 }
+
+// .features-wrapper {
+//    padding-top: 3%;
+//    width: 100%;
+
+//       &::placeholder {
+//          color: transparent;
+//       }
+//    }
+
+//    .form-item {
+//       display: flex;
+//       & > :first-child {
+//          width: 8%;
+//       }
+
+//       & > input[type="text"] {
+//          width: 210px;
+//          padding: 10px;
+//          margin-bottom: 20px;
+//          height: 15px;
+//          border: 1px solid #e2e2e2;
+//       }
+//    }
+
+//    & > .checkbox-style {
+//       margin-top: 30%;
+//    }
+// }

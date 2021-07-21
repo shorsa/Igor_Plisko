@@ -1,7 +1,1 @@
 @import "../../../assets/scss/utils/mixines";
-
-.ant-row {
-   &.column {
-      @include flex-column-align(baseline);
-   }
-}

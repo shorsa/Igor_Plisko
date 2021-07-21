@@ -1,15 +1,15 @@
-import { Button, Switch } from "antd";
+import { Button, Radio, RadioChangeEvent } from "antd";
 import { Formik } from "formik";
 import { Form } from "formik-antd";
 import React, { useCallback, useState } from 'react';
+import * as Yup from "yup";
+import { SchemaOf } from 'yup';
 import { FormInput } from "../../../shared/components/formInput/FormInput";
 import { RequestCreateProjectModel } from '../models';
 import { ResponseGetOneProjectModel } from '../models/response/responseGetOneProject.model';
 import "./CreateAndUpdateProjectComponent.scss";
 import { FeaturesProjectComponent } from './FeaturesProjectComponent';
 import { TestComponent } from './TestComponent';
-import * as Yup from "yup";
-import { SchemaOf } from 'yup';
 
 
 interface CreateProjectProps {
@@ -44,18 +44,29 @@ export function CreateAndUpdateProjectComponent({ value, onSubmit }: CreateProje
       }
    }
 
+   const onChangeStateProject = useCallback(
+      (event: RadioChangeEvent) => {
+         setChangeFeature({ ...changeFeature, isOpen: event.target.value === "true" })
+      },
+      [changeFeature, value],
+   )
+
    const createProjectHandleSubmit = useCallback((createProjectModel: RequestCreateProjectModel) => {
+      console.log(createProjectModel);
 
       onSubmit(createProjectModel);
    }, [onSubmit]);
 
-   function onChange(checked: any) {
-      console.log(`switch to ${checked}`);
-   }
+
+   // function onChange(checked: any) {
+   //    console.log(`switch to ${checked}`);
+   // }
+
 
    return (
-      <>
-         <span>Hello, Do you wanna to create new project ?</span>
+
+      < div className="form-wrapper" >
+         {/* <Switch defaultChecked onChange={onChange} /> */}
          <Formik
             initialValues={value}
             onSubmit={createProjectHandleSubmit}
@@ -63,14 +74,22 @@ export function CreateAndUpdateProjectComponent({ value, onSubmit }: CreateProje
          >
             <Form>
                <div className="mainInput">
-                  <div className="twoInput">
+                  <div className="bigTwoInput">
                      <FormInput position="column" name="title" label="Title" />
                      <FormInput position="column" name="description" label="Description" />
                   </div>
+                  <div className="anotherItem">
+                     <FormInput position="column" name="estimateMin" label="Estimate Min" className="estimateInput" />
+                     <FormInput position="column" name="estimateMax" label="Estimate Max" className="estimateInput" />
 
-                  <FormInput position="column" name="estimateMin" label="Estimate Min" className="estimateInput" />
-                  <FormInput position="column" name="estimateMax" label="Estimate Max" className="estimateInput" />
-                  <Switch defaultChecked onChange={onChange} />
+                     <Radio.Group value={value.isOpen} onChange={onChangeStateProject}>
+                        <Radio.Button value="true">Open</Radio.Button>
+                        <Radio.Button value="false">Close</Radio.Button>
+                     </Radio.Group>
+
+
+                  </div>
+
                </div>
 
                {
@@ -79,6 +98,7 @@ export function CreateAndUpdateProjectComponent({ value, onSubmit }: CreateProje
                   ))
                }
                <Button
+                  className="createButton"
                   type="primary"
                   shape="round"
                   htmlType="submit"
@@ -90,9 +110,10 @@ export function CreateAndUpdateProjectComponent({ value, onSubmit }: CreateProje
          </Formik>
          <TestComponent /><br />
 
-      </>
+      </div >
    )
 }
+
 
 
 
