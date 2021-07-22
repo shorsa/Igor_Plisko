@@ -1,17 +1,30 @@
-$primary: #11998e;
-$secondary: #38ef7d;
+$primary: #17209b;
+$secondary: #45c3fd;
 $white: #fff;
 $gray: #9b9b9b;
 
 .features-wrapper {
    display: flex;
+   align-items: center;
    margin: 2% auto;
    width: 100%;
    border-radius: 15px;
    background-color: #ffffff;
-   box-shadow: 0px 5px 6px rgba(0, 0, 0, 0.15);
-   padding: 4% 2vw;
+   box-shadow: 0px 5px 6px rgb(0, 0, 0 / 15%);
+   padding: 2% 0vw;
    transition-duration: 1s;
+
+   .main-number {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: black;
+      text-align: center;
+      margin: 5px 10px;
+      width: 10%;
+      height: 89px;
+      font-size: 5em;
+   }
 
    &:hover {
       transition-duration: 1s;
@@ -21,9 +34,8 @@ $gray: #9b9b9b;
 
    .form-item {
       position: relative;
-      padding: 15px 0 0;
-      margin-top: 10px;
-      width: 150px;
+      padding: 10px 0 0;
+
       & > .formLabel {
          display: block;
          transition: 0.2s;
@@ -32,13 +44,11 @@ $gray: #9b9b9b;
       }
 
       & > .formField {
-         width: 100%;
+         width: 90%;
          border: 0;
          border-bottom: 2px solid $gray;
          outline: 0;
          font-size: 1.3rem;
-
-         padding: 7px 0;
          background: transparent;
          transition: border-color 0.2s;
 
@@ -54,41 +64,24 @@ $gray: #9b9b9b;
             border-image-slice: 1;
          }
       }
-
+      &.estimate-styles {
+         width: 10%;
+      }
       & > .checkbox-style {
          margin-top: 30%;
       }
    }
    & > .block-inputs {
-      width: 30%;
+      width: 52%;
+   }
+   & > .required {
+      margin-top: 15%;
+   }
+   & > .icons {
+      display: flex;
    }
 }
 
-// .features-wrapper {
-//    padding-top: 3%;
-//    width: 100%;
-
-//       &::placeholder {
-//          color: transparent;
-//       }
-//    }
-
-//    .form-item {
-//       display: flex;
-//       & > :first-child {
-//          width: 8%;
-//       }
-
-//       & > input[type="text"] {
-//          width: 210px;
-//          padding: 10px;
-//          margin-bottom: 20px;
-//          height: 15px;
-//          border: 1px solid #e2e2e2;
-//       }
-//    }
-
-//    & > .checkbox-style {
-//       margin-top: 30%;
-//    }
+// .estimate-styles {
+//    width: 64px !important;
 // }

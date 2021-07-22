@@ -1,20 +1,35 @@
 import { Button, Radio, RadioChangeEvent } from "antd";
 import { Formik } from "formik";
 import { Form } from "formik-antd";
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import * as Yup from "yup";
 import { SchemaOf } from 'yup';
 import { FormInput } from "../../../shared/components/formInput/FormInput";
-import { RequestCreateProjectModel } from '../models';
+import { FeatureModel, RequestCreateProjectModel } from '../models';
 import { ResponseGetOneProjectModel } from '../models/response/responseGetOneProject.model';
 import "./CreateAndUpdateProjectComponent.scss";
 import { FeaturesProjectComponent } from './FeaturesProjectComponent';
 import { TestComponent } from './TestComponent';
 
 
+
+
+
+const initialStateFeature: FeatureModel = {
+   level: '2',
+   title: '',
+   description: '',
+   isRequired: true,
+   estimateMin: 0,
+   estimateMax: 0,
+}
+
+
 interface CreateProjectProps {
    value: RequestCreateProjectModel | ResponseGetOneProjectModel;
    onSubmit: (createProjectModel: RequestCreateProjectModel) => void;
+
+
 }
 
 type ValidationType = Omit<RequestCreateProjectModel, "features" | "ownerId">
@@ -30,32 +45,53 @@ const CreateProjectValidationSchema: SchemaOf<ValidationType> = Yup.object(
 );
 
 export function CreateAndUpdateProjectComponent({ value, onSubmit }: CreateProjectProps) {
-   const [changeFeature, setChangeFeature] = useState(value)
+   const [projectState, setProjectState] = useState(value)
+   console.log(value);
+
+   useEffect(() => {
+      console.log("CreateAndUpdateProjectComponent > useEffect");
+
+      setProjectState(value)
+   }, [value.title]);
 
    const handleChange = (index: number, qwerty: any) => {
-      if (changeFeature.features) {
+      if (projectState.features) {
          console.log("index", index);
          console.log("Feature for update", qwerty);
 
-         console.log(changeFeature.features);
-         changeFeature.features[index] = qwerty
+         console.log(projectState.features);
+         projectState.features[index] = qwerty;
 
-         setChangeFeature(changeFeature)
+         setProjectState({ ...projectState })
       }
    }
 
    const onChangeStateProject = useCallback(
       (event: RadioChangeEvent) => {
-         setChangeFeature({ ...changeFeature, isOpen: event.target.value === "true" })
+         setProjectState({ ...projectState, isOpen: event.target.value === "true" })
       },
-      [changeFeature, value],
+      [projectState, value],
    )
 
    const createProjectHandleSubmit = useCallback((createProjectModel: RequestCreateProjectModel) => {
-      console.log(createProjectModel);
+      console.log("Submit", { ...createProjectModel, features: projectState.features });
+      console.log("projectState", projectState);
 
-      onSubmit(createProjectModel);
-   }, [onSubmit]);
+      onSubmit({ ...createProjectModel, features: projectState.features });
+   }, [onSubmit, projectState]);
+
+
+   const onAddFeature = useCallback(
+      () => {
+         projectState.features?.push(initialStateFeature)
+         setProjectState({
+            ...projectState,
+            features: [...projectState.features]
+         })
+      },
+      [],
+   )
+
 
 
    // function onChange(checked: any) {
@@ -86,15 +122,13 @@ export function CreateAndUpdateProjectComponent({ value, onSubmit }: CreateProje
                         <Radio.Button value="true">Open</Radio.Button>
                         <Radio.Button value="false">Close</Radio.Button>
                      </Radio.Group>
-
-
                   </div>
-
                </div>
 
                {
-                  changeFeature.features?.map((feature, index) => (
-                     < FeaturesProjectComponent feature={feature} key={index} onChange={(qwerty) => handleChange(index, qwerty)} />
+                  projectState.features?.map((feature, index) => (
+                     <FeaturesProjectComponent onAddFeature={onAddFeature} feature={feature} key={index} onChange={(qwerty) => handleChange(index, qwerty)} />
+
                   ))
                }
                <Button
