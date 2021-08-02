@@ -1,6 +1,7 @@
 import { Button, Radio, RadioChangeEvent } from "antd";
 import { Formik } from "formik";
 import { Form } from "formik-antd";
+
 import React, { useCallback, useEffect, useState } from 'react';
 import * as Yup from "yup";
 import { SchemaOf } from 'yup';
@@ -31,8 +32,7 @@ const CreateProjectValidationSchema: SchemaOf<ValidationType> = Yup.object(
 );
 
 export function CreateAndUpdateProjectComponent({ value, onSubmit }: CreateProjectProps) {
-   console.log(value, 'this value check it');
-
+   // console.log(value, 'this value check it');
 
    const [projectState, setProjectState] = useState(value)
 
@@ -41,9 +41,6 @@ export function CreateAndUpdateProjectComponent({ value, onSubmit }: CreateProje
    }, [value, value.title]);
 
    const handleChange = useCallback((index: number, feature: FeatureModel) => {
-
-      console.log(index, 'hey bro!?!?!??')
-      // debugger
       projectState.features[index] = { ...feature };
 
       setProjectState({ ...projectState, features: [...projectState.features] })
@@ -63,24 +60,36 @@ export function CreateAndUpdateProjectComponent({ value, onSubmit }: CreateProje
 
    const onAddFeature = useCallback(
       (value: FeatureModel, level: string) => {
-
          const indexFined: number = projectState.features.findIndex((feature: FeatureModel) => {
-
             return feature.level === level
          })
+         // console.log(level, "what this level ?")
+         const arrayLevel = level.split('.')
+         console.log(arrayLevel.length, 'arrayLevel.length');
+         console.log(level.length, "level.length");
+         let newArrayFeature: FeatureModel[] = projectState.features;
 
 
-         const newArrayFeature: FeatureModel[] = projectState.features.map((feature: FeatureModel, index: number) => {
+         if (arrayLevel.length === 1) {
+            newArrayFeature = projectState.features.map((feature: FeatureModel, index: number) => {
+               debugger
+               if (index > indexFined) {
+                  feature.level = String(Number(feature.level) + 1)
+               }
+               return feature
+            })
+            newArrayFeature.splice(indexFined + 1, 0, { ...value, level: String(Number(level) + 1) })
 
-            if (index > indexFined) {
-               feature.level = String(Number(feature.level) + 1)
-            }
+         }
+         if (arrayLevel.length !== 1) {
+            const lastLevel = Number(arrayLevel[arrayLevel.length - 1]) + 1
+            //? здесь можнл копировать ссылку '[...arrayLevel]"  что бы небыло изменения по старой ссылке !
+            arrayLevel.pop()
+            arrayLevel.push(String(lastLevel))
 
+            newArrayFeature.splice(indexFined + 1, 0, { ...value, level: arrayLevel.join('.') })
 
-            return feature
-         })
-         newArrayFeature.splice(indexFined + 1, 0, { ...value, level: String(Number(level) + 1) })
-
+         }
          setProjectState({
             ...projectState,
             features: [...newArrayFeature]
@@ -93,6 +102,7 @@ export function CreateAndUpdateProjectComponent({ value, onSubmit }: CreateProje
    const onAddFeatureChild = useCallback(
       (valueChild: FeatureModel, level: string) => {
          const indexFined: number = projectState.features.findIndex((feature: FeatureModel) => {
+
             return feature.level === level
          })
          projectState.features.splice(indexFined + 1, 0, { ...valueChild, level: `${level}.1` })
@@ -130,12 +140,10 @@ export function CreateAndUpdateProjectComponent({ value, onSubmit }: CreateProje
                      </Radio.Group>
                   </div>
                </div>
-
                {
                   projectState.features?.map((feature, index) => (
                      <FeaturesProjectComponent key={index} onAddFeature={onAddFeature} onAddFeatureChild={onAddFeatureChild} feature={feature} onChange={(qwerty) => handleChange(index, qwerty)} />
                   ))
-
                }
                <Button
                   className="create-button"
