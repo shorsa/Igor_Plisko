@@ -4,11 +4,11 @@
    padding: 20px 1vw;
 
    & > form {
-      & > .mainInput {
+      & > .main-input {
          @include flex-row-align;
          flex-wrap: wrap;
 
-         & > .bigTwoInput {
+         & > .two-input {
             margin: 0 auto;
             width: 100%;
             border-radius: 15px;
@@ -33,7 +33,7 @@
             }
          }
 
-         & > .anotherItem {
+         & > .another-item {
             margin-top: 50px;
             display: flex;
             flex-direction: row-reverse;
@@ -51,7 +51,7 @@
          border-bottom: 1px solid rgb(0, 0, 0);
       }
    }
-   .createButton {
+   .create-button {
       margin-top: 30px;
    }
 }

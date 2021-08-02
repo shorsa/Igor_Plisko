@@ -13,23 +13,9 @@ import { TestComponent } from './TestComponent';
 
 
 
-
-
-const initialStateFeature: FeatureModel = {
-   level: '2',
-   title: '',
-   description: '',
-   isRequired: true,
-   estimateMin: 0,
-   estimateMax: 0,
-}
-
-
 interface CreateProjectProps {
    value: RequestCreateProjectModel | ResponseGetOneProjectModel;
    onSubmit: (createProjectModel: RequestCreateProjectModel) => void;
-
-
 }
 
 type ValidationType = Omit<RequestCreateProjectModel, "features" | "ownerId">
@@ -45,59 +31,79 @@ const CreateProjectValidationSchema: SchemaOf<ValidationType> = Yup.object(
 );
 
 export function CreateAndUpdateProjectComponent({ value, onSubmit }: CreateProjectProps) {
+   console.log(value, 'this value check it');
+
+
    const [projectState, setProjectState] = useState(value)
-   console.log(value);
 
    useEffect(() => {
-      console.log("CreateAndUpdateProjectComponent > useEffect");
-
       setProjectState(value)
-   }, [value.title]);
+   }, [value, value.title]);
 
-   const handleChange = (index: number, qwerty: any) => {
-      if (projectState.features) {
-         console.log("index", index);
-         console.log("Feature for update", qwerty);
+   const handleChange = useCallback((index: number, feature: FeatureModel) => {
 
-         console.log(projectState.features);
-         projectState.features[index] = qwerty;
+      console.log(index, 'hey bro!?!?!??')
+      // debugger
+      projectState.features[index] = { ...feature };
 
-         setProjectState({ ...projectState })
-      }
-   }
+      setProjectState({ ...projectState, features: [...projectState.features] })
+   }, [projectState])
 
    const onChangeStateProject = useCallback(
       (event: RadioChangeEvent) => {
          setProjectState({ ...projectState, isOpen: event.target.value === "true" })
       },
-      [projectState, value],
+      [projectState],
    )
 
    const createProjectHandleSubmit = useCallback((createProjectModel: RequestCreateProjectModel) => {
-      console.log("Submit", { ...createProjectModel, features: projectState.features });
-      console.log("projectState", projectState);
-
       onSubmit({ ...createProjectModel, features: projectState.features });
    }, [onSubmit, projectState]);
 
 
    const onAddFeature = useCallback(
-      () => {
-         projectState.features?.push(initialStateFeature)
+      (value: FeatureModel, level: string) => {
+
+         const indexFined: number = projectState.features.findIndex((feature: FeatureModel) => {
+
+            return feature.level === level
+         })
+
+
+         const newArrayFeature: FeatureModel[] = projectState.features.map((feature: FeatureModel, index: number) => {
+
+            if (index > indexFined) {
+               feature.level = String(Number(feature.level) + 1)
+            }
+
+
+            return feature
+         })
+         newArrayFeature.splice(indexFined + 1, 0, { ...value, level: String(Number(level) + 1) })
+
+         setProjectState({
+            ...projectState,
+            features: [...newArrayFeature]
+         });
+      },
+      [projectState])
+
+
+
+   const onAddFeatureChild = useCallback(
+      (valueChild: FeatureModel, level: string) => {
+         const indexFined: number = projectState.features.findIndex((feature: FeatureModel) => {
+            return feature.level === level
+         })
+         projectState.features.splice(indexFined + 1, 0, { ...valueChild, level: `${level}.1` })
+
          setProjectState({
             ...projectState,
             features: [...projectState.features]
-         })
-      },
-      [],
+         });
+
+      }, [projectState]
    )
-
-
-
-   // function onChange(checked: any) {
-   //    console.log(`switch to ${checked}`);
-   // }
-
 
    return (
 
@@ -109,12 +115,12 @@ export function CreateAndUpdateProjectComponent({ value, onSubmit }: CreateProje
             validationSchema={CreateProjectValidationSchema}
          >
             <Form>
-               <div className="mainInput">
-                  <div className="bigTwoInput">
+               <div className="main-input">
+                  <div className="two-input">
                      <FormInput position="column" name="title" label="Title" />
                      <FormInput position="column" name="description" label="Description" />
                   </div>
-                  <div className="anotherItem">
+                  <div className="another-item">
                      <FormInput position="column" name="estimateMin" label="Estimate Min" className="estimateInput" />
                      <FormInput position="column" name="estimateMax" label="Estimate Max" className="estimateInput" />
 
@@ -127,12 +133,12 @@ export function CreateAndUpdateProjectComponent({ value, onSubmit }: CreateProje
 
                {
                   projectState.features?.map((feature, index) => (
-                     <FeaturesProjectComponent onAddFeature={onAddFeature} feature={feature} key={index} onChange={(qwerty) => handleChange(index, qwerty)} />
-
+                     <FeaturesProjectComponent key={index} onAddFeature={onAddFeature} onAddFeatureChild={onAddFeatureChild} feature={feature} onChange={(qwerty) => handleChange(index, qwerty)} />
                   ))
+
                }
                <Button
-                  className="createButton"
+                  className="create-button"
                   type="primary"
                   shape="round"
                   htmlType="submit"
@@ -143,7 +149,6 @@ export function CreateAndUpdateProjectComponent({ value, onSubmit }: CreateProje
             </Form>
          </Formik>
          <TestComponent /><br />
-
       </div >
    )
 }

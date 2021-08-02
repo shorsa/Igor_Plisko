@@ -33,7 +33,7 @@ const SignUpValidationSchema: SchemaOf<RequestSignUpModel> = Yup.object({
 export function SignUpComponent({ value, onSubmit, loading }: SignUpComponentProps) {
 
    const handleSubmit = useCallback((signUpModel: RequestSignUpModel) => {
-      console.log(signUpModel);
+
       onSubmit(signUpModel);
    }, [onSubmit]);
 

@@ -30,8 +30,6 @@ export function CreateProjectContainer({ }: CreateProjectContainerProps) {
             ...value,
             ownerId: userId
          }
-         console.log(model);
-
          dispatch(createProjectDataAction({ payload: model }))
       },
       [dispatch],
