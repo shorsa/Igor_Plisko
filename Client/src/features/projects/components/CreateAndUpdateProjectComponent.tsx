@@ -1,7 +1,6 @@
 import { Button, Radio, RadioChangeEvent } from "antd";
 import { Formik } from "formik";
 import { Form } from "formik-antd";
-
 import React, { useCallback, useEffect, useState } from 'react';
 import * as Yup from "yup";
 import { SchemaOf } from 'yup';
@@ -11,7 +10,6 @@ import { ResponseGetOneProjectModel } from '../models/response/responseGetOnePro
 import "./CreateAndUpdateProjectComponent.scss";
 import { FeaturesProjectComponent } from './FeaturesProjectComponent';
 import { TestComponent } from './TestComponent';
-
 
 
 interface CreateProjectProps {
@@ -65,24 +63,45 @@ export function CreateAndUpdateProjectComponent({ value, onSubmit }: CreateProje
          })
          // console.log(level, "what this level ?")
          const arrayLevel = level.split('.')
-         console.log(arrayLevel.length, 'arrayLevel.length');
-         console.log(level.length, "level.length");
          let newArrayFeature: FeatureModel[] = projectState.features;
 
+         const increaseValue = (value: string): string => String(Number(value) + 1);
 
          if (arrayLevel.length === 1) {
             newArrayFeature = projectState.features.map((feature: FeatureModel, index: number) => {
-               debugger
                if (index > indexFined) {
-                  feature.level = String(Number(feature.level) + 1)
+
+                  const currentLevelArray = feature.level.split(".");
+                  // console.log(currentLevelArray, 'what this ?');
+                  // debugger
+                  currentLevelArray[0] = increaseValue(currentLevelArray[0]);
+                  feature.level = currentLevelArray.join(".")
                }
                return feature
             })
-            newArrayFeature.splice(indexFined + 1, 0, { ...value, level: String(Number(level) + 1) })
+            newArrayFeature.splice(indexFined + 1, 0, { ...value, level: increaseValue(level) })
 
          }
          if (arrayLevel.length !== 1) {
-            const lastLevel = Number(arrayLevel[arrayLevel.length - 1]) + 1
+
+            const lastLevel = Number(arrayLevel[arrayLevel.length - 1]) + 1;
+
+            newArrayFeature.forEach((feature: FeatureModel, index: number) => {
+               const currentLevelArray = feature.level.split(".");
+
+
+               const isLevelWhoIncrease = currentLevelArray.length === arrayLevel.length &&
+                  currentLevelArray[0] === arrayLevel[0] &&
+                  indexFined < index;
+
+               if (isLevelWhoIncrease) {
+                  currentLevelArray[currentLevelArray.length - 1] = increaseValue(currentLevelArray[currentLevelArray.length - 1])
+                  feature.level = currentLevelArray.join(".")
+               }
+
+
+            })
+
             //? здесь можнл копировать ссылку '[...arrayLevel]"  что бы небыло изменения по старой ссылке !
             arrayLevel.pop()
             arrayLevel.push(String(lastLevel))
@@ -116,7 +135,6 @@ export function CreateAndUpdateProjectComponent({ value, onSubmit }: CreateProje
    )
 
    return (
-
       < div className="form-wrapper" >
          {/* <Switch defaultChecked onChange={onChange} /> */}
          <Formik
