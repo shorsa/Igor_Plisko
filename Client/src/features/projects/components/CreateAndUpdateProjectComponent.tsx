@@ -31,6 +31,7 @@ const CreateProjectValidationSchema: SchemaOf<ValidationType> = Yup.object(
 
 export function CreateAndUpdateProjectComponent({ value, onSubmit }: CreateProjectProps) {
    // console.log(value, 'this value check it');
+   const increaseValue = (value: string): string => String(Number(value) + 1);
 
    const [projectState, setProjectState] = useState(value)
 
@@ -65,15 +66,14 @@ export function CreateAndUpdateProjectComponent({ value, onSubmit }: CreateProje
          const arrayLevel = level.split('.')
          let newArrayFeature: FeatureModel[] = projectState.features;
 
-         const increaseValue = (value: string): string => String(Number(value) + 1);
 
          if (arrayLevel.length === 1) {
+            debugger
             newArrayFeature = projectState.features.map((feature: FeatureModel, index: number) => {
                if (index > indexFined) {
 
                   const currentLevelArray = feature.level.split(".");
                   // console.log(currentLevelArray, 'what this ?');
-                  // debugger
                   currentLevelArray[0] = increaseValue(currentLevelArray[0]);
                   feature.level = currentLevelArray.join(".")
                }
@@ -83,13 +83,13 @@ export function CreateAndUpdateProjectComponent({ value, onSubmit }: CreateProje
 
          }
          if (arrayLevel.length !== 1) {
-
+            // debugger
             const lastLevel = Number(arrayLevel[arrayLevel.length - 1]) + 1;
-
             newArrayFeature.forEach((feature: FeatureModel, index: number) => {
+
                const currentLevelArray = feature.level.split(".");
 
-
+               //! здесь нужно рефакторить код  
                const isLevelWhoIncrease = currentLevelArray.length === arrayLevel.length &&
                   currentLevelArray[0] === arrayLevel[0] &&
                   indexFined < index;
@@ -120,11 +120,48 @@ export function CreateAndUpdateProjectComponent({ value, onSubmit }: CreateProje
 
    const onAddFeatureChild = useCallback(
       (valueChild: FeatureModel, level: string) => {
-         const indexFined: number = projectState.features.findIndex((feature: FeatureModel) => {
 
+         // const increaseValue = (value: string): string => String(Number(value) + 1);
+
+         const indexFined: number = projectState.features.findIndex((feature: FeatureModel) => {
             return feature.level === level
          })
-         projectState.features.splice(indexFined + 1, 0, { ...valueChild, level: `${level}.1` })
+
+         const filteredFeatureArray = projectState.features.filter((feature: FeatureModel) => {
+
+            return feature.level === `${level}.1`
+         })
+
+         // let isLevelChildWhoIncrease = feature
+         // debugger
+         if (filteredFeatureArray.length === 0) {
+            projectState.features.splice(indexFined + 1, 0, { ...valueChild, level: `${level}.1` })
+         }
+         if (filteredFeatureArray.length !== 0) {
+            projectState.features.forEach((feature: FeatureModel, index) => {
+
+               const currentFeatureLevelArray = feature.level.split(".");
+               console.log(currentFeatureLevelArray, 'currentFeatureLevelArray');
+
+
+
+               const mainLevelArray = level.split(".");
+               console.log(mainLevelArray, 'mainLevelArray');
+               const baseLevelCurren = currentFeatureLevelArray.slice(0, mainLevelArray.length)
+               console.log(baseLevelCurren, 'baseLevelCurren');
+               const isLengthSame = currentFeatureLevelArray.length >= mainLevelArray.length;
+               console.log(isLengthSame, 'isLengthSame');
+               const baseLevelSome = level === baseLevelCurren.join(".");
+               console.log(baseLevelSome, 'baseLevelSome');
+
+               if (isLengthSame && index > indexFined && baseLevelSome) {
+                  currentFeatureLevelArray[currentFeatureLevelArray.length - 1] = increaseValue(currentFeatureLevelArray[currentFeatureLevelArray.length - 1])
+                  feature.level = currentFeatureLevelArray.join(".")
+               }
+
+            })
+            projectState.features.splice(indexFined + 1, 0, { ...valueChild, level: `${level}.1` })
+         }
 
          setProjectState({
             ...projectState,
