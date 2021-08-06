@@ -66,9 +66,10 @@ export function CreateAndUpdateProjectComponent({ value, onSubmit }: CreateProje
          const arrayLevel = level.split('.')
          let newArrayFeature: FeatureModel[] = projectState.features;
 
-
          if (arrayLevel.length === 1) {
-            debugger
+
+
+
             newArrayFeature = projectState.features.map((feature: FeatureModel, index: number) => {
                if (index > indexFined) {
 
@@ -88,27 +89,40 @@ export function CreateAndUpdateProjectComponent({ value, onSubmit }: CreateProje
             newArrayFeature.forEach((feature: FeatureModel, index: number) => {
 
                const currentLevelArray = feature.level.split(".");
-
-               //! здесь нужно рефакторить код  
                const isLevelWhoIncrease = currentLevelArray.length === arrayLevel.length &&
                   currentLevelArray[0] === arrayLevel[0] &&
                   indexFined < index;
+
 
                if (isLevelWhoIncrease) {
                   currentLevelArray[currentLevelArray.length - 1] = increaseValue(currentLevelArray[currentLevelArray.length - 1])
                   feature.level = currentLevelArray.join(".")
                }
-
-
             })
 
             //? здесь можнл копировать ссылку '[...arrayLevel]"  что бы небыло изменения по старой ссылке !
             arrayLevel.pop()
             arrayLevel.push(String(lastLevel))
-
             newArrayFeature.splice(indexFined + 1, 0, { ...value, level: arrayLevel.join('.') })
 
          }
+         const sorting = (a: FeatureModel, b: FeatureModel) => {
+            debugger
+            const first: string[] = a.level.split(".");
+            const second: string[] = b.level.split(".");
+            for (let i = 0; i < first.length; i++) {
+               if (second[i]) {
+                  if (first[i] !== second[i]) {
+                     return +first[i] - +second[i];
+                  }
+               } else {
+                  return 1;
+               }
+            }
+            return -1;
+         }
+         newArrayFeature.sort(sorting)
+
          setProjectState({
             ...projectState,
             features: [...newArrayFeature]
@@ -120,55 +134,92 @@ export function CreateAndUpdateProjectComponent({ value, onSubmit }: CreateProje
 
    const onAddFeatureChild = useCallback(
       (valueChild: FeatureModel, level: string) => {
-
-         // const increaseValue = (value: string): string => String(Number(value) + 1);
-
          const indexFined: number = projectState.features.findIndex((feature: FeatureModel) => {
             return feature.level === level
          })
-
          const filteredFeatureArray = projectState.features.filter((feature: FeatureModel) => {
-
             return feature.level === `${level}.1`
          })
 
-         // let isLevelChildWhoIncrease = feature
-         // debugger
          if (filteredFeatureArray.length === 0) {
             projectState.features.splice(indexFined + 1, 0, { ...valueChild, level: `${level}.1` })
          }
          if (filteredFeatureArray.length !== 0) {
             projectState.features.forEach((feature: FeatureModel, index) => {
-
                const currentFeatureLevelArray = feature.level.split(".");
-               console.log(currentFeatureLevelArray, 'currentFeatureLevelArray');
-
-
-
                const mainLevelArray = level.split(".");
-               console.log(mainLevelArray, 'mainLevelArray');
                const baseLevelCurren = currentFeatureLevelArray.slice(0, mainLevelArray.length)
-               console.log(baseLevelCurren, 'baseLevelCurren');
                const isLengthSame = currentFeatureLevelArray.length >= mainLevelArray.length;
-               console.log(isLengthSame, 'isLengthSame');
                const baseLevelSome = level === baseLevelCurren.join(".");
-               console.log(baseLevelSome, 'baseLevelSome');
 
                if (isLengthSame && index > indexFined && baseLevelSome) {
                   currentFeatureLevelArray[currentFeatureLevelArray.length - 1] = increaseValue(currentFeatureLevelArray[currentFeatureLevelArray.length - 1])
                   feature.level = currentFeatureLevelArray.join(".")
                }
-
             })
             projectState.features.splice(indexFined + 1, 0, { ...valueChild, level: `${level}.1` })
          }
-
          setProjectState({
             ...projectState,
             features: [...projectState.features]
          });
 
       }, [projectState]
+   )
+
+   const onRemoveFeature = useCallback(
+      (level: string) => {
+         const arrayLevel = level.split('.')
+         const indexFined: number = projectState.features.findIndex((feature: FeatureModel) => {
+            return feature.level === level
+         })
+         // let changeArrayFeature: FeatureModel[] = projectState.features;
+         console.log(indexFined, 'indexFined')
+
+         if (arrayLevel.length === 1) {
+
+            const filteredFeatureArray = projectState.features.filter((feature: FeatureModel) => {
+               const currentFeatureLevelArray = feature.level.split(".");
+               const levelArray = level.split(".")
+               return levelArray[0] === currentFeatureLevelArray[0]
+            })
+
+            projectState.features.forEach((feature: FeatureModel, index: number) => {
+
+               if (index > indexFined) {
+
+                  const currentLevelArray = feature.level.split(".");
+                  currentLevelArray[0] = String(Number(currentLevelArray[0]) - 1)
+                  feature.level = currentLevelArray.join(".")
+               }
+            })
+            projectState.features.splice(indexFined, filteredFeatureArray.length);
+         }
+         if (arrayLevel.length !== 1) {
+            const filteredFeatureArray = projectState.features.filter((feature: FeatureModel) => {
+               const currentFeatureLevelArray = feature.level.split(".");
+               const levelArray = level.split(".")
+               const a = [...currentFeatureLevelArray]
+               const bn = a.splice(0, levelArray.length).join(".")
+               if (levelArray.length < currentFeatureLevelArray.length && bn === level) {
+                  console.log("delete feature", feature);
+
+                  return true
+               }
+               return false
+            })
+            console.log(filteredFeatureArray);
+
+            console.log(projectState.features.splice(indexFined, filteredFeatureArray.length + 1));
+
+         }
+
+         setProjectState({
+            ...projectState,
+            features: [...projectState.features]
+         });
+      },
+      [projectState],
    )
 
    return (
@@ -197,7 +248,7 @@ export function CreateAndUpdateProjectComponent({ value, onSubmit }: CreateProje
                </div>
                {
                   projectState.features?.map((feature, index) => (
-                     <FeaturesProjectComponent key={index} onAddFeature={onAddFeature} onAddFeatureChild={onAddFeatureChild} feature={feature} onChange={(qwerty) => handleChange(index, qwerty)} />
+                     <FeaturesProjectComponent key={index} onAddFeature={onAddFeature} onAddFeatureChild={onAddFeatureChild} onRemoveFeature={onRemoveFeature} feature={feature} onChange={(qwerty) => handleChange(index, qwerty)} />
                   ))
                }
                <Button

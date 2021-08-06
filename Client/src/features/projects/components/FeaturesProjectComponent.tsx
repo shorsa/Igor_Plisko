@@ -17,11 +17,12 @@ interface FeaturesProjectComponentProps {
    onChange: (updateFeature: FeatureModel) => void;
    onAddFeature: (value: FeatureModel, level: string) => void;
    onAddFeatureChild: (valueChild: FeatureModel, level: string) => void
+   onRemoveFeature: (level: string) => void
 
 }
 
 
-export function FeaturesProjectComponent({ feature, onChange, onAddFeature, onAddFeatureChild }: FeaturesProjectComponentProps) {
+export function FeaturesProjectComponent({ feature, onChange, onAddFeature, onAddFeatureChild, onRemoveFeature }: FeaturesProjectComponentProps) {
    const [featureState, setFeatureState] = useState(feature);
 
    useEffect(() => {
@@ -34,7 +35,6 @@ export function FeaturesProjectComponent({ feature, onChange, onAddFeature, onAd
          value = event.target.checked;
       }
       // console.log({ [name]: value }, '!!!!!!!!');
-
 
       setFeatureState({ ...featureState, [name]: value })
       onChange({ ...featureState, [name]: value })
@@ -50,6 +50,9 @@ export function FeaturesProjectComponent({ feature, onChange, onAddFeature, onAd
       onAddFeatureChild(initialStateFeature, feature.level)
    }
 
+   const handleRemoveFeature = () => {
+      onRemoveFeature(feature.level)
+   }
 
 
    return (
@@ -92,7 +95,7 @@ export function FeaturesProjectComponent({ feature, onChange, onAddFeature, onAd
 
             <div className="icons">
                <PlusSquareOutlined style={{ fontSize: '20px', color: '#0ecc1e', paddingLeft: '6px' }} onClick={handleAddFeature} />
-               <DeleteOutlined style={{ fontSize: '20px', color: 'red', paddingLeft: '4px' }} />
+               <DeleteOutlined style={{ fontSize: '20px', color: 'red', paddingLeft: '4px' }} onClick={handleRemoveFeature} />
                <AppstoreAddOutlined style={{ fontSize: '20px', color: "#45c3fd", paddingLeft: '10px' }} onClick={handleAddFeatureChild} />
             </div>
          </div>
