@@ -7,7 +7,10 @@ import { appStateAction } from "../../../../app-state.reducer";
 import { API_SERVER } from "../../../../config";
 import { ResponseSearchProjectsModel } from "../../models";
 import { ResponseGetOneProjectModel } from "../../models/response/responseGetOneProject.model";
-import { createProjectDataAction, getAllProjectsDataAction, getOneProjectDataAction, updateProjectDataAction } from "../actions";
+import {
+   createProjectDataAction, getAllProjectsDataAction, deleteProjectDataAction,
+   getOneProjectDataAction, updateProjectDataAction
+} from "../actions";
 import { ProjectAppState } from "../reducer";
 /*-------------REDUCERS-------------------*/
 
@@ -163,6 +166,42 @@ export function* handleCreateProjectSaga() {
             })
          );
          yield put(push("/home/project"));
+      } catch (error) {
+         yield put(appStateAction({
+            status: "error",
+            message: error.response.data.message
+         })
+         );
+      }
+   })
+}
+
+export function* handleDeleteProjectSaga() {
+   yield takeEvery(deleteProjectDataAction.TYPE, function* (
+      action: typeof deleteProjectDataAction.typeOf.action
+   ) {
+      let id = action.id;
+      try {
+         yield put(
+            appStateAction({
+               status: "running"
+            })
+         );
+         const response: AxiosResponse<ResponseSearchProjectsModel> = yield axios.delete(
+            `${API_SERVER}/api/project/delete?id=${id}`
+         );
+         yield put(
+            appStateAction({
+               status: "success",
+               message: response.data.message
+            })
+         );
+
+         yield put(
+            appStateAction({
+               status: "initial"
+            })
+         );
       } catch (error) {
          yield put(appStateAction({
             status: "error",

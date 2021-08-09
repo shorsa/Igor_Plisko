@@ -19,6 +19,14 @@ export function ProjectsComponent({ projectsData, onPaginate, }: ProjectsCompone
       }));
    }
 
+   const handleDeleteProject = (id: string) => {
+
+      return id
+   }
+   //! handleDelete  - изменить
+   //! задиспачит экшен , потом потом  редусур саги и все дела 
+
+
    const pageSizeOptions: string[] = ['5', '10', '15', '20'];
    console.log('onPaginate', onPaginate)
 
@@ -82,7 +90,7 @@ export function ProjectsComponent({ projectsData, onPaginate, }: ProjectsCompone
          render: (_value: undefined, row: ResponseSearchProjectsItemModel) => {
             return (
                <>
-                  <DeleteOutlined style={{ fontSize: '16px', color: 'red', paddingRight: '4px' }} onClick={() => handleDelete(row._id)} />
+                  <DeleteOutlined style={{ fontSize: '16px', color: 'red', paddingRight: '4px' }} onClick={() => handleDeleteProject(row._id)} />
                   {/* <EditOutlined id={row._id} style={{ fontSize: '16px', color: '#08c' }} onClick={() => history.push('/home/update', { update: true })} /> */}
                   <EditOutlined id={row._id} style={{ fontSize: '16px', color: '#08c' }} onClick={() => handleEditHistory(row._id)}
                   />
@@ -93,9 +101,7 @@ export function ProjectsComponent({ projectsData, onPaginate, }: ProjectsCompone
    ];
 
 
-   const handleDelete = (deleteProject: string) => {
-      return deleteProject
-   }
+
 
    const onChange = useCallback(
       (pagination: any, filters: any, sorter: any) => {

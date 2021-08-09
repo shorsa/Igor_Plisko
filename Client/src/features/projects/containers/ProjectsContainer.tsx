@@ -10,6 +10,8 @@ import { getAllProjectsDataAction } from '../store/actions';
 
 
 export function ProjectsContainer() {
+   const projectsData = useSelector((state: AppState) => state.projectState.projects)   //?
+
    const dispatch = useDispatch();
    useEffect(() => {
       const model: RequestSearchProjectModel = {
@@ -35,12 +37,17 @@ export function ProjectsContainer() {
       [dispatch],
    )
 
-   const projectsData = useSelector((state: AppState) => state.projectState.projects)
+   // const handleDeleteProject = (id: any) => {
+   //    dispatch(deleteProjectDataAction({ id: id }))
+   // }
+
+   //!id
+
+
 
    return (
       <>
          <ProjectsComponent projectsData={projectsData} onPaginate={onPaginate} />
-
       </>
    )
 }
