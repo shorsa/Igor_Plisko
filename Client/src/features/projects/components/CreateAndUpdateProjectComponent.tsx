@@ -10,6 +10,8 @@ import { ResponseGetOneProjectModel } from '../models/response/responseGetOnePro
 import "./CreateAndUpdateProjectComponent.scss";
 import { FeaturesProjectComponent } from './FeaturesProjectComponent';
 import { TestComponent } from './TestComponent';
+import * as LevelsHelper from "../../../shared/helpers/LevelsLogic.helper";
+import { MarkdownEditor } from "../../../shared/components/MarkdownEditor/MarkdownEditor";
 
 
 interface CreateProjectProps {
@@ -30,9 +32,7 @@ const CreateProjectValidationSchema: SchemaOf<ValidationType> = Yup.object(
 );
 
 export function CreateAndUpdateProjectComponent({ value, onSubmit }: CreateProjectProps) {
-   // console.log(value, 'this value check it');
-   const increaseValue = (value: string): string => String(Number(value) + 1);
-
+   // const increaseValue = (value: string): string => String(Number(value) + 1);
    const [projectState, setProjectState] = useState(value)
 
    useEffect(() => {
@@ -59,70 +59,7 @@ export function CreateAndUpdateProjectComponent({ value, onSubmit }: CreateProje
 
    const onAddFeature = useCallback(
       (value: FeatureModel, level: string) => {
-         const indexFined: number = projectState.features.findIndex((feature: FeatureModel) => {
-            return feature.level === level
-         })
-         // console.log(level, "what this level ?")
-         const arrayLevel = level.split('.')
-         let newArrayFeature: FeatureModel[] = projectState.features;
-
-         if (arrayLevel.length === 1) {
-
-
-
-            newArrayFeature = projectState.features.map((feature: FeatureModel, index: number) => {
-               if (index > indexFined) {
-
-                  const currentLevelArray = feature.level.split(".");
-                  // console.log(currentLevelArray, 'what this ?');
-                  currentLevelArray[0] = increaseValue(currentLevelArray[0]);
-                  feature.level = currentLevelArray.join(".")
-               }
-               return feature
-            })
-            newArrayFeature.splice(indexFined + 1, 0, { ...value, level: increaseValue(level) })
-
-         }
-         if (arrayLevel.length !== 1) {
-            // debugger
-            const lastLevel = Number(arrayLevel[arrayLevel.length - 1]) + 1;
-            newArrayFeature.forEach((feature: FeatureModel, index: number) => {
-
-               const currentLevelArray = feature.level.split(".");
-               const isLevelWhoIncrease = currentLevelArray.length === arrayLevel.length &&
-                  currentLevelArray[0] === arrayLevel[0] &&
-                  indexFined < index;
-
-
-               if (isLevelWhoIncrease) {
-                  currentLevelArray[currentLevelArray.length - 1] = increaseValue(currentLevelArray[currentLevelArray.length - 1])
-                  feature.level = currentLevelArray.join(".")
-               }
-            })
-
-            //? здесь можнл копировать ссылку '[...arrayLevel]"  что бы небыло изменения по старой ссылке !
-            arrayLevel.pop()
-            arrayLevel.push(String(lastLevel))
-            newArrayFeature.splice(indexFined + 1, 0, { ...value, level: arrayLevel.join('.') })
-
-         }
-         const sorting = (a: FeatureModel, b: FeatureModel) => {
-            debugger
-            const first: string[] = a.level.split(".");
-            const second: string[] = b.level.split(".");
-            for (let i = 0; i < first.length; i++) {
-               if (second[i]) {
-                  if (first[i] !== second[i]) {
-                     return +first[i] - +second[i];
-                  }
-               } else {
-                  return 1;
-               }
-            }
-            return -1;
-         }
-         newArrayFeature.sort(sorting)
-
+         const newArrayFeature = LevelsHelper.onAddFeature(projectState.features, value, level);
          setProjectState({
             ...projectState,
             features: [...newArrayFeature]
@@ -131,89 +68,19 @@ export function CreateAndUpdateProjectComponent({ value, onSubmit }: CreateProje
       [projectState])
 
 
-
    const onAddFeatureChild = useCallback(
       (valueChild: FeatureModel, level: string) => {
-         const indexFined: number = projectState.features.findIndex((feature: FeatureModel) => {
-            return feature.level === level
-         })
-         const filteredFeatureArray = projectState.features.filter((feature: FeatureModel) => {
-            return feature.level === `${level}.1`
-         })
-
-         if (filteredFeatureArray.length === 0) {
-            projectState.features.splice(indexFined + 1, 0, { ...valueChild, level: `${level}.1` })
-         }
-         if (filteredFeatureArray.length !== 0) {
-            projectState.features.forEach((feature: FeatureModel, index) => {
-               const currentFeatureLevelArray = feature.level.split(".");
-               const mainLevelArray = level.split(".");
-               const baseLevelCurren = currentFeatureLevelArray.slice(0, mainLevelArray.length)
-               const isLengthSame = currentFeatureLevelArray.length >= mainLevelArray.length;
-               const baseLevelSome = level === baseLevelCurren.join(".");
-
-               if (isLengthSame && index > indexFined && baseLevelSome) {
-                  currentFeatureLevelArray[currentFeatureLevelArray.length - 1] = increaseValue(currentFeatureLevelArray[currentFeatureLevelArray.length - 1])
-                  feature.level = currentFeatureLevelArray.join(".")
-               }
-            })
-            projectState.features.splice(indexFined + 1, 0, { ...valueChild, level: `${level}.1` })
-         }
+         LevelsHelper.onAddFeatureChild(projectState.features, valueChild, level);
          setProjectState({
             ...projectState,
             features: [...projectState.features]
          });
-
       }, [projectState]
    )
 
    const onRemoveFeature = useCallback(
       (level: string) => {
-         const arrayLevel = level.split('.')
-         const indexFined: number = projectState.features.findIndex((feature: FeatureModel) => {
-            return feature.level === level
-         })
-         // let changeArrayFeature: FeatureModel[] = projectState.features;
-         console.log(indexFined, 'indexFined')
-
-         if (arrayLevel.length === 1) {
-
-            const filteredFeatureArray = projectState.features.filter((feature: FeatureModel) => {
-               const currentFeatureLevelArray = feature.level.split(".");
-               const levelArray = level.split(".")
-               return levelArray[0] === currentFeatureLevelArray[0]
-            })
-
-            projectState.features.forEach((feature: FeatureModel, index: number) => {
-
-               if (index > indexFined) {
-
-                  const currentLevelArray = feature.level.split(".");
-                  currentLevelArray[0] = String(Number(currentLevelArray[0]) - 1)
-                  feature.level = currentLevelArray.join(".")
-               }
-            })
-            projectState.features.splice(indexFined, filteredFeatureArray.length);
-         }
-         if (arrayLevel.length !== 1) {
-            const filteredFeatureArray = projectState.features.filter((feature: FeatureModel) => {
-               const currentFeatureLevelArray = feature.level.split(".");
-               const levelArray = level.split(".")
-               const a = [...currentFeatureLevelArray]
-               const bn = a.splice(0, levelArray.length).join(".")
-               if (levelArray.length < currentFeatureLevelArray.length && bn === level) {
-                  console.log("delete feature", feature);
-
-                  return true
-               }
-               return false
-            })
-            console.log(filteredFeatureArray);
-
-            console.log(projectState.features.splice(indexFined, filteredFeatureArray.length + 1));
-
-         }
-
+         LevelsHelper.onRemoveFeature(projectState.features, level)
          setProjectState({
             ...projectState,
             features: [...projectState.features]
@@ -222,6 +89,9 @@ export function CreateAndUpdateProjectComponent({ value, onSubmit }: CreateProje
       [projectState],
    )
 
+   const handleMarkdown = () => {
+
+   }
    return (
       < div className="form-wrapper" >
          {/* <Switch defaultChecked onChange={onChange} /> */}
@@ -234,7 +104,11 @@ export function CreateAndUpdateProjectComponent({ value, onSubmit }: CreateProje
                <div className="main-input">
                   <div className="two-input">
                      <FormInput position="column" name="title" label="Title" />
-                     <FormInput position="column" name="description" label="Description" />
+
+                     <MarkdownEditor onChange={handleMarkdown} value={value.description} />
+                     {/* <MarkdownEditor position="column" name="description" label="Description" /> */}
+                     {/* <FormInput position="column" name="description" label="Description" /> */}
+
                   </div>
                   <div className="another-item">
                      <FormInput position="column" name="estimateMin" label="Estimate Min" className="estimateInput" />
