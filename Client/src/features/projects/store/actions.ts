@@ -6,4 +6,4 @@ export const updateProjectDataAction = defineAction<{ payload: RequestUpdateProj
 export const createProjectDataAction = defineAction<{ payload: RequestCreateProjectModel }>("CREATE_PROJECT_DATA")
 export const getOneProjectDataAction = defineAction<{ id: string }>("GET_ONE_PROJECT_DATA")
 export const deleteProjectDataAction = defineAction<{ id: string }>("DELETE_PROJECT_DATA")
-console.log(deleteProjectDataAction, 'What this faking ????');
+
