@@ -13,7 +13,16 @@ const initialValues: RequestCreateProjectModel = {
    isOpen: true,
    estimateMin: 0,
    estimateMax: 0,
-   features: []
+   features: [
+      {
+         level: '1',
+         title: '',
+         description: '',
+         isRequired: true,
+         estimateMin: 0,
+         estimateMax: 0,
+      }
+   ]
 }
 
 

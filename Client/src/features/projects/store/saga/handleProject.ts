@@ -3,6 +3,7 @@ import { push } from "connected-react-router";
 // import { push } from "connected-react-router";
 import { defineAction } from "rd-redux-utils";
 import { put, takeEvery } from "redux-saga/effects";
+// import { date } from "yup/lib/locale";
 import { appStateAction } from "../../../../app-state.reducer";
 import { API_SERVER } from "../../../../config";
 import { ResponseSearchProjectsModel } from "../../models";
@@ -190,18 +191,23 @@ export function* handleDeleteProjectSaga() {
          const response: AxiosResponse<ResponseSearchProjectsModel> = yield axios.delete(
             `${API_SERVER}/api/project/delete?id=${id}`
          );
+         yield put(getAllProjectsDataAction({
+            payload: {
+               page: 5,
+               pageSize: 1
+            }
+         }))
          yield put(
             appStateAction({
                status: "success",
                message: response.data.message
             })
          );
-
-         yield put(
-            appStateAction({
-               status: "initial"
-            })
-         );
+         // yield put(
+         //    appStateAction({
+         //       status: "initial"
+         //    })
+         // );
       } catch (error) {
          yield put(appStateAction({
             status: "error",

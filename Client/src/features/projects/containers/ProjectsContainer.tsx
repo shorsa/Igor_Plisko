@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../../../app-state';
 import { ProjectsComponent } from '../components/ProjectsComponent';
 import { RequestSearchProjectModel } from '../models';
-import { getAllProjectsDataAction } from '../store/actions';
+import { deleteProjectDataAction, getAllProjectsDataAction } from '../store/actions';
 
 
 
@@ -37,17 +37,21 @@ export function ProjectsContainer() {
       [dispatch],
    )
 
-   // const handleDeleteProject = (id: any) => {
-   //    dispatch(deleteProjectDataAction({ id: id }))
-   // }
+   const deleteProject = useCallback(
+      (id: string) => {
+         debugger
+         dispatch(deleteProjectDataAction({ id: id }))
+         console.log(id, 'what id dispatch');
+      },
+      [dispatch],
+   )
+
 
    //!id
 
-
-
    return (
       <>
-         <ProjectsComponent projectsData={projectsData} onPaginate={onPaginate} />
+         <ProjectsComponent projectsData={projectsData} onPaginate={onPaginate} deleteProject={deleteProject} />
       </>
    )
 }

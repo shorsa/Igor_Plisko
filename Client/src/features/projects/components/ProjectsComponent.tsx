@@ -8,9 +8,11 @@ import { UPDATE_PAGE_URL } from '../projects.urls';
 export interface ProjectsComponentProps {
    projectsData?: ResponseSearchProjectsModel,
    onPaginate: (p: any, f: any, s: any) => void;
+   deleteProject: (id: string) => void
+
 }
 
-export function ProjectsComponent({ projectsData, onPaginate, }: ProjectsComponentProps) {
+export function ProjectsComponent({ projectsData, onPaginate, deleteProject }: ProjectsComponentProps) {
    const history = useHistory();
 
    const handleEditHistory = (id: string) => {
@@ -20,12 +22,9 @@ export function ProjectsComponent({ projectsData, onPaginate, }: ProjectsCompone
    }
 
    const handleDeleteProject = (id: string) => {
+      deleteProject(id)
 
-      return id
    }
-   //! handleDelete  - изменить
-   //! задиспачит экшен , потом потом  редусур саги и все дела 
-
 
    const pageSizeOptions: string[] = ['5', '10', '15', '20'];
    console.log('onPaginate', onPaginate)
@@ -99,9 +98,6 @@ export function ProjectsComponent({ projectsData, onPaginate, }: ProjectsCompone
          }
       }
    ];
-
-
-
 
    const onChange = useCallback(
       (pagination: any, filters: any, sorter: any) => {

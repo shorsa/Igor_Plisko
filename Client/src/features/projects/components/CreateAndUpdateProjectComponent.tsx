@@ -19,25 +19,24 @@ interface CreateProjectProps {
    onSubmit: (createProjectModel: RequestCreateProjectModel) => void;
 }
 
-type ValidationType = Omit<RequestCreateProjectModel, "features" | "ownerId">
+type ValidationType = Omit<RequestCreateProjectModel, "features" | "ownerId" | "description">
 
 const CreateProjectValidationSchema: SchemaOf<ValidationType> = Yup.object(
    {
       title: Yup.string().required('Please Enter your Title'),
-      description: Yup.string().required('Please Enter your Title'),
       isOpen: Yup.boolean().required('Choose the value you want'),
       estimateMin: Yup.number().required('Write your minimum number!'),
       estimateMax: Yup.number().required('Write your maximum number!')
    }
 );
 
-export function CreateAndUpdateProjectComponent({ value, onSubmit }: CreateProjectProps) {
-   // const increaseValue = (value: string): string => String(Number(value) + 1);
-   const [projectState, setProjectState] = useState(value)
+export function CreateAndUpdateProjectComponent({ value: project, onSubmit }: CreateProjectProps) {
+
+   const [projectState, setProjectState] = useState(project)
 
    useEffect(() => {
-      setProjectState(value)
-   }, [value, value.title]);
+      setProjectState(project)
+   }, [project, project.title]);
 
    const handleChange = useCallback((index: number, feature: FeatureModel) => {
       projectState.features[index] = { ...feature };
@@ -53,7 +52,8 @@ export function CreateAndUpdateProjectComponent({ value, onSubmit }: CreateProje
    )
 
    const createProjectHandleSubmit = useCallback((createProjectModel: RequestCreateProjectModel) => {
-      onSubmit({ ...createProjectModel, features: projectState.features });
+
+      onSubmit({ ...createProjectModel, description: projectState.description, features: projectState.features });
    }, [onSubmit, projectState]);
 
 
@@ -66,7 +66,6 @@ export function CreateAndUpdateProjectComponent({ value, onSubmit }: CreateProje
          });
       },
       [projectState])
-
 
    const onAddFeatureChild = useCallback(
       (valueChild: FeatureModel, level: string) => {
@@ -89,14 +88,17 @@ export function CreateAndUpdateProjectComponent({ value, onSubmit }: CreateProje
       [projectState],
    )
 
-   const handleMarkdown = () => {
+   const handleMarkdown = (value: string) => {
+      console.log("handleMarkdown", value);
+      projectState.description = value;
+      console.log("projectState", projectState.description);
 
    }
    return (
       < div className="form-wrapper" >
          {/* <Switch defaultChecked onChange={onChange} /> */}
          <Formik
-            initialValues={value}
+            initialValues={project}
             onSubmit={createProjectHandleSubmit}
             validationSchema={CreateProjectValidationSchema}
          >
@@ -105,7 +107,7 @@ export function CreateAndUpdateProjectComponent({ value, onSubmit }: CreateProje
                   <div className="two-input">
                      <FormInput position="column" name="title" label="Title" />
 
-                     <MarkdownEditor onChange={handleMarkdown} value={value.description} />
+                     <MarkdownEditor onChange={handleMarkdown} value={projectState.description} />
                      {/* <MarkdownEditor position="column" name="description" label="Description" /> */}
                      {/* <FormInput position="column" name="description" label="Description" /> */}
 
@@ -114,7 +116,7 @@ export function CreateAndUpdateProjectComponent({ value, onSubmit }: CreateProje
                      <FormInput position="column" name="estimateMin" label="Estimate Min" className="estimateInput" />
                      <FormInput position="column" name="estimateMax" label="Estimate Max" className="estimateInput" />
 
-                     <Radio.Group value={value.isOpen} onChange={onChangeStateProject}>
+                     <Radio.Group value={project.isOpen} onChange={onChangeStateProject}>
                         <Radio.Button value="true">Open</Radio.Button>
                         <Radio.Button value="false">Close</Radio.Button>
                      </Radio.Group>
@@ -122,7 +124,8 @@ export function CreateAndUpdateProjectComponent({ value, onSubmit }: CreateProje
                </div>
                {
                   projectState.features?.map((feature, index) => (
-                     <FeaturesProjectComponent key={index} onAddFeature={onAddFeature} onAddFeatureChild={onAddFeatureChild} onRemoveFeature={onRemoveFeature} feature={feature} onChange={(qwerty) => handleChange(index, qwerty)} />
+                     <FeaturesProjectComponent key={index} onAddFeature={onAddFeature} onAddFeatureChild={onAddFeatureChild}
+                        onRemoveFeature={onRemoveFeature} feature={feature} onChange={(qwerty) => handleChange(index, qwerty)} />
                   ))
                }
                <Button

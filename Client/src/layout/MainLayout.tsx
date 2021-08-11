@@ -37,7 +37,6 @@ export function MainLayout({ children }: MainLayoutProps) {
                   <SubMenu key="sub1" icon={<FundProjectionScreenOutlined />} title="Projects">
                      <Menu.Item key="3">Create new project</Menu.Item>
                      <Menu.Item key="4">View all projects </Menu.Item>
-                     <Menu.Item key="5">View my projects</Menu.Item>
                   </SubMenu>
                </Menu>
             </Sider>
@@ -46,10 +45,13 @@ export function MainLayout({ children }: MainLayoutProps) {
                <Content style={{ margin: '0 16px' }}>
                   {children}
                </Content>
-               <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
+               <Footer style={{ textAlign: 'center' }}>Ant Design ©2021 </Footer>
             </Layout>
          </Layout>
       </div>
    )
 }
 
+ //!  DOIT  зделать ссылки history или link или navLinck
+//  <Menu.Item key="3">Create new project</Menu.Item>             
+//  <Menu.Item key="4">View all projects </Menu.Item>

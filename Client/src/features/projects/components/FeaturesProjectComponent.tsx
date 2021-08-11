@@ -1,5 +1,6 @@
 import { AppstoreAddOutlined, DeleteOutlined, PlusSquareOutlined } from '@ant-design/icons';
 import React, { useCallback, useEffect, useState } from 'react'
+import { MarkdownEditor } from '../../../shared/components/MarkdownEditor/MarkdownEditor';
 import { FeatureModel } from '../models';
 import "./FeaturesProjectComponent.scss";
 
@@ -53,7 +54,9 @@ export function FeaturesProjectComponent({ feature, onChange, onAddFeature, onAd
    const handleRemoveFeature = () => {
       onRemoveFeature(feature.level)
    }
-
+   const handleMarkdown = (value: string) => {
+      featureState.description = value;
+   }
 
    return (
       <>
@@ -68,10 +71,12 @@ export function FeaturesProjectComponent({ feature, onChange, onAddFeature, onAd
                </div>
 
                <div className="form-item" >
-                  <label htmlFor="description" className="formLabel">
+                  <MarkdownEditor onChange={handleMarkdown} value={featureState.description} />
+                  {/* <label htmlFor="description" className="formLabel">
                      Description:
                   </label>
-                  <input value={feature.description} type="text" name="description" id="description" className="formField" onChange={handleOnChange} /><br />
+                  <input value={feature.description} type="text" name="description" id="description" className="formField" onChange={handleOnChange} /> */}
+                  <br />
                </div>
             </div>
             <div className="form-item estimate-styles">
